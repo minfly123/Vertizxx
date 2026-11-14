@@ -189,9 +189,8 @@
         }
 
         let userEmail = '';
-        const TARGET_API = 'https://satriam.satriadeveloperz.workers.dev/api/satriam';
-        // Menggunakan CORS proxy publik untuk membypass blokiran browser HP / GitHub Pages
-        const PROXY_URL = 'https://corsproxy.io/?';
+        // Menggunakan Worker pribadi Cloudflare kamu sebagai endpoint bersih tanpa CORS error
+        const WORKER_BASE = 'https://alightmotion.revlykurniawan.workers.dev/api/satriam';
 
         async function sendAMLink() {
             const emailInput = document.getElementById('am-email-input').value.trim();
@@ -209,7 +208,7 @@
             msgBox.classList.add('hidden');
 
             try {
-                const res = await fetch(PROXY_URL + encodeURIComponent(`${TARGET_API}/send-link`), {
+                const res = await fetch(`${WORKER_BASE}/send-link`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: userEmail })
@@ -227,7 +226,7 @@
                 }
             } catch (err) {
                 msgBox.className = 'mt-4 text-xs p-3 rounded-xl bg-rose-900/40 text-rose-300 border border-rose-700';
-                msgBox.innerText = 'Gagal menghubungi server via proxy.';
+                msgBox.innerText = 'Gagal menghubungi server worker.';
                 msgBox.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
@@ -258,7 +257,7 @@
             msgBox.classList.add('hidden');
 
             try {
-                const res = await fetch(PROXY_URL + encodeURIComponent(`${TARGET_API}/verify-link`), {
+                const res = await fetch(`${WORKER_BASE}/verify-link`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
@@ -279,7 +278,7 @@
                 }
             } catch(err) {
                 msgBox.className = 'mt-4 text-xs p-3 rounded-xl bg-rose-900/40 text-rose-300 border border-rose-700';
-                msgBox.innerText = 'Terjadi kesalahan jaringan via proxy.';
+                msgBox.innerText = 'Terjadi kesalahan jaringan.';
                 msgBox.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
