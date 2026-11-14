@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertizx - PiiZx</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 850: '#151f32', 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="switchTab('home')">
+                <div class="p-2 bg-indigo-600 rounded-xl text-white font-bold tracking-wider">V</div>
+                <span class="text-xl font-black bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Vertizx</span>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <!-- Tombol Support Developer (Mengarahkan ke Modal) -->
+                <button onclick="toggleSupportModal(true)" class="flex items-center gap-1.5 px-3.5 py-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-90 transition rounded-xl text-xs font-semibold shadow-lg shadow-indigo-500/20">
+                    <i data-lucide="heart" class="w-4 h-4 text-rose-300 fill-rose-300"></i>
+                    <span>Support Developer</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6">
+        
+        <!-- HOME / MENU UTAMA -->
+        <div id="view-home" class="space-y-6">
+            <div class="text-center py-10">
+                <h1 class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight">Selamat Datang di <span class="text-indigo-400">Vertizx</span></h1>
+                <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">Platform utility multifungsi tercepat dan teruji. Pilih fitur yang ingin kamu gunakan di bawah ini.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                <!-- Card Temp-Mail -->
+                <div onclick="switchTab('tempmail')" class="bg-slate-800/60 border border-slate-700/60 p-6 rounded-2xl hover:border-indigo-500/50 hover:bg-slate-800 transition cursor-pointer group shadow-xl">
+                    <div class="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl w-fit mb-4 group-hover:scale-110 transition">
+                        <i data-lucide="mail" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-xl font-bold mb-2">Temp-Mail Generator</h2>
+                    <p class="text-slate-400 text-sm">Buat email sementara dengan fitur pembersihan markup, preview pesan utuh, dan ekstrak tautan otomatis.</p>
+                </div>
+
+                <!-- Card Alight Motion Premium -->
+                <div onclick="switchTab('alightmotion')" class="bg-slate-800/60 border border-slate-700/60 p-6 rounded-2xl hover:border-indigo-500/50 hover:bg-slate-800 transition cursor-pointer group shadow-xl">
+                    <div class="p-3 bg-violet-500/10 text-violet-400 rounded-xl w-fit mb-4 group-hover:scale-110 transition">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-xl font-bold mb-2">Alight Motion Premium</h2>
+                    <p class="text-slate-400 text-sm">Aktivasi akun premium durasi 1 tahun secara instan menggunakan sistem verifikasi magic link aman.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FITUR 1: TEMP MAIL -->
+        <div id="view-tempmail" class="hidden space-y-4 max-w-4xl mx-auto">
+            <button onclick="switchTab('home')" class="text-xs text-indigo-400 hover:underline flex items-center gap-1 mb-2">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Kembali ke Menu
+            </button>
+            <div class="bg-slate-800/80 border border-slate-700 p-6 rounded-2xl shadow-xl">
+                <h2 class="text-xl font-bold flex items-center gap-2 mb-4">
+                    <i data-lucide="mail" class="text-indigo-400"></i> Temp-Mail Generator & Scraper
+                </h2>
+                <div class="p-4 bg-slate-900 rounded-xl border border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
+                    <div>
+                        <span class="text-xs text-slate-400 block">Alamat Email Aktif:</span>
+                        <span id="temp-email-display" class="font-mono font-semibold text-indigo-300 text-sm">user_sample@temp-mail.app</span>
+                    </div>
+                    <button onclick="alert('Fitur tempmail siap dihubungkan ke API tujuan!')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-xl text-xs font-medium transition">Ganti Email</button>
+                </div>
+                <div class="text-center py-12 text-slate-500 text-sm border border-dashed border-slate-700 rounded-xl">
+                    Belum ada pesan masuk. Kotak masuk aktif dan siap menerima data.
+                </div>
+            </div>
+        </div>
+
+        <!-- FITUR 2: ALIGHT MOTION PREMIUM -->
+        <div id="view-alightmotion" class="hidden space-y-4 max-w-md mx-auto">
+            <button onclick="switchTab('home')" class="text-xs text-indigo-400 hover:underline flex items-center gap-1 mb-2">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Kembali ke Menu
+            </button>
+            <div class="bg-slate-800/80 border border-slate-700 p-6 rounded-2xl shadow-xl">
+                <div class="text-center mb-6">
+                    <div class="inline-flex p-3 bg-indigo-500/10 text-indigo-400 rounded-full mb-2">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-xl font-bold">Alight Motion Premium</h2>
+                    <p class="text-slate-400 text-xs">Upgrade akun 1 tahun via Magic Link Worker</p>
+                </div>
+
+                <div id="am-step-1" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Email Alight Motion</label>
+                        <input type="email" id="am-email-input" placeholder="nama@email.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white">
+                    </div>
+                    <button onclick="sendAMLink()" id="btn-send-link" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 rounded-xl font-medium text-sm transition">Kirim Magic Link</button>
+                </div>
+
+                <div id="am-step-2" class="hidden space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Tempel / Paste Magic Link</label>
+                        <input type="text" id="am-magic-link-input" placeholder="https://alight-creative.firebaseapp.com/..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white">
+                    </div>
+                    <button onclick="verifyAMLink()" id="btn-verify-link" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 rounded-xl font-medium text-sm transition">Verifikasi & Upgrade</button>
+                    <div class="flex justify-between text-xs pt-1">
+                        <button onclick="resetAMForm()" class="text-indigo-400 hover:underline">Ganti Email</button>
+                        <span id="am-timer" class="text-slate-400">Siap kirim ulang</span>
+                    </div>
+                </div>
+                
+                <div id="am-status-msg" class="mt-4 text-xs p-3 rounded-xl hidden"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 mt-10">
+        © 2026 Vertizx. Dibuat dengan penuh kekocakan oleh PiiZx.
+    </footer>
+
+    <!-- MODAL SUPPORT DEVELOPER -->
+    <div id="support-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 text-center relative shadow-2xl animate-in fade-in zoom-in duration-200">
+            <button onclick="toggleSupportModal(false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="inline-flex p-3 bg-rose-500/10 text-rose-400 rounded-full mb-3">
+                <i data-lucide="heart" class="w-6 h-6 fill-rose-400"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-1">Dukung Developer PiiZx</h3>
+            <p class="text-slate-400 text-xs mb-4">Bantu donasi seikhlasnya agar website Vertizx terus update dan gratis!</p>
+            
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 mb-4 space-y-2">
+                <div class="text-xs text-slate-400">Nomor E-Wallet (GoPay / DANA / OVO):</div>
+                <div class="text-lg font-mono font-bold text-indigo-300 select-all">0895351456586</div>
+                <div class="text-[10px] text-slate-500">Atas Nama: PiiZx</div>
+            </div>
+
+            <button onclick="copyNumber()" class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 rounded-xl text-xs font-medium transition">Salin Nomor</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        lucide.createIcons();
+
+        function switchTab(tabName) {
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-tempmail').classList.add('hidden');
+            document.getElementById('view-alightmotion').classList.add('hidden');
+            
+            document.getElementById('view-' + tabName).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleSupportModal(show) {
+            const modal = document.getElementById('support-modal');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function copyNumber() {
+            navigator.clipboard.writeText('0895351456586');
+            alert('Nomor e-wallet berhasil disalin!');
+        }
+
+        let userEmail = '';
+        const API_BASE = 'https://satriam.satriadeveloperz.workers.dev/api/satriam';
+
+        async function sendAMLink() {
+            const emailInput = document.getElementById('am-email-input').value.trim();
+            const msgBox = document.getElementById('am-status-msg');
+            const btn = document.getElementById('btn-send-link');
+
+            if (!emailInput || !emailInput.includes('@')) {
+                alert('Masukkan email yang valid!');
+                return;
+            }
+
+            userEmail = emailInput;
+            btn.disabled = true;
+            btn.innerText = 'Mengirim...';
+
+            try {
+                const res = await fetch(`${API_BASE}/send-link`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail })
+                });
+                const data = await res.json();
+
+                msgBox.classList.remove('hidden', 'bg-rose-900/40', 'text-rose-300', 'border-rose-700');
+                msgBox.classList.add('bg-emerald-900/40', 'text-emerald-300', 'border', 'border-emerald-700');
+                msgBox.innerText = 'Magic link berhasil dikirim ke email!';
+
+                document.getElementById('am-step-1').classList.add('hidden');
+                document.getElementById('am-step-2').classList.remove('hidden');
+            } catch (err) {
+                msgBox.classList.remove('hidden', 'bg-emerald-900/40', 'text-emerald-300', 'border-emerald-700');
+                msgBox.classList.add('bg-rose-900/40', 'text-rose-300', 'border', 'border-rose-700');
+                msgBox.innerText = 'Gagal mengirim link ke server.';
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Kirim Magic Link';
+            }
+        }
+
+        async function verifyAMLink() {
+            let rawLink = document.getElementById('am-magic-link-input').value.trim();
+            const msgBox = document.getElementById('am-status-msg');
+            const btn = document.getElementById('btn-verify-link');
+
+            if (!rawLink) {
+                alert('Tempel magic link terlebih dahulu!');
+                return;
+            }
+
+            if (rawLink.includes('firebaseapp.com') && rawLink.includes('link=')) {
+                try {
+                    const urlParams = new URLSearchParams(rawLink.split('?')[1]);
+                    const innerLink = urlParams.get('link');
+                    if (innerLink) rawLink = decodeURIComponent(innerLink);
+                } catch(e) {}
+            }
+
+            btn.disabled = true;
+            btn.innerText = 'Memverifikasi...';
+
+            try {
+                const res = await fetch(`${API_BASE}/verify-link`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail, magic_link: rawLink })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    msgBox.className = 'mt-4 text-xs p-3 rounded-xl bg-emerald-900/40 text-emerald-300 border border-emerald-700';
+                    msgBox.innerText = '🎉 Sukses! Akun Alight Motion berhasil menjadi Premium (1 Tahun)!';
+                    msgBox.classList.remove('hidden');
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 rounded-xl bg-rose-900/40 text-rose-300 border border-rose-700';
+                    msgBox.innerText = 'Gagal: ' + (data.message || 'Link tidak valid atau kadaluarsa.');
+                    msgBox.classList.remove('hidden');
+                }
+            } catch(err) {
+                alert('Terjadi kesalahan jaringan.');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Verifikasi & Upgrade';
+            }
+        }
+
+        function resetAMForm() {
+            document.getElementById('am-step-2').classList.add('hidden');
+            document.getElementById('am-step-1').classList.remove('hidden');
+            document.getElementById('am-status-msg').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
