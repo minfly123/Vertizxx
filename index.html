@@ -32,7 +32,6 @@
             </div>
             
             <div class="flex items-center gap-3">
-                <!-- Tombol Support Developer (Mengarahkan ke Modal) -->
                 <button onclick="toggleSupportModal(true)" class="flex items-center gap-1.5 px-3.5 py-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-90 transition rounded-xl text-xs font-semibold shadow-lg shadow-indigo-500/20">
                     <i data-lucide="heart" class="w-4 h-4 text-rose-300 fill-rose-300"></i>
                     <span>Support Developer</span>
@@ -48,7 +47,7 @@
         <div id="view-home" class="space-y-6">
             <div class="text-center py-10">
                 <h1 class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight">Selamat Datang di <span class="text-indigo-400">Vertizx</span></h1>
-                <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">Platform utility multifungsi tercepat dan teruji. Pilih fitur yang ingin kamu gunakan di bawah ini.</p>
+                <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">Platform utility multifungsi tercepat dan teruji. Pilih fitur di bawah ini.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
@@ -108,23 +107,27 @@
                     <p class="text-slate-400 text-xs">Upgrade akun 1 tahun via Magic Link Worker</p>
                 </div>
 
+                <!-- TAHAP 1: INPUT EMAIL & KIRIM LINK -->
                 <div id="am-step-1" class="space-y-4">
                     <div>
                         <label class="block text-xs font-medium text-slate-300 mb-1">Email Alight Motion</label>
                         <input type="email" id="am-email-input" placeholder="nama@email.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white">
                     </div>
-                    <button onclick="sendAMLink()" id="btn-send-link" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 rounded-xl font-medium text-sm transition">Kirim Magic Link</button>
+                    <button onclick="sendAMLink()" id="btn-send-link" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 rounded-xl font-medium text-sm transition shadow-lg shadow-indigo-500/20">Kirim Magic Link</button>
                 </div>
 
+                <!-- TAHAP 2: MASUKKAN MAGIC LINK -->
                 <div id="am-step-2" class="hidden space-y-4">
+                    <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 text-xs text-slate-300">
+                        Target Email: <span id="display-target-email" class="font-mono font-semibold text-indigo-300"></span>
+                    </div>
                     <div>
                         <label class="block text-xs font-medium text-slate-300 mb-1">Tempel / Paste Magic Link</label>
                         <input type="text" id="am-magic-link-input" placeholder="https://alight-creative.firebaseapp.com/..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white">
                     </div>
-                    <button onclick="verifyAMLink()" id="btn-verify-link" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 rounded-xl font-medium text-sm transition">Verifikasi & Upgrade</button>
+                    <button onclick="verifyAMLink()" id="btn-verify-link" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 rounded-xl font-medium text-sm transition shadow-lg shadow-emerald-500/20">Verifikasi & Upgrade</button>
                     <div class="flex justify-between text-xs pt-1">
-                        <button onclick="resetAMForm()" class="text-indigo-400 hover:underline">Ganti Email</button>
-                        <span id="am-timer" class="text-slate-400">Siap kirim ulang</span>
+                        <button onclick="resetAMForm()" class="text-indigo-400 hover:underline">← Ganti Email</button>
                     </div>
                 </div>
                 
@@ -141,7 +144,7 @@
 
     <!-- MODAL SUPPORT DEVELOPER -->
     <div id="support-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 text-center relative shadow-2xl animate-in fade-in zoom-in duration-200">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-sm w-full p-6 text-center relative shadow-2xl">
             <button onclick="toggleSupportModal(false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
@@ -194,13 +197,14 @@
             const btn = document.getElementById('btn-send-link');
 
             if (!emailInput || !emailInput.includes('@')) {
-                alert('Masukkan email yang valid!');
+                alert('Mohon masukkan email yang valid!');
                 return;
             }
 
             userEmail = emailInput;
             btn.disabled = true;
             btn.innerText = 'Mengirim...';
+            msgBox.classList.add('hidden');
 
             try {
                 const res = await fetch(`${API_BASE}/send-link`, {
@@ -210,16 +214,14 @@
                 });
                 const data = await res.json();
 
-                msgBox.classList.remove('hidden', 'bg-rose-900/40', 'text-rose-300', 'border-rose-700');
-                msgBox.classList.add('bg-emerald-900/40', 'text-emerald-300', 'border', 'border-emerald-700');
-                msgBox.innerText = 'Magic link berhasil dikirim ke email!';
-
+                // Pindah ke tahap 2 (tempel magic link)
+                document.getElementById('display-target-email').innerText = userEmail;
                 document.getElementById('am-step-1').classList.add('hidden');
                 document.getElementById('am-step-2').classList.remove('hidden');
             } catch (err) {
-                msgBox.classList.remove('hidden', 'bg-emerald-900/40', 'text-emerald-300', 'border-emerald-700');
-                msgBox.classList.add('bg-rose-900/40', 'text-rose-300', 'border', 'border-rose-700');
-                msgBox.innerText = 'Gagal mengirim link ke server.';
+                msgBox.className = 'mt-4 text-xs p-3 rounded-xl bg-rose-900/40 text-rose-300 border border-rose-700';
+                msgBox.innerText = 'Gagal menghubungi server.';
+                msgBox.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
                 btn.innerText = 'Kirim Magic Link';
@@ -232,7 +234,7 @@
             const btn = document.getElementById('btn-verify-link');
 
             if (!rawLink) {
-                alert('Tempel magic link terlebih dahulu!');
+                alert('Mohon tempel magic link terlebih dahulu!');
                 return;
             }
 
@@ -245,13 +247,19 @@
             }
 
             btn.disabled = true;
-            btn.innerText = 'Memverifikasi...';
+            btn.innerText = 'Memverifikasi & Mengupgrade...';
+            msgBox.classList.add('hidden');
 
             try {
+                // Mengirimkan data gabungan email dan magic link ke API dalam format {email} {magic_link}
                 const res = await fetch(`${API_BASE}/verify-link`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: userEmail, magic_link: rawLink })
+                    body: JSON.stringify({ 
+                        email: userEmail, 
+                        magic_link: rawLink,
+                        payload_data: `${userEmail} ${rawLink}` 
+                    })
                 });
                 const data = await res.json();
 
@@ -261,11 +269,13 @@
                     msgBox.classList.remove('hidden');
                 } else {
                     msgBox.className = 'mt-4 text-xs p-3 rounded-xl bg-rose-900/40 text-rose-300 border border-rose-700';
-                    msgBox.innerText = 'Gagal: ' + (data.message || 'Link tidak valid atau kadaluarsa.');
+                    msgBox.innerText = 'Gagal: ' + (data.message || 'Link atau email tidak valid / kadaluarsa.');
                     msgBox.classList.remove('hidden');
                 }
             } catch(err) {
-                alert('Terjadi kesalahan jaringan.');
+                msgBox.className = 'mt-4 text-xs p-3 rounded-xl bg-rose-900/40 text-rose-300 border border-rose-700';
+                msgBox.innerText = 'Terjadi kesalahan jaringan ke server.';
+                msgBox.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
                 btn.innerText = 'Verifikasi & Upgrade';
