@@ -214,10 +214,15 @@
                 });
                 const data = await res.json();
 
-                // Pindah ke tahap 2 (tempel magic link)
-                document.getElementById('display-target-email').innerText = userEmail;
-                document.getElementById('am-step-1').classList.add('hidden');
-                document.getElementById('am-step-2').classList.remove('hidden');
+                if (res.ok || data.success) {
+                    document.getElementById('display-target-email').innerText = userEmail;
+                    document.getElementById('am-step-1').classList.add('hidden');
+                    document.getElementById('am-step-2').classList.remove('hidden');
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 rounded-xl bg-rose-900/40 text-rose-300 border border-rose-700';
+                    msgBox.innerText = 'Gagal: ' + (data.message || 'Terjadi kesalahan.');
+                    msgBox.classList.remove('hidden');
+                }
             } catch (err) {
                 msgBox.className = 'mt-4 text-xs p-3 rounded-xl bg-rose-900/40 text-rose-300 border border-rose-700';
                 msgBox.innerText = 'Gagal menghubungi server.';
@@ -251,21 +256,20 @@
             msgBox.classList.add('hidden');
 
             try {
-                // Mengirimkan data gabungan email dan magic link ke API dalam format {email} {magic_link}
+                // Mengirimkan payload dengan key `email` dan `magicLink` sesuai dokumentasi API
                 const res = await fetch(`${API_BASE}/verify-link`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
                         email: userEmail, 
-                        magic_link: rawLink,
-                        payload_data: `${userEmail} ${rawLink}` 
+                        magicLink: rawLink 
                     })
                 });
                 const data = await res.json();
 
-                if (res.ok) {
+                if (res.ok || data.success) {
                     msgBox.className = 'mt-4 text-xs p-3 rounded-xl bg-emerald-900/40 text-emerald-300 border border-emerald-700';
-                    msgBox.innerText = '🎉 Sukses! Akun Alight Motion berhasil menjadi Premium (1 Tahun)!';
+                    msgBox.innerText = '🎉 ' + (data.message || 'Sukses! Akun Alight Motion berhasil menjadi Premium.');
                     msgBox.classList.remove('hidden');
                 } else {
                     msgBox.className = 'mt-4 text-xs p-3 rounded-xl bg-rose-900/40 text-rose-300 border border-rose-700';
