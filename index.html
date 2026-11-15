@@ -81,7 +81,7 @@
                 <p class="text-xs font-bold text-gray-700">Platform all-in-one utility tools digital untuk kreator dan editor konten.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Card AM Premium -->
                 <div onclick="switchTab('alightmotion')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
                     <div>
@@ -117,6 +117,18 @@
                     </div>
                     <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
                 </div>
+
+                <!-- Card NIK Check -->
+                <div onclick="switchTab('nikcheck')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
+                    <div>
+                        <div class="p-2.5 bg-neoPink text-white border-2 border-black w-fit mb-3 shadow-hard-sm">
+                            <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                        </div>
+                        <h2 class="text-sm font-black uppercase mb-1">NIK Check</h2>
+                        <p class="text-[11px] font-medium text-gray-600">Parse & cek informasi kependudukan.</p>
+                    </div>
+                    <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
+                </div>
             </div>
         </div>
 
@@ -142,6 +154,73 @@
                     <div id="supporter-list-container" class="space-y-3">
                         <!-- List supporter -->
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FITUR: NIK CHECK -->
+        <div id="view-nikcheck" class="hidden w-full animate-fade space-y-4">
+            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
+            </button>
+            
+            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg space-y-5">
+                <div class="inline-block bg-neoPink text-white border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm">
+                    🔍 NIK PARSER & CHECK
+                </div>
+
+                <!-- Peringatan Sensitif -->
+                <div class="bg-amber-100 border-3 border-black p-3.5 text-xs font-bold text-amber-950 shadow-hard-sm space-y-1.5 leading-relaxed">
+                    <p>⚠️ <strong>PERINGATAN:</strong> Fitur ini sangat sensitif, mohon gunakan dengan bijak dan jangan membuat kerusuhan ataupun penyalahgunaan.</p>
+                    <p>Sesungguhnya setiap perbuatan merupakan tanggung jawab masing-masing pengguna.</p>
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1.5">Nomor NIK (16 Digit)</label>
+                        <input type="text" id="nik-input" maxlength="16" placeholder="Contoh: 3171021903111003" class="w-full bg-white border-3 border-black rounded-none px-4 py-3 text-xs font-mono font-bold focus:outline-none shadow-hard-sm">
+                    </div>
+                    <button onclick="checkNikData()" id="btn-check-nik" class="w-full py-3.5 bg-neoPink text-white font-black uppercase text-sm border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
+                        <i data-lucide="search" class="w-4 h-4"></i> Periksa NIK Sekarang
+                    </button>
+                </div>
+
+                <div id="nik-status-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
+
+                <!-- Hasil NIK Check -->
+                <div id="nik-result-container" class="hidden space-y-4 pt-4 border-t-2 border-black animate-fade">
+                    <div class="bg-gray-50 p-4 border-2 border-black space-y-2 shadow-hard-sm text-xs font-mono">
+                        <div class="flex justify-between border-b border-black pb-1">
+                            <span class="font-black uppercase text-gray-500">Nama:</span>
+                            <span id="nik-res-nama" class="font-bold"></span>
+                        </div>
+                        <div class="flex justify-between border-b border-black pb-1">
+                            <span class="font-black uppercase text-gray-500">Kelamin:</span>
+                            <span id="nik-res-kelamin" class="font-bold"></span>
+                        </div>
+                        <div class="flex justify-between border-b border-black pb-1">
+                            <span class="font-black uppercase text-gray-500">Tanggal Lahir:</span>
+                            <span id="nik-res-lahir" class="font-bold"></span>
+                        </div>
+                        <div class="flex justify-between border-b border-black pb-1">
+                            <span class="font-black uppercase text-gray-500">Usia:</span>
+                            <span id="nik-res-usia" class="font-bold"></span>
+                        </div>
+                        <div class="flex justify-between border-b border-black pb-1">
+                            <span class="font-black uppercase text-gray-500">Provinsi:</span>
+                            <span id="nik-res-prov" class="font-bold"></span>
+                        </div>
+                        <div class="flex justify-between border-b border-black pb-1">
+                            <span class="font-black uppercase text-gray-500">Kategori Usia:</span>
+                            <span id="nik-res-kategori" class="font-bold"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-black uppercase text-gray-500">Metode:</span>
+                            <span id="nik-res-metode" class="font-bold"></span>
+                        </div>
+                    </div>
+
+                    <div id="nik-support-banner"></div>
                 </div>
             </div>
         </div>
@@ -324,7 +403,6 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Render ikon Lucide saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
             try {
                 lucide.createIcons();
@@ -338,6 +416,7 @@
             document.getElementById('view-alightmotion').classList.add('hidden');
             document.getElementById('view-presetfinder').classList.add('hidden');
             document.getElementById('view-tiktokdl').classList.add('hidden');
+            document.getElementById('view-nikcheck').classList.add('hidden');
             
             const targetView = document.getElementById('view-' + tabName);
             if (targetView) {
@@ -345,7 +424,6 @@
             }
             window.scrollTo(0, 0);
 
-            // Re-render ikon jika berpindah tab agar ikon di dalam konten dinamis tampil
             setTimeout(() => {
                 try { lucide.createIcons(); } catch(e) {}
             }, 50);
@@ -415,6 +493,83 @@
                     <button onclick="toggleSupportModal(true)" class="px-3 py-1 bg-neoPink text-white border-2 border-black uppercase text-[10px] shadow-hard-sm flex-shrink-0 hover:bg-pink-600 transition">Support</button>
                 </div>
             `;
+        }
+
+        // ==========================================
+        // LOGIC NIK CHECK (PARSER)
+        // ==========================================
+        let isNikCooldown = false;
+        async function checkNikData() {
+            if (isNikCooldown) return;
+            const nikInput = document.getElementById('nik-input').value.trim();
+            const msgBox = document.getElementById('nik-status-msg');
+            const btn = document.getElementById('btn-check-nik');
+            const resultContainer = document.getElementById('nik-result-container');
+
+            if (!nikInput || nikInput.length !== 16) {
+                alert('Mohon masukkan nomor NIK yang valid (harus 16 digit)!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MEMERIKSA...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const apiEndpoint = `https://api.ikyyxd.my.id/tools/nikparser?nik=${encodeURIComponent(nikInput)}`;
+                const res = await fetch(apiEndpoint);
+                const json = await res.json();
+
+                if (json && json.status && json.data && json.data.status === 'success') {
+                    const info = json.data.data;
+                    const meta = json.data.metadata;
+
+                    document.getElementById('nik-res-nama').innerText = info.nama || 'Tidak ditemukan';
+                    document.getElementById('nik-res-kelamin').innerText = info.kelamin || '-';
+                    document.getElementById('nik-res-lahir').innerText = info.tempat_lahir || '-';
+                    document.getElementById('nik-res-usia').innerText = info.usia || '-';
+                    document.getElementById('nik-res-prov').innerText = info.provinsi || '-';
+                    document.getElementById('nik-res-kategori').innerText = meta.kategori_usia || '-';
+                    document.getElementById('nik-res-metode').innerText = meta.metode || '-';
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('nik-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Data NIK tidak ditemukan atau format salah.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal memeriksa NIK: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startNikCooldown(30);
+            }
+        }
+
+        function startNikCooldown(seconds) {
+            isNikCooldown = true;
+            const btn = document.getElementById('btn-check-nik');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk cek lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isNikCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Periksa NIK Sekarang';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
         }
 
         // ==========================================
