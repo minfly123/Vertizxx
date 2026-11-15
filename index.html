@@ -21,7 +21,6 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Animasi Halus & Glassmorphism */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -136,7 +135,7 @@
             </div>
         </div>
 
-        <!-- FITUR 2: AM PRESET FINDER (BARU) -->
+        <!-- FITUR 2: AM PRESET FINDER -->
         <div id="view-presetfinder" class="hidden w-full max-w-2xl animate-fade">
             <button onclick="switchTab('home')" class="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 mb-4 font-medium transition">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
@@ -164,24 +163,41 @@
 
                 <div id="pf-status-msg" class="text-xs p-3.5 rounded-2xl hidden font-medium"></div>
 
-                <!-- Hasil Ekstraksi Preset -->
-                <div id="pf-result-container" class="hidden space-y-4 pt-4 border-t border-slate-800 animate-fade">
-                    <!-- Info Author & Video -->
-                    <div class="flex items-center gap-3 bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800">
-                        <img id="pf-author-avatar" src="" alt="Avatar" class="w-12 h-12 rounded-full border border-slate-700 object-cover">
-                        <div class="overflow-hidden flex-1">
-                            <div id="pf-author-name" class="text-sm font-bold text-cyan-300 truncate">@author</div>
-                            <div id="pf-video-desc" class="text-[11px] text-slate-400 truncate">Deskripsi video...</div>
+                <!-- Hasil Ekstraksi Lengkap Sesuai Response API -->
+                <div id="pf-result-container" class="hidden space-y-5 pt-4 border-t border-slate-800 animate-fade">
+                    
+                    <!-- 1. Preview Video & Author Card -->
+                    <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-center gap-4">
+                        <!-- Cover Video Thumbnail -->
+                        <div class="relative w-24 h-32 rounded-xl overflow-hidden border border-slate-700 flex-shrink-0 bg-slate-950">
+                            <img id="pf-video-cover" src="" alt="Cover" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <!-- Detail Info -->
+                        <div class="space-y-2 flex-1 w-full overflow-hidden">
+                            <div class="flex items-center gap-2.5">
+                                <img id="pf-author-avatar" src="" alt="Avatar" class="w-8 h-8 rounded-full border border-slate-700 object-cover flex-shrink-0">
+                                <span id="pf-author-name" class="text-sm font-bold text-cyan-300 truncate">@author</span>
+                            </div>
+                            <p id="pf-video-desc" class="text-xs text-slate-300 line-clamp-2">Deskripsi video...</p>
+                            
+                            <!-- Statistik Video -->
+                            <div class="flex items-center gap-3 pt-1 text-[11px] text-slate-400 font-medium">
+                                <span class="flex items-center gap-1"><i data-lucide="eye" class="w-3.5 h-3.5 text-cyan-400"></i> <span id="pf-stat-views">0</span></span>
+                                <span class="flex items-center gap-1"><i data-lucide="heart" class="w-3.5 h-3.5 text-rose-400"></i> <span id="pf-stat-likes">0</span></span>
+                                <span class="flex items-center gap-1"><i data-lucide="message-square" class="w-3.5 h-3.5 text-indigo-400"></i> <span id="pf-stat-comments">0</span></span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- List Preset Links -->
-                    <div class="space-y-2">
+                    <!-- 2. Daftar Link Preset Ditemukan -->
+                    <div class="space-y-3">
                         <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Daftar Link Preset Ditemukan:</h3>
-                        <div id="pf-presets-list" class="space-y-2">
-                            <!-- Hasil dynamic inject di sini -->
+                        <div id="pf-presets-list" class="space-y-2.5">
+                            <!-- Dynamic injected -->
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -242,7 +258,7 @@
         }
 
         // ==========================================
-        // LOGIC AM PRESET FINDER (BARU)
+        // LOGIC AM PRESET FINDER (LENGKAP DENGAN RESPONSE API)
         // ==========================================
         async function findPreset() {
             const urlInput = document.getElementById('pf-url-input').value.trim();
@@ -268,23 +284,27 @@
                 if (json && json.success && json.data) {
                     const data = json.data;
                     
-                    // Set Author & Video Info
+                    // 1. Author Info
                     document.getElementById('pf-author-name').innerText = data.author || '@unknown';
                     document.getElementById('pf-video-desc').innerText = data.video?.description || 'Tanpa deskripsi';
                     
                     const avatarImg = document.getElementById('pf-author-avatar');
-                    if (data.authorDetail?.avatar) {
-                        avatarImg.src = data.authorDetail.avatar;
-                    } else {
-                        avatarImg.src = 'https://via.placeholder.com/150';
-                    }
+                    avatarImg.src = data.authorDetail?.avatar || 'https://via.placeholder.com/150';
 
-                    // Render Preset Links
+                    // 2. Video Cover & Stats
+                    const coverImg = document.getElementById('pf-video-cover');
+                    coverImg.src = data.video?.cover || 'https://via.placeholder.com/150';
+
+                    document.getElementById('pf-stat-views').innerText = formatNumber(data.video?.stats?.views);
+                    document.getElementById('pf-stat-likes').innerText = formatNumber(data.video?.stats?.likes);
+                    document.getElementById('pf-stat-comments').innerText = formatNumber(data.video?.stats?.comments);
+
+                    // 3. Render Preset Links
                     const presetsListEl = document.getElementById('pf-presets-list');
                     presetsListEl.innerHTML = '';
 
                     if (data.presetLinks && data.presetLinks.length > 0) {
-                        data.presetLinks.forEach((preset, index) => {
+                        data.presetLinks.forEach((preset) => {
                             presetsListEl.innerHTML += `
                                 <div class="bg-slate-900/90 p-3.5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                                     <div class="space-y-0.5 overflow-hidden">
@@ -292,9 +312,9 @@
                                             <span>🎁 ${escapeHtml(preset.title || 'Preset Alight Motion')}</span>
                                             <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-300 text-[10px] rounded-lg border border-cyan-500/20">${escapeHtml(preset.type || 'Preset')}</span>
                                         </div>
-                                        <div class="text-[11px] text-slate-400 font-mono truncate max-w-[280px] sm:max-w-[320px]">${escapeHtml(preset.url)}</div>
+                                        <div class="text-[11px] text-slate-400 font-mono truncate max-w-[260px] sm:max-w-[300px]">${escapeHtml(preset.url)}</div>
                                     </div>
-                                    <button onclick="copyPresetLink('${escapeHtml(preset.url)}')" class="w-full sm:w-auto px-4 py-2 bg-cyan-600 hover:bg-cyan-700 active:scale-[0.98] text-white text-xs font-bold rounded-xl transition shadow-md shadow-cyan-600/20 flex items-center justify-center gap-1.5">
+                                    <button onclick="copyPresetLink('${escapeHtml(preset.url)}')" class="w-full sm:w-auto px-4 py-2 bg-cyan-600 hover:bg-cyan-700 active:scale-[0.98] text-white text-xs font-bold rounded-xl transition shadow-md shadow-cyan-600/20 flex items-center justify-center gap-1.5 flex-shrink-0">
                                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Link
                                     </button>
                                 </div>
@@ -324,6 +344,14 @@
         function copyPresetLink(url) {
             navigator.clipboard.writeText(url);
             alert('Link preset berhasil disalin!');
+        }
+
+        function formatNumber(num) {
+            if (!num) return '0';
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'k';
+            }
+            return num;
         }
 
         function escapeHtml(text) {
