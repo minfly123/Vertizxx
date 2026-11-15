@@ -26,7 +26,7 @@
     <!-- HEADER / NAVBAR -->
     <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2 cursor-pointer" onclick="switchTab('home')">
+            <div class="flex items-center gap-2 cursor-pointer">
                 <div class="p-2 bg-indigo-600 rounded-xl text-white font-bold tracking-wider">V</div>
                 <span class="text-xl font-black bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Vertizx</span>
             </div>
@@ -41,125 +41,43 @@
     </header>
 
     <!-- MAIN CONTENT CONTAINER -->
-    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6">
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex items-center justify-center">
         
-        <!-- HOME / MENU UTAMA -->
-        <div id="view-home" class="space-y-6">
-            <div class="text-center py-10">
-                <h1 class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight">Selamat Datang di <span class="text-indigo-400">Vertizx</span></h1>
-                <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">Platform utility multifungsi tercepat dan teruji. Pilih fitur di bawah ini.</p>
+        <!-- FITUR ALIGHT MOTION PREMIUM -->
+        <div class="bg-slate-800/80 border border-slate-700 p-6 rounded-2xl shadow-xl w-full max-w-md">
+            <div class="text-center mb-6">
+                <div class="inline-flex p-3 bg-indigo-500/10 text-indigo-400 rounded-full mb-2">
+                    <i data-lucide="sparkles" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-xl font-bold">Alight Motion Premium</h2>
+                <p class="text-slate-400 text-xs">Upgrade akun 1 tahun via Magic Link Worker</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                <!-- Card Temp-Mail -->
-                <div onclick="switchTab('tempmail')" class="bg-slate-800/60 border border-slate-700/60 p-6 rounded-2xl hover:border-indigo-500/50 hover:bg-slate-800 transition cursor-pointer group shadow-xl">
-                    <div class="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl w-fit mb-4 group-hover:scale-110 transition">
-                        <i data-lucide="mail" class="w-6 h-6"></i>
-                    </div>
-                    <h2 class="text-xl font-bold mb-2">Temp-Mail Generator</h2>
-                    <p class="text-slate-400 text-sm">Buat email sementara dengan fitur pembersihan markup, preview pesan utuh, dan ekstrak tautan otomatis.</p>
+            <!-- TAHAP 1: INPUT EMAIL & KIRIM LINK -->
+            <div id="am-step-1" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">Email Alight Motion</label>
+                    <input type="email" id="am-email-input" placeholder="nama@email.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white">
                 </div>
+                <button onclick="sendAMLink()" id="btn-send-link" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 rounded-xl font-medium text-sm transition shadow-lg shadow-indigo-500/20">Kirim Magic Link</button>
+            </div>
 
-                <!-- Card Alight Motion Premium -->
-                <div onclick="switchTab('alightmotion')" class="bg-slate-800/60 border border-slate-700/60 p-6 rounded-2xl hover:border-indigo-500/50 hover:bg-slate-800 transition cursor-pointer group shadow-xl">
-                    <div class="p-3 bg-violet-500/10 text-violet-400 rounded-xl w-fit mb-4 group-hover:scale-110 transition">
-                        <i data-lucide="sparkles" class="w-6 h-6"></i>
-                    </div>
-                    <h2 class="text-xl font-bold mb-2">Alight Motion Premium</h2>
-                    <p class="text-slate-400 text-sm">Aktivasi akun premium durasi 1 tahun secara instan menggunakan sistem verifikasi magic link aman.</p>
+            <!-- TAHAP 2: MASUKKAN MAGIC LINK -->
+            <div id="am-step-2" class="hidden space-y-4">
+                <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 text-xs text-slate-300">
+                    Target Email: <span id="display-target-email" class="font-mono font-semibold text-indigo-300"></span>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">Tempel / Paste Magic Link (Auto-Transform)</label>
+                    <input type="text" id="am-magic-link-input" placeholder="https://alight-creative.firebaseapp.com/..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white font-mono">
+                </div>
+                <button onclick="verifyAMLink()" id="btn-verify-link" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 rounded-xl font-medium text-sm transition shadow-lg shadow-emerald-500/20">Verifikasi & Upgrade</button>
+                <div class="flex justify-between text-xs pt-1">
+                    <button onclick="resetAMForm()" class="text-indigo-400 hover:underline">← Ganti Email</button>
                 </div>
             </div>
-        </div>
-
-        <!-- FITUR 1: TEMP MAIL -->
-        <div id="view-tempmail" class="hidden space-y-4 max-w-4xl mx-auto">
-            <button onclick="switchTab('home')" class="text-xs text-indigo-400 hover:underline flex items-center gap-1 mb-2">
-                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Kembali ke Menu
-            </button>
-            <div class="bg-slate-800/80 border border-slate-700 p-6 rounded-2xl shadow-xl space-y-4">
-                <h2 class="text-xl font-bold flex items-center gap-2">
-                    <i data-lucide="mail" class="text-indigo-400"></i> Temp-Mail Generator & Scraper
-                </h2>
-                
-                <!-- Kotak Info Email Aktif -->
-                <div class="p-4 bg-slate-900 rounded-xl border border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <div>
-                        <span class="text-xs text-slate-400 block">Alamat Email Sementara:</span>
-                        <span id="temp-email-display" class="font-mono font-semibold text-indigo-300 text-sm break-all">Memuat email...</span>
-                    </div>
-                    <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <button onclick="copyTempEmail()" class="flex-1 sm:flex-none px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl text-xs font-medium transition flex items-center justify-center gap-1.5">
-                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin
-                        </button>
-                        <button onclick="generateNewTempEmail()" class="flex-1 sm:flex-none px-3 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-xl text-xs font-medium transition flex items-center justify-center gap-1.5">
-                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Ganti Email
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Kontrol & Status Inbox -->
-                <div class="flex items-center justify-between pt-2">
-                    <div class="flex items-center gap-2 text-xs text-slate-400">
-                        <span class="relative flex h-2.5 w-2.5">
-                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                        </span>
-                        <span id="inbox-status-text">Kotak masuk aktif (Auto-refresh tiap 10 detik)</span>
-                    </div>
-                    <button onclick="fetchInboxMessages()" class="text-xs text-indigo-400 hover:underline flex items-center gap-1">
-                        <i data-lucide="rotate-cw" class="w-3 h-3"></i> Segarkan Manual
-                    </button>
-                </div>
-
-                <!-- Daftar Pesan Masuk -->
-                <div id="inbox-container" class="space-y-3">
-                    <div class="text-center py-12 text-slate-500 text-sm border border-dashed border-slate-700 rounded-xl">
-                        Belum ada pesan masuk. Kotak masuk aktif dan siap menerima data.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- FITUR 2: ALIGHT MOTION PREMIUM (DIJAMIN AMAN & UTUH) -->
-        <div id="view-alightmotion" class="hidden space-y-4 max-w-md mx-auto">
-            <button onclick="switchTab('home')" class="text-xs text-indigo-400 hover:underline flex items-center gap-1 mb-2">
-                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Kembali ke Menu
-            </button>
-            <div class="bg-slate-800/80 border border-slate-700 p-6 rounded-2xl shadow-xl">
-                <div class="text-center mb-6">
-                    <div class="inline-flex p-3 bg-indigo-500/10 text-indigo-400 rounded-full mb-2">
-                        <i data-lucide="sparkles" class="w-6 h-6"></i>
-                    </div>
-                    <h2 class="text-xl font-bold">Alight Motion Premium</h2>
-                    <p class="text-slate-400 text-xs">Upgrade akun 1 tahun via Magic Link Worker</p>
-                </div>
-
-                <!-- TAHAP 1: INPUT EMAIL & KIRIM LINK -->
-                <div id="am-step-1" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Email Alight Motion</label>
-                        <input type="email" id="am-email-input" placeholder="nama@email.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white">
-                    </div>
-                    <button onclick="sendAMLink()" id="btn-send-link" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 rounded-xl font-medium text-sm transition shadow-lg shadow-indigo-500/20">Kirim Magic Link</button>
-                </div>
-
-                <!-- TAHAP 2: MASUKKAN MAGIC LINK -->
-                <div id="am-step-2" class="hidden space-y-4">
-                    <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 text-xs text-slate-300">
-                        Target Email: <span id="display-target-email" class="font-mono font-semibold text-indigo-300"></span>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Tempel / Paste Magic Link (Auto-Transform)</label>
-                        <input type="text" id="am-magic-link-input" placeholder="https://alight-creative.firebaseapp.com/..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white font-mono">
-                    </div>
-                    <button onclick="verifyAMLink()" id="btn-verify-link" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 rounded-xl font-medium text-sm transition shadow-lg shadow-emerald-500/20">Verifikasi & Upgrade</button>
-                    <div class="flex justify-between text-xs pt-1">
-                        <button onclick="resetAMForm()" class="text-indigo-400 hover:underline">← Ganti Email</button>
-                    </div>
-                </div>
-                
-                <div id="am-status-msg" class="mt-4 text-xs p-3 rounded-xl hidden"></div>
-            </div>
+            
+            <div id="am-status-msg" class="mt-4 text-xs p-3 rounded-xl hidden"></div>
         </div>
 
     </main>
@@ -168,26 +86,6 @@
     <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 mt-10">
         © 2026 Vertizx. Dibuat oleh PiiZx.
     </footer>
-
-    <!-- MODAL DETAIL PESAN TEMP MAIL -->
-    <div id="mail-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl max-h-[90vh] flex flex-col">
-            <button onclick="toggleMailModal(false)" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-            <h3 id="modal-mail-subject" class="text-lg font-bold mb-2 pr-8 text-indigo-300">Subjek Pesan</h3>
-            <div class="flex items-center justify-between text-xs text-slate-400 pb-3 border-b border-slate-700 mb-4">
-                <span>Dari: <strong id="modal-mail-from" class="text-slate-200">sender@domain.com</strong></span>
-                <span id="modal-mail-date">Waktu</span>
-            </div>
-            <div id="modal-mail-body" class="bg-slate-900 p-4 rounded-xl border border-slate-700 overflow-y-auto flex-1 text-sm text-slate-300 space-y-2 select-text font-mono">
-                Isi pesan...
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-700 flex justify-end">
-                <button onclick="toggleMailModal(false)" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-xs font-medium transition">Tutup</button>
-            </div>
-        </div>
-    </div>
 
     <!-- MODAL SUPPORT DEVELOPER -->
     <div id="support-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -217,27 +115,8 @@
             lucide.createIcons();
         } catch(e) {}
 
-        function switchTab(tabName) {
-            document.getElementById('view-home').classList.add('hidden');
-            document.getElementById('view-tempmail').classList.add('hidden');
-            document.getElementById('view-alightmotion').classList.add('hidden');
-            
-            document.getElementById('view-' + tabName).classList.remove('hidden');
-            window.scrollTo(0, 0);
-
-            if (tabName === 'tempmail' && !currentTempEmail) {
-                initTempMail();
-            }
-        }
-
         function toggleSupportModal(show) {
             const modal = document.getElementById('support-modal');
-            if (show) modal.classList.remove('hidden');
-            else modal.classList.add('hidden');
-        }
-
-        function toggleMailModal(show) {
-            const modal = document.getElementById('mail-modal');
             if (show) modal.classList.remove('hidden');
             else modal.classList.add('hidden');
         }
@@ -247,111 +126,6 @@
             alert('Nomor e-wallet berhasil disalin!');
         }
 
-        // ==========================================
-        // LOGIC TEMP-MAIL (Bawaan Murni API)
-        // ==========================================
-        let currentTempEmail = '';
-        let inboxInterval = null;
-
-        async function initTempMail() {
-            await generateNewTempEmail();
-            if (inboxInterval) clearInterval(inboxInterval);
-            inboxInterval = setInterval(fetchInboxMessages, 10000);
-        }
-
-        async function generateNewTempEmail() {
-            const displayEl = document.getElementById('temp-email-display');
-            displayEl.innerText = 'Membuat email baru...';
-            
-            try {
-                const res = await fetch('https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1');
-                const data = await res.json();
-                if (data && data.length > 0) {
-                    currentTempEmail = data[0];
-                    displayEl.innerText = currentTempEmail;
-                    document.getElementById('inbox-container').innerHTML = `
-                        <div class="text-center py-12 text-slate-500 text-sm border border-dashed border-slate-700 rounded-xl">
-                            Belum ada pesan masuk. Kotak masuk aktif dan siap menerima data.
-                        </div>
-                    `;
-                } else {
-                    throw new Error('Gagal generate email');
-                }
-            } catch (err) {
-                displayEl.innerText = 'Gagal memuat email, klik ganti email.';
-            }
-        }
-
-        function copyTempEmail() {
-            if (!currentTempEmail) return;
-            navigator.clipboard.writeText(currentTempEmail);
-            alert('Alamat email berhasil disalin: ' + currentTempEmail);
-        }
-
-        async function fetchInboxMessages() {
-            if (!currentTempEmail) return;
-            const parts = currentTempEmail.split('@');
-            if (parts.length !== 2) return;
-            const [name, domain] = parts;
-            
-            try {
-                const res = await fetch(`https://www.1secmail.com/api/v1/?action=getMessages&login=${name}&domain=${domain}`);
-                const messages = await res.json();
-                
-                const container = document.getElementById('inbox-container');
-                if (!messages || messages.length === 0) {
-                    return;
-                }
-
-                let htmlContent = '';
-                for (const msg of messages) {
-                    htmlContent += `
-                        <div onclick="openMessageDetail('${name}', '${domain}', '${msg.id}')" class="p-4 bg-slate-900 border border-slate-700 hover:border-indigo-500/50 rounded-xl cursor-pointer transition flex items-center justify-between gap-4">
-                            <div class="space-y-1 overflow-hidden">
-                                <div class="text-xs text-indigo-400 font-semibold truncate">${escapeHtml(msg.from)}</div>
-                                <div class="text-sm font-bold text-white truncate">${escapeHtml(msg.subject || '(Tanpa Subjek)')}</div>
-                            </div>
-                            <div class="text-[10px] text-slate-500 whitespace-nowrap">${msg.date}</div>
-                        </div>
-                    `;
-                }
-                container.innerHTML = htmlContent;
-            } catch (err) {
-                console.error("Gagal mengambil pesan:", err);
-            }
-        }
-
-        async function openMessageDetail(login, domain, id) {
-            try {
-                const res = await fetch(`https://www.1secmail.com/api/v1/?action=readMessage&login=${login}&domain=${domain}&id=${id}`);
-                const mail = await res.json();
-
-                document.getElementById('modal-mail-subject').innerText = mail.subject || '(Tanpa Subjek)';
-                document.getElementById('modal-mail-from').innerText = mail.from;
-                document.getElementById('modal-mail-date').innerText = mail.date;
-                
-                const bodyContainer = document.getElementById('modal-mail-body');
-                if (mail.htmlBody) {
-                    bodyContainer.innerHTML = mail.htmlBody;
-                } else {
-                    bodyContainer.innerText = mail.textBody || mail.body || 'Tidak ada konten.';
-                }
-
-                toggleMailModal(true);
-            } catch (err) {
-                alert('Gagal memuat isi pesan.');
-            }
-        }
-
-        function escapeHtml(text) {
-            if (!text) return '';
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        }
-
-
-        // ==========================================
-        // LOGIC ALIGHT MOTION PREMIUM (AMAN & UTUH)
-        // ==========================================
         let userEmail = '';
         const WORKER_BASE = 'https://am.revlykurniawan.workers.dev';
 
