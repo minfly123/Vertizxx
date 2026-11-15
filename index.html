@@ -6,8 +6,6 @@
     <title>Vertizx - PiiZx</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Supabase JS Client v2 -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -58,11 +56,6 @@
             </div>
             
             <div class="flex items-center gap-2">
-                <!-- Tombol Status Auth / Developer Panel Trigger -->
-                <button id="nav-dev-btn" onclick="switchTab('developer')" class="hidden items-center gap-1.5 px-3 py-2 bg-neoGreen text-black font-black text-xs uppercase border-2 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
-                    <i data-lucide="shield-check" class="w-4 h-4"></i>
-                    <span>Dev Panel</span>
-                </button>
                 <button onclick="toggleSupportModal(true)" class="flex items-center gap-1.5 px-4 py-2 bg-neoPink text-white font-bold text-xs uppercase border-2 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
                     <i data-lucide="heart" class="w-4 h-4 fill-white"></i>
                     <span>Support</span>
@@ -71,7 +64,7 @@
         </div>
     </header>
 
-    <!-- TOMBOL THANK YOU (SPECIAL THANKS BARU DI BAWAH HEADER) -->
+    <!-- TOMBOL THANK YOU (SPECIAL THANKS) -->
     <div class="max-w-xl w-full mx-auto px-4 pt-4">
         <button onclick="switchTab('thanks')" class="w-full py-2.5 bg-neoCyan text-black font-black uppercase text-xs border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
             <i data-lucide="award" class="w-4 h-4"></i> ✨ Special Thanks & Partners
@@ -127,70 +120,13 @@
             </div>
         </div>
 
-        <!-- FITUR KHUSUS: DEVELOPER PANEL (REAL-TIME SUPABASE) -->
-        <div id="view-developer" class="hidden w-full animate-fade space-y-4">
-            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
-                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
-            </button>
-            
-            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg space-y-5">
-                <div class="inline-block bg-neoGreen border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm">
-                    🛡️ DEVELOPER PANEL (REAL-TIME)
-                </div>
-
-                <!-- Status Pengecekan Role -->
-                <div id="dev-status-box" class="p-3.5 bg-yellow-50 border-2 border-black text-xs font-bold shadow-hard-sm">
-                    🔄 Memeriksa akses akun di database Supabase...
-                </div>
-
-                <!-- Form Pembuatan Akun (Hanya muncul jika role = developer) -->
-                <div id="dev-form-wrapper" class="hidden space-y-4 pt-2 border-t-2 border-black">
-                    <div class="bg-indigo-50 border-2 border-black p-3 text-xs font-bold text-indigo-900 shadow-hard-sm">
-                        ✨ Anda login sebagai <strong>Developer</strong>. Silakan buat akun baru di bawah ini. Kosongkan kolom <em>Expired At</em> untuk membuat akun permanen.
-                    </div>
-
-                    <form id="create-user-form" class="space-y-3.5">
-                        <div>
-                            <label class="block text-xs font-black uppercase mb-1">Username Baru</label>
-                            <input type="text" id="new-username" required placeholder="Contoh: userbaru123" class="w-full bg-white border-3 border-black rounded-none px-3.5 py-2.5 text-xs font-mono font-bold focus:outline-none shadow-hard-sm">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-black uppercase mb-1">Password</label>
-                            <input type="password" id="new-password" required placeholder="••••••••" class="w-full bg-white border-3 border-black rounded-none px-3.5 py-2.5 text-xs font-mono font-bold focus:outline-none shadow-hard-sm">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-black uppercase mb-1">Role Akun</label>
-                            <select id="new-role" class="w-full bg-white border-3 border-black rounded-none px-3.5 py-2.5 text-xs font-black uppercase focus:outline-none shadow-hard-sm">
-                                <option value="user">User</option>
-                                <option value="developer">Developer</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-black uppercase mb-1">Expired At <span class="text-gray-500 font-normal">(Kosongkan jika Permanen)</span></label>
-                            <input type="datetime-local" id="new-expired" class="w-full bg-white border-3 border-black rounded-none px-3.5 py-2.5 text-xs font-mono focus:outline-none shadow-hard-sm">
-                        </div>
-
-                        <button type="submit" id="btn-create-acc" class="w-full py-3 bg-neoYellow text-black font-black uppercase text-xs border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
-                            <i data-lucide="user-plus" class="w-4 h-4"></i> Buat Akun Baru (Real-time)
-                        </button>
-                    </form>
-
-                    <div id="dev-action-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- FITUR BARU: SPECIAL THANKS & PARTNERS -->
+        <!-- FITUR: SPECIAL THANKS & PARTNERS -->
         <div id="view-thanks" class="hidden w-full animate-fade space-y-4">
             <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
             </button>
             
             <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg space-y-6">
-                <!-- Ucapan Terima Kasih -->
                 <div class="text-center space-y-2">
                     <div class="inline-block bg-neoYellow border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm mb-1">
                         💖 SPECIAL THANKS & APPRECIATION
@@ -201,11 +137,10 @@
                     </p>
                 </div>
 
-                <!-- Daftar Partner / Supporter -->
                 <div class="space-y-3 pt-2 border-t-2 border-black">
                     <h3 class="text-xs font-black uppercase tracking-wider text-center">🌟 Partner & Supporter List</h3>
                     <div id="supporter-list-container" class="space-y-3">
-                        <!-- List nama akan masuk secara otomatis dari array JS -->
+                        <!-- List supporter -->
                     </div>
                 </div>
             </div>
@@ -389,9 +324,13 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        try {
-            lucide.createIcons();
-        } catch(e) {}
+        // Render ikon Lucide saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                lucide.createIcons();
+            } catch(e) {}
+            renderSupporters();
+        });
 
         function switchTab(tabName) {
             document.getElementById('view-home').classList.add('hidden');
@@ -399,10 +338,17 @@
             document.getElementById('view-alightmotion').classList.add('hidden');
             document.getElementById('view-presetfinder').classList.add('hidden');
             document.getElementById('view-tiktokdl').classList.add('hidden');
-            document.getElementById('view-developer').classList.add('hidden');
             
-            document.getElementById('view-' + tabName).classList.remove('hidden');
+            const targetView = document.getElementById('view-' + tabName);
+            if (targetView) {
+                targetView.classList.remove('hidden');
+            }
             window.scrollTo(0, 0);
+
+            // Re-render ikon jika berpindah tab agar ikon di dalam konten dinamis tampil
+            setTimeout(() => {
+                try { lucide.createIcons(); } catch(e) {}
+            }, 50);
         }
 
         function toggleSupportModal(show) {
@@ -415,104 +361,6 @@
             navigator.clipboard.writeText('0895351456586');
             alert('Nomor e-wallet berhasil disalin!');
         }
-
-        // ==========================================
-        // KONFIGURASI SUPABASE & CEK ROLE DEVELOPER
-        // ==========================================
-        const SUPABASE_URL = 'https://czamahmwcrareolalwxv.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_secret_-mFqZaanVF7Q8GiYfxKqGw_stqmapHd';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // Simulasi akun yang sedang login (bisa diganti sesuai sistem login Anda, misal: localStorage.getItem('username'))
-        const currentUsername = localStorage.getItem('logged_in_username') || 'refly'; 
-
-        async function checkDeveloperAccess() {
-            const statusBox = document.getElementById('dev-status-box');
-            const devFormWrapper = document.getElementById('dev-form-wrapper');
-            const navDevBtn = document.getElementById('nav-dev-btn');
-
-            try {
-                // Asumsi nama tabel di Supabase Anda adalah 'users' dan memiliki kolom 'username' & 'role'
-                const { data, error } = await supabase
-                    .from('users')
-                    .select('role')
-                    .eq('username', currentUsername)
-                    .single();
-
-                if (error || !data) {
-                    statusBox.className = 'p-3.5 bg-red-100 border-2 border-black text-xs font-bold text-red-700 shadow-hard-sm';
-                    statusBox.innerHTML = '❌ Akun <strong>' + currentUsername + '</strong> tidak ditemukan di database Supabase.';
-                    return;
-                }
-
-                if (data.role === 'developer') {
-                    statusBox.classList.add('hidden');
-                    devFormWrapper.classList.remove('hidden');
-                    navDevBtn.classList.remove('hidden');
-                    navDevBtn.classList.add('flex');
-                } else {
-                    statusBox.className = 'p-3.5 bg-red-100 border-2 border-black text-xs font-bold text-red-700 shadow-hard-sm';
-                    statusBox.innerHTML = '⛔ Akses Ditolak! Akun Anda ("' + currentUsername + '") ber-role <strong>' + data.role + '</strong>, bukan developer.';
-                }
-            } catch (err) {
-                statusBox.className = 'p-3.5 bg-red-100 border-2 border-black text-xs font-bold text-red-700 shadow-hard-sm';
-                statusBox.innerHTML = '⚠️ Terjadi kesalahan koneksi ke Supabase: ' + err.message;
-            }
-        }
-
-        // Handle Form Pembuatan Akun Real-time ke Supabase
-        document.getElementById('create-user-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const msgBox = document.getElementById('dev-action-msg');
-            const btn = document.getElementById('btn-create-acc');
-
-            const username = document.getElementById('new-username').value.trim();
-            const password = document.getElementById('new-password').value.trim();
-            const role = document.getElementById('new-role').value;
-            const expiredInput = document.getElementById('new-expired').value;
-
-            // Jika input expired dikosongkan, ubah menjadi null (permanen)
-            const expired_at = expiredInput ? new Date(expiredInput).toISOString() : null;
-
-            btn.disabled = true;
-            btn.innerHTML = '⏳ Menyimpan ke Database...';
-            msgBox.classList.add('hidden');
-
-            try {
-                const { data, error } = await supabase
-                    .from('users')
-                    .insert([
-                        { 
-                            username: username, 
-                            password: password, 
-                            role: role, 
-                            expired_at: expired_at 
-                        }
-                    ]);
-
-                if (error) {
-                    throw new Error(error.message);
-                }
-
-                msgBox.className = 'text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-green-300 text-black';
-                msgBox.innerHTML = '🎉 Sukses! Akun <strong>' + username + '</strong> berhasil dibuat secara real-time di database!';
-                msgBox.classList.remove('hidden');
-                document.getElementById('create-user-form').reset();
-            } catch (err) {
-                msgBox.className = 'text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
-                msgBox.innerHTML = '❌ Gagal membuat akun: ' + err.message;
-                msgBox.classList.remove('hidden');
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i data-lucide="user-plus" class="w-4 h-4"></i> Buat Akun Baru (Real-time)';
-                lucide.createIcons();
-            }
-        });
-
-        // Jalankan pengecekan role saat halaman dimuat (Diperbaiki: renderSupporters() dihapus karena tidak ada datanya)
-        window.addEventListener('DOMContentLoaded', () => {
-            checkDeveloperAccess();
-        });
 
         // ==========================================
         // DATA MANUAL SUPPORTER & PARTNER
@@ -542,7 +390,7 @@
                     <div class="bg-gray-50 p-3.5 border-2 border-black flex items-center justify-between gap-3 shadow-hard-sm hover:-translate-y-1 hover:shadow-hard transition duration-200 animate-fade" style="animation-delay: ${index * 0.1}s;">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 border-2 border-black bg-neoYellow flex items-center justify-center overflow-hidden flex-shrink-0">
-                                <img src="${supporter.avatar}" alt="${supporter.name}" class="w-6 h-6 object-cover">
+                                <img src="${supporter.avatar}" alt="${supporter.name}" class="w-full h-full object-cover">
                             </div>
                             <div>
                                 <h4 class="text-xs font-black uppercase text-black">${supporter.name}</h4>
@@ -625,9 +473,9 @@
                                 </div>
                             `;
                         });
-                        lucide.createIcons();
                         resultContainer.classList.remove('hidden');
                         renderSupportBanner('pf-support-banner');
+                        try { lucide.createIcons(); } catch(e) {}
                     } else {
                         msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
                         msgBox.innerText = '⚠️ Tidak ditemukan link preset di video tersebut.';
@@ -662,7 +510,7 @@
                     btn.disabled = false;
                     btn.classList.remove('opacity-60', 'cursor-not-allowed');
                     btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Cari Preset Sekarang';
-                    lucide.createIcons();
+                    try { lucide.createIcons(); } catch(e) {}
                 }
             }, 1000);
         }
@@ -715,9 +563,9 @@
                         });
                     }
 
-                    lucide.createIcons();
                     resultContainer.classList.remove('hidden');
                     renderSupportBanner('tt-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
                 } else {
                     throw new Error('Gagal mengambil data dari server TikTok.');
                 }
@@ -747,7 +595,7 @@
                     btn.disabled = false;
                     btn.classList.remove('opacity-60', 'cursor-not-allowed');
                     btn.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i> Unduh Media TikTok';
-                    lucide.createIcons();
+                    try { lucide.createIcons(); } catch(e) {}
                 }
             }, 1000);
         }
@@ -813,11 +661,11 @@
             } catch (err) {
                 msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
                 msgBox.innerText = 'Gagal koneksi: ' + err.message;
-                msgBox.classList.add('hidden');
+                msgBox.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> Kirim Magic Link';
-                lucide.createIcons();
+                try { lucide.createIcons(); } catch(e) {}
             }
         }
 
@@ -866,11 +714,11 @@
             } catch(err) {
                 msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
                 msgBox.innerText = 'Terjadi kesalahan jaringan: ' + err.message;
-                msgBox.classList.add('hidden');
+                msgBox.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i data-lucide="check-circle-2" class="w-4 h-4"></i> Verifikasi & Upgrade';
-                lucide.createIcons();
+                try { lucide.createIcons(); } catch(e) {}
             }
         }
 
