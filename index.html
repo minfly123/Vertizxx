@@ -14,7 +14,6 @@
                         neoYellow: '#FFDE00',
                         neoPink: '#FF4191',
                         neoCyan: '#00F0FF',
-                        neoGreen: '#00E676',
                         neoDark: '#121212',
                     },
                     boxShadow: {
@@ -62,13 +61,6 @@
         </div>
     </header>
 
-    <!-- TOMBOL THANK YOU (SPECIAL THANKS BARU DI BAWAH HEADER) -->
-    <div class="max-w-xl w-full mx-auto px-4 pt-4">
-        <button onclick="switchTab('thanks')" class="w-full py-2.5 bg-neoCyan text-black font-black uppercase text-xs border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
-            <i data-lucide="award" class="w-4 h-4"></i> ✨ Special Thanks & Partners
-        </button>
-    </div>
-
     <!-- MAIN CONTENT CONTAINER -->
     <main class="flex-1 max-w-xl w-full mx-auto p-4 md:p-6 flex flex-col items-center justify-center">
         
@@ -76,72 +68,26 @@
         <div id="view-home" class="w-full space-y-6 animate-fade">
             <div class="text-center py-6 bg-white border-4 border-black p-6 shadow-hard-lg">
                 <h1 class="text-2xl md:text-3xl font-black uppercase tracking-tight mb-2">Pilih Fitur <span class="bg-neoYellow px-2 border-2 border-black">Vertizx</span></h1>
-                <p class="text-xs font-bold text-gray-700">Platform all-in-one utility tools digital untuk kreator dan editor konten.</p>
+                <p class="text-xs font-bold text-gray-700">Platform utility tools editor Alight Motion tercepat & anti ribet.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Card AM Premium -->
-                <div onclick="switchTab('alightmotion')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
-                    <div>
-                        <div class="p-2.5 bg-neoYellow text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
-                            <i data-lucide="sparkles" class="w-5 h-5"></i>
-                        </div>
-                        <h2 class="text-sm font-black uppercase mb-1">AM Premium</h2>
-                        <p class="text-[11px] font-medium text-gray-600">Upgrade akun via magic link aman.</p>
+                <div onclick="switchTab('alightmotion')" class="bg-white border-4 border-black p-5 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group">
+                    <div class="p-2.5 bg-neoYellow text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
+                        <i data-lucide="sparkles" class="w-5 h-5"></i>
                     </div>
-                    <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
+                    <h2 class="text-base font-black uppercase mb-1">AM Premium 1 Tahun</h2>
+                    <p class="text-xs font-medium text-gray-600">Upgrade akun Alight Motion via sistem verifikasi magic link aman.</p>
                 </div>
 
                 <!-- Card AM Preset Finder -->
-                <div onclick="switchTab('presetfinder')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
-                    <div>
-                        <div class="p-2.5 bg-neoCyan text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
-                            <i data-lucide="search" class="w-5 h-5"></i>
-                        </div>
-                        <h2 class="text-sm font-black uppercase mb-1">AM Preset Finder</h2>
-                        <p class="text-[11px] font-medium text-gray-600">Cari link preset dari TikTok/YouTube.</p>
+                <div onclick="switchTab('presetfinder')" class="bg-white border-4 border-black p-5 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group">
+                    <div class="p-2.5 bg-neoCyan text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
+                        <i data-lucide="search" class="w-5 h-5"></i>
                     </div>
-                    <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
-                </div>
-
-                <!-- Card TikTok Downloader -->
-                <div onclick="switchTab('tiktokdl')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
-                    <div>
-                        <div class="p-2.5 bg-neoGreen text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
-                            <i data-lucide="download" class="w-5 h-5"></i>
-                        </div>
-                        <h2 class="text-sm font-black uppercase mb-1">TikTok Downloader</h2>
-                        <p class="text-[11px] font-medium text-gray-600">Unduh video/audio TikTok tanpa watermark.</p>
-                    </div>
-                    <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- FITUR BARU: SPECIAL THANKS & PARTNERS -->
-        <div id="view-thanks" class="hidden w-full animate-fade space-y-4">
-            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
-                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
-            </button>
-            
-            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg space-y-6">
-                <!-- Ucapan Terima Kasih -->
-                <div class="text-center space-y-2">
-                    <div class="inline-block bg-neoYellow border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm mb-1">
-                        💖 SPECIAL THANKS & APPRECIATION
-                    </div>
-                    <h2 class="text-xl font-black uppercase tracking-tight">Terima Kasih Banyak!</h2>
-                    <p class="text-xs font-medium text-gray-700 leading-relaxed">
-                        Halo semuanya! Saya <strong class="text-black">PiiZx</strong> selaku developer mengucapkan terima kasih yang sebesar-besarnya kepada seluruh partner, teman-teman, dan para supporter setia yang telah membantu, mendukung, serta menggunakan website <strong>Vertizx</strong> ini. Tanpa kalian, proyek ini tidak akan bisa berkembang sejauh ini! 🚀
-                    </p>
-                </div>
-
-                <!-- Daftar Partner / Supporter (Di-generate otomatis dari JavaScript di bawah) -->
-                <div class="space-y-3 pt-2 border-t-2 border-black">
-                    <h3 class="text-xs font-black uppercase tracking-wider text-center">🌟 Partner & Supporter List</h3>
-                    <div id="supporter-list-container" class="space-y-3">
-                        <!-- List nama akan masuk secara otomatis dari array JS di bawah -->
-                    </div>
+                    <h2 class="text-base font-black uppercase mb-1">AM Preset Finder</h2>
+                    <p class="text-xs font-medium text-gray-600">Cari link preset Alight Motion dari video TikTok/YouTube secara instan.</p>
                 </div>
             </div>
         </div>
@@ -190,9 +136,6 @@
                 </div>
                 
                 <div id="am-status-msg" class="mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
-
-                <!-- Wadah Global Support Banner -->
-                <div id="am-support-banner" class="hidden mt-4"></div>
             </div>
         </div>
 
@@ -219,10 +162,10 @@
 
                 <div id="pf-status-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
 
-                <!-- Hasil Ekstraksi -->
+                <!-- Hasil Ekstraksi Sesuai Kode Lama yang Stabil -->
                 <div id="pf-result-container" class="hidden space-y-5 pt-4 border-t-2 border-black animate-fade">
                     <div class="bg-gray-50 p-3.5 border-2 border-black flex items-center gap-4 shadow-hard-sm">
-                        <div class="w-24 h-28 border-2 border-black flex-shrink-0 bg-black overflow-hidden">
+                        <div class="w-20.5 w-24 h-28 border-2 border-black flex-shrink-0 bg-black overflow-hidden">
                             <img id="pf-video-cover" src="" alt="Cover" class="w-full h-full object-cover">
                         </div>
                         <div class="space-y-2 overflow-hidden flex-1">
@@ -243,55 +186,6 @@
                         <h3 class="text-xs font-black uppercase tracking-wider">Daftar Link Preset Ditemukan:</h3>
                         <div id="pf-presets-list" class="space-y-2.5"></div>
                     </div>
-
-                    <!-- Wadah Global Support Banner -->
-                    <div id="pf-support-banner"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- FITUR 3: TIKTOK DOWNLOADER -->
-        <div id="view-tiktokdl" class="hidden w-full animate-fade">
-            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-3 flex items-center gap-1 hover:underline">
-                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
-            </button>
-            
-            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg relative space-y-5">
-                <div class="inline-block bg-neoGreen border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm">
-                    📥 TIKTOK DOWNLOADER
-                </div>
-
-                <div class="space-y-3">
-                    <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Link Video TikTok</label>
-                        <input type="text" id="tt-url-input" placeholder="https://vt.tiktok.com/..." class="w-full bg-white border-3 border-black rounded-none px-4 py-3 text-xs font-mono focus:outline-none shadow-hard-sm">
-                    </div>
-                    <button onclick="downloadTikTok()" id="btn-tiktok-dl" class="w-full py-3.5 bg-neoGreen text-black font-black uppercase text-sm border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
-                        <i data-lucide="download" class="w-4 h-4"></i> Unduh Media TikTok
-                    </button>
-                </div>
-
-                <div id="tt-status-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
-
-                <!-- Hasil Downloader TikTok -->
-                <div id="tt-result-container" class="hidden space-y-4 pt-4 border-t-2 border-black animate-fade">
-                    <div class="bg-gray-50 p-3.5 border-2 border-black flex items-center gap-4 shadow-hard-sm">
-                        <div class="w-24 h-28 border-2 border-black flex-shrink-0 bg-black overflow-hidden">
-                            <img id="tt-video-cover" src="" alt="Cover" class="w-full h-full object-cover">
-                        </div>
-                        <div class="space-y-2 overflow-hidden flex-1">
-                            <div class="flex items-center gap-2.5">
-                                <img id="pf-author-avatar" src="" alt="Avatar" class="w-7 h-7 border-2 border-black rounded-full object-cover flex-shrink-0">
-                                <span id="tt-author-name" class="text-xs font-black truncate">@author</span>
-                            </div>
-                            <p id="tt-video-desc" class="text-[11px] font-medium text-gray-600 line-clamp-2">Deskripsi video...</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2.5" id="tt-buttons-list"></div>
-
-                    <!-- Wadah Global Support Banner -->
-                    <div id="tt-support-banner"></div>
                 </div>
             </div>
         </div>
@@ -327,7 +221,7 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT LOGIC (MENGGUNAKAN STRUKTUR AMAN KODE LAMA) -->
     <script>
         try {
             lucide.createIcons();
@@ -335,10 +229,8 @@
 
         function switchTab(tabName) {
             document.getElementById('view-home').classList.add('hidden');
-            document.getElementById('view-thanks').classList.add('hidden');
             document.getElementById('view-alightmotion').classList.add('hidden');
             document.getElementById('view-presetfinder').classList.add('hidden');
-            document.getElementById('view-tiktokdl').classList.add('hidden');
             
             document.getElementById('view-' + tabName).classList.remove('hidden');
             window.scrollTo(0, 0);
@@ -356,79 +248,9 @@
         }
 
         // ==========================================
-        // DATA MANUAL SUPPORTER & PARTNER
-        // (Kamu bisa tambah / edit list nama & avatarnya di sini dengan mudah!)
+        // LOGIC AM PRESET FINDER (STABIL SEPERTI KODE LAMA)
         // ==========================================
-        const supportersData = [
-            {
-                name: "Zaky",
-                role: "Best Friend",
-                avatar: "https://storage.filebin.net/filebin/34f6f66b2ded860b84981cce3ad854ffb60ae8ab1b8788f5a23148ff3d30227d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=GK352fd2505074fc9dde7fd2cb%2F20261115%2Fhel1-dc4%2Fs3%2Faws4_request&X-Amz-Date=20261115T105729Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&request-id=5631258391499425582&response-cache-control=max-age%3D900&response-content-disposition=inline%3B%20filename%3D%22IMG-20261115-WA0128.jpg%22&response-content-type=image%2Fjpeg&x-id=GetObject&X-Amz-Signature=cffd41ec6b1ca8100d2e8fc7f321b4fefa9b97337d3b3da470a0c7f2bf4e3b4f", // Bisa diganti URL gambar kamu sendiri
-                badge: "Brokuh"
-            },
-            { 
-                name: "Ellz",
-                role: "Best Friend",
-                avatar: "https://storage.filebin.net/filebin/5d3480c0fa6477220d9a694bee9ba2d86681a0feefc268758644d9b97c311a40?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=GK352fd2505074fc9dde7fd2cb%2F20261115%2Fhel1-dc4%2Fs3%2Faws4_request&X-Amz-Date=20261115T143128Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&request-id=4832258637250409119&response-cache-control=max-age%3D900&response-content-disposition=inline%3B%20filename%3D%22IMG-20261115-WA0240.jpg%22&response-content-type=image%2Fjpeg&x-id=GetObject&X-Amz-Signature=62612e459a4c210dc87a9dd426b900bdd9ca414bc6cc71ee27ca19cdc463b75a",
-                badge: "Brokuh"
-            
-                
-        ];
-
-        // Render List Supporter secara otomatis dengan animasi hover Neo-Brutalism
-        function renderSupporters() {
-            const container = document.getElementById('supporter-list-container');
-            if (!container) return;
-
-            container.innerHTML = '';
-            supportersData.forEach((supporter, index) => {
-                container.innerHTML += `
-                    <div class="bg-gray-50 p-3.5 border-2 border-black flex items-center justify-between gap-3 shadow-hard-sm hover:-translate-y-1 hover:shadow-hard transition duration-200 animate-fade" style="animation-delay: ${index * 0.1}s;">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 border-2 border-black bg-neoYellow flex items-center justify-center overflow-hidden flex-shrink-0">
-                                <img src="${supporter.avatar}" alt="${supporter.name}" class="w-6 h-6 object-cover">
-                            </div>
-                            <div>
-                                <h4 class="text-xs font-black uppercase text-black">${supporter.name}</h4>
-                                <p class="text-[11px] font-medium text-gray-600">${supporter.role}</p>
-                            </div>
-                        </div>
-                        <span class="px-2 py-1 bg-neoCyan text-black text-[10px] font-black uppercase border border-black shadow-hard-sm">
-                            ${supporter.badge}
-                        </span>
-                    </div>
-                `;
-            });
-        }
-
-        // Jalankan saat halaman dimuat
-        window.addEventListener('DOMContentLoaded', () => {
-            renderSupporters();
-        });
-
-        // ==========================================
-        // FUNGSI GLOBAL SUPPORT BANNER (REUSABLE)
-        // ==========================================
-        function renderSupportBanner(elementId) {
-            const container = document.getElementById(elementId);
-            if (!container) return;
-            
-            container.innerHTML = `
-                <div class="mt-4 p-3.5 bg-pink-50 border-2 border-black text-xs font-bold shadow-hard-sm flex items-center justify-between gap-2 animate-fade">
-                    <span>☕ Suka tools ini? Traktir kopi developer yuk biar makin semangat update!</span>
-                    <button onclick="toggleSupportModal(true)" class="px-3 py-1 bg-neoPink text-white border-2 border-black uppercase text-[10px] shadow-hard-sm flex-shrink-0 hover:bg-pink-600 transition">Support</button>
-                </div>
-            `;
-        }
-
-        // ==========================================
-        // LOGIC AM PRESET FINDER DENGAN COOLDOWN 60 DETIK
-        // ==========================================
-        let isPFCooldown = false;
-
         async function findPreset() {
-            if (isPFCooldown) return;
-
             const urlInput = document.getElementById('pf-url-input').value.trim();
             const msgBox = document.getElementById('pf-status-msg');
             const btn = document.getElementById('btn-find-preset');
@@ -440,7 +262,7 @@
             }
 
             btn.disabled = true;
-            btn.innerHTML = 'MENCARI...';
+            btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Mencari Preset...';
             msgBox.classList.add('hidden');
             resultContainer.classList.add('hidden');
 
@@ -487,8 +309,6 @@
                         });
                         lucide.createIcons();
                         resultContainer.classList.remove('hidden');
-
-                        renderSupportBanner('pf-support-banner');
                     } else {
                         msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
                         msgBox.innerText = '⚠️ Tidak ditemukan link preset di video tersebut.';
@@ -502,136 +322,10 @@
                 msgBox.innerText = 'Gagal mencari preset: ' + err.message;
                 msgBox.classList.remove('hidden');
             } finally {
-                startPFCooldown(60);
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Cari Preset Sekarang';
+                lucide.createIcons();
             }
-        }
-
-        function startPFCooldown(seconds) {
-            isPFCooldown = true;
-            const btn = document.getElementById('btn-find-preset');
-            let timeLeft = seconds;
-
-            btn.disabled = true;
-            btn.classList.add('opacity-60', 'cursor-not-allowed');
-
-            const timer = setInterval(() => {
-                if (timeLeft > 0) {
-                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk cari lagi`;
-                    timeLeft--;
-                } else {
-                    clearInterval(timer);
-                    isPFCooldown = false;
-                    btn.disabled = false;
-                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
-                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Cari Preset Sekarang';
-                    lucide.createIcons();
-                }
-            }, 1000);
-        }
-
-
-        // ==========================================
-        // LOGIC TIKTOK DOWNLOADER DENGAN COOLDOWN 60 DETIK
-        // ==========================================
-        let isTTCooldown = false;
-
-        async function downloadTikTok() {
-            if (isTTCooldown) return;
-
-            const urlInput = document.getElementById('tt-url-input').value.trim();
-            const msgBox = document.getElementById('tt-status-msg');
-            const btn = document.getElementById('btn-tiktok-dl');
-            const resultContainer = document.getElementById('tt-result-container');
-
-            if (!urlInput) {
-                alert('Mohon masukkan link video TikTok terlebih dahulu!');
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerHTML = 'MENGUNDUH...';
-            msgBox.classList.add('hidden');
-            resultContainer.classList.add('hidden');
-
-            try {
-                const apiEndpoint = `https://api.ikyyxd.my.id/download/tiktokv3?url=${encodeURIComponent(urlInput)}`;
-                const res = await fetch(apiEndpoint);
-                const json = await res.json();
-
-                if (json && json.status && json.result && json.result.success && json.result.data) {
-                    const data = json.result.data;
-
-                    document.getElementById('tt-author-name').innerText = data.author ? '@' + data.author : '@unknown';
-                    document.getElementById('tt-video-desc').innerText = data.description || 'Tanpa deskripsi';
-                    document.getElementById('tt-author-avatar').src = data.avatar_thumb || 'https://via.placeholder.com/150';
-                    document.getElementById('tt-video-cover').src = data.cover || 'https://via.placeholder.com/150';
-
-                    const buttonsList = document.getElementById('tt-buttons-list');
-                    buttonsList.innerHTML = '';
-
-                    if (data.video) {
-                        buttonsList.innerHTML += `
-                            <a href="${data.video}" target="_blank" class="w-full py-3 bg-neoGreen text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-emerald-400 transition flex items-center justify-center gap-2">
-                                <i data-lucide="video" class="w-4 h-4"></i> Unduh Video (Tanpa Watermark)
-                            </a>
-                        `;
-                    }
-
-                    if (data.music) {
-                        buttonsList.innerHTML += `
-                            <a href="${data.music}" target="_blank" class="w-full py-3 bg-neoYellow text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-yellow-400 transition flex items-center justify-center gap-2">
-                                <i data-lucide="music" class="w-4 h-4"></i> Unduh Musik / Audio MP3
-                            </a>
-                        `;
-                    }
-
-                    if (data.images && data.images.length > 0) {
-                        data.images.forEach((imgUrl, idx) => {
-                            buttonsList.innerHTML += `
-                                <a href="${imgUrl}" target="_blank" class="w-full py-3 bg-neoCyan text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-cyan-400 transition flex items-center justify-center gap-2">
-                                    <i data-lucide="image" class="w-4 h-4"></i> Unduh Foto / Slide #${idx + 1}
-                                </a>
-                            `;
-                        });
-                    }
-
-                    lucide.createIcons();
-                    resultContainer.classList.remove('hidden');
-
-                    renderSupportBanner('tt-support-banner');
-                } else {
-                    throw new Error('Gagal mengambil data dari server TikTok.');
-                }
-            } catch (err) {
-                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
-                msgBox.innerText = 'Gagal mengunduh: ' + err.message;
-                msgBox.classList.remove('hidden');
-            } finally {
-                startTTCooldown(60);
-            }
-        }
-
-        function startTTCooldown(seconds) {
-            isTTCooldown = true;
-            const btn = document.getElementById('btn-tiktok-dl');
-            let timeLeft = seconds;
-
-            btn.disabled = true;
-            btn.classList.add('opacity-60', 'cursor-not-allowed');
-
-            const timer = setInterval(() => {
-                if (timeLeft > 0) {
-                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk unduh lagi`;
-                    timeLeft--;
-                } else {
-                    clearInterval(timer);
-                    isTTCooldown = false;
-                    btn.disabled = false;
-                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
-                    btn.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i> Unduh Media TikTok';
-                    lucide.createIcons();
-                }
-            }, 1000);
         }
 
         function copyPresetLink(url) {
@@ -732,7 +426,6 @@
             btn.disabled = true;
             btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Memverifikasi...';
             msgBox.classList.add('hidden');
-            document.getElementById('am-support-banner').innerHTML = '';
 
             try {
                 const res = await fetch(`${WORKER_BASE}/verify-link`, {
@@ -756,8 +449,6 @@
                     msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-green-300 text-black';
                     msgBox.innerText = '🎉 ' + (data.message || 'Sukses! Akun Alight Motion berhasil menjadi Premium.');
                     msgBox.classList.remove('hidden');
-
-                    renderSupportBanner('am-support-banner');
                 } else {
                     msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
                     msgBox.innerText = 'Gagal: ' + (data.message || 'Link atau email tidak valid / kadaluarsa.');
@@ -778,7 +469,6 @@
             document.getElementById('am-step-2').classList.add('hidden');
             document.getElementById('am-step-1').classList.remove('hidden');
             document.getElementById('am-status-msg').classList.add('hidden');
-            document.getElementById('am-support-banner').innerHTML = '';
         }
     </script>
 </body>
