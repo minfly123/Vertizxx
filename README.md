@@ -1,2 +1,2 @@
 # Vertizx
-Utility Website by Piizx
+ing ngendi kabeh kabutuhanmu ana ing kene
