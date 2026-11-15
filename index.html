@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +8,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        neoYellow: '#FFDE00',
-                        neoPink: '#FF4191',
-                        neoCyan: '#00F0FF',
-                        neoDark: '#121212',
-                    },
-                    boxShadow: {
-                        'hard': '4px 4px 0px #000000',
-                        'hard-sm': '2px 2px 0px #000000',
-                        'hard-lg': '6px 6px 0px #000000',
+                        slate: { 850: '#131c31', 900: '#0a0f1d' }
                     }
                 }
             }
@@ -28,164 +21,183 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Background Grid Notebook Style */
-        body {
-            background-color: #F8F9FA;
-            background-image: linear-gradient(to right, #e5e7eb 1px, transparent 1px),
-                              linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
-            background-size: 24px 24px;
-        }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade {
-            animation: fadeIn 0.25s ease-out forwards;
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+        .glass-card {
+            background: rgba(19, 28, 49, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
     </style>
 </head>
-<body class="bg-[#F8F9FA] text-black min-h-screen flex flex-col font-sans selection:bg-neoYellow selection:text-black">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
 
     <!-- HEADER / NAVBAR -->
-    <header class="border-b-4 border-black bg-neoYellow sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchTab('home')">
-                <div class="px-3 py-1 bg-black text-white font-black text-lg border-2 border-black shadow-hard-sm">V</div>
-                <span class="text-xl font-black tracking-wider uppercase">Vertizx</span>
+    <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 transition-all">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2.5 cursor-pointer group" onclick="switchTab('home')">
+                <div class="p-2 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl text-white font-black tracking-wider shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition duration-300">V</div>
+                <span class="text-xl font-black bg-gradient-to-r from-indigo-400 via-purple-300 to-cyan-400 bg-clip-text text-transparent">Vertizx</span>
             </div>
             
-            <button onclick="toggleSupportModal(true)" class="flex items-center gap-1.5 px-4 py-2 bg-neoPink text-white font-bold text-xs uppercase border-2 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
-                <i data-lucide="heart" class="w-4 h-4 fill-white"></i>
-                <span>Support</span>
-            </button>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleSupportModal(true)" class="flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-indigo-500/50 transition duration-300 rounded-xl text-xs font-semibold shadow-lg shadow-indigo-500/10 group">
+                    <i data-lucide="heart" class="w-4 h-4 text-rose-400 fill-rose-400 group-hover:scale-110 transition"></i>
+                    <span class="text-slate-200">Support</span>
+                </button>
+            </div>
         </div>
     </header>
 
     <!-- MAIN CONTENT CONTAINER -->
-    <main class="flex-1 max-w-xl w-full mx-auto p-4 md:p-6 flex flex-col items-center justify-center">
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col items-center justify-center">
         
         <!-- HOME / PILIHAN FITUR -->
-        <div id="view-home" class="w-full space-y-6 animate-fade">
-            <div class="text-center py-6 bg-white border-4 border-black p-6 shadow-hard-lg">
-                <h1 class="text-2xl md:text-3xl font-black uppercase tracking-tight mb-2">Pilih Fitur <span class="bg-neoYellow px-2 border-2 border-black">Vertizx</span></h1>
-                <p class="text-xs font-bold text-gray-700">Platform utility tools editor Alight Motion tercepat & anti ribet.</p>
+        <div id="view-home" class="w-full max-w-2xl space-y-6 animate-fade">
+            <div class="text-center py-6">
+                <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-2">Pilih Fitur <span class="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Vertizx</span></h1>
+                <p class="text-slate-400 text-xs md:text-sm">Utility tools editor Alight Motion tercepat dan anti ribet.</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Card AM Premium -->
-                <div onclick="switchTab('alightmotion')" class="bg-white border-4 border-black p-5 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group">
-                    <div class="p-2.5 bg-neoYellow text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
-                        <i data-lucide="sparkles" class="w-5 h-5"></i>
+                <div onclick="switchTab('alightmotion')" class="glass-card border border-slate-800 hover:border-indigo-500/50 p-6 rounded-3xl cursor-pointer transition duration-300 group shadow-xl hover:shadow-indigo-500/10">
+                    <div class="p-3 bg-indigo-500/10 text-indigo-400 rounded-2xl w-fit mb-4 group-hover:scale-110 transition duration-300">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
                     </div>
-                    <h2 class="text-base font-black uppercase mb-1">AM Premium 1 Tahun</h2>
-                    <p class="text-xs font-medium text-gray-600">Upgrade akun Alight Motion via sistem verifikasi magic link aman.</p>
+                    <h2 class="text-lg font-bold mb-1 group-hover:text-indigo-300 transition">AM Premium 1 Tahun</h2>
+                    <p class="text-slate-400 text-xs leading-relaxed">Upgrade akun Alight Motion via sistem verifikasi magic link aman.</p>
                 </div>
 
                 <!-- Card AM Preset Finder -->
-                <div onclick="switchTab('presetfinder')" class="bg-white border-4 border-black p-5 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group">
-                    <div class="p-2.5 bg-neoCyan text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
-                        <i data-lucide="search" class="w-5 h-5"></i>
+                <div onclick="switchTab('presetfinder')" class="glass-card border border-slate-800 hover:border-cyan-500/50 p-6 rounded-3xl cursor-pointer transition duration-300 group shadow-xl hover:shadow-cyan-500/10">
+                    <div class="p-3 bg-cyan-500/10 text-cyan-400 rounded-2xl w-fit mb-4 group-hover:scale-110 transition duration-300">
+                        <i data-lucide="search" class="w-6 h-6"></i>
                     </div>
-                    <h2 class="text-base font-black uppercase mb-1">AM Preset Finder</h2>
-                    <p class="text-xs font-medium text-gray-600">Cari link preset Alight Motion dari video TikTok/YouTube secara instan.</p>
+                    <h2 class="text-lg font-bold mb-1 group-hover:text-cyan-300 transition">AM Preset Finder</h2>
+                    <p class="text-slate-400 text-xs leading-relaxed">Cari link preset Alight Motion dari video TikTok/YouTube secara instan.</p>
                 </div>
             </div>
         </div>
 
         <!-- FITUR 1: ALIGHT MOTION PREMIUM -->
-        <div id="view-alightmotion" class="hidden w-full animate-fade">
-            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-3 flex items-center gap-1 hover:underline">
+        <div id="view-alightmotion" class="hidden w-full max-w-md animate-fade">
+            <button onclick="switchTab('home')" class="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1.5 mb-4 font-medium transition">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
             </button>
             
-            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg relative">
-                <div class="inline-block bg-neoYellow border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm mb-4">
-                    ✨ ALIGHT MOTION PREMIUM
-                </div>
-
-                <div class="text-xs font-bold text-gray-700 bg-gray-100 border-2 border-black p-3 mb-6 shadow-hard-sm">
-                    Upgrade akun durasi 1 tahun secara instan via Magic Link.
+            <div class="glass-card border border-slate-800/80 p-6 md:p-8 rounded-3xl shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="text-center mb-6 relative z-10">
+                    <div class="inline-flex p-3 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-2xl mb-3">
+                        <i data-lucide="sparkles" class="w-6 h-6 animate-pulse"></i>
+                    </div>
+                    <h2 class="text-xl font-black">Alight Motion Premium</h2>
+                    <p class="text-slate-400 text-xs mt-1">Upgrade akun durasi 1 tahun via Magic Link</p>
                 </div>
 
                 <!-- TAHAP 1 -->
-                <div id="am-step-1" class="space-y-4">
+                <div id="am-step-1" class="space-y-4 relative z-10">
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Email Alight Motion</label>
-                        <input type="email" id="am-email-input" placeholder="nama@email.com" class="w-full bg-white border-3 border-black rounded-none px-4 py-3 text-sm font-mono font-bold focus:outline-none shadow-hard-sm">
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email Alight Motion</label>
+                        <input type="email" id="am-email-input" placeholder="nama@email.com" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 text-white transition">
                     </div>
-                    <button onclick="sendAMLink()" id="btn-send-link" class="w-full py-3.5 bg-neoYellow text-black font-black uppercase text-sm border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
+                    <button onclick="sendAMLink()" id="btn-send-link" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-95 active:scale-[0.98] rounded-2xl font-bold text-sm transition shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2">
                         <i data-lucide="send" class="w-4 h-4"></i> Kirim Magic Link
                     </button>
                 </div>
 
                 <!-- TAHAP 2 -->
-                <div id="am-step-2" class="hidden space-y-4">
-                    <div class="p-3 bg-gray-100 border-2 border-black text-xs font-mono shadow-hard-sm">
-                        Target Email: <span id="display-target-email" class="font-bold"></span>
+                <div id="am-step-2" class="hidden space-y-4 relative z-10">
+                    <div class="p-3.5 bg-slate-950/60 rounded-2xl border border-slate-800 text-xs text-slate-300 flex items-center justify-between">
+                        <span class="text-slate-400">Target:</span>
+                        <span id="display-target-email" class="font-mono font-bold text-indigo-300 truncate max-w-[200px]"></span>
                     </div>
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Tempel / Paste Magic Link</label>
-                        <input type="text" id="am-magic-link-input" placeholder="https://alight-creative.firebaseapp.com/..." class="w-full bg-white border-3 border-black rounded-none px-4 py-3 text-xs font-mono focus:outline-none shadow-hard-sm">
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tempel Magic Link</label>
+                        <input type="text" id="am-magic-link-input" placeholder="https://alight-creative.firebaseapp.com/..." class="w-full bg-slate-900/90 border border-slate-700/80 rounded-2xl px-4 py-3 text-xs font-mono focus:outline-none focus:border-indigo-500 text-white transition">
                     </div>
-                    <button onclick="verifyAMLink()" id="btn-verify-link" class="w-full py-3.5 bg-green-400 text-black font-black uppercase text-sm border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
-                        <i data-lucide="check-circle" class="w-4 h-4"></i> Verifikasi & Upgrade
+                    <button onclick="verifyAMLink()" id="btn-verify-link" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-95 active:scale-[0.98] rounded-2xl font-bold text-sm transition shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2">
+                        <i data-lucide="check-circle-2" class="w-4 h-4"></i> Verifikasi & Upgrade
                     </button>
-                    <div class="pt-1">
-                        <button onclick="resetAMForm()" class="text-xs font-black uppercase underline">← Ganti Email</button>
+                    <div class="flex justify-between text-xs pt-1">
+                        <button onclick="resetAMForm()" class="text-indigo-400 hover:underline font-medium">← Ganti Email</button>
                     </div>
                 </div>
                 
-                <div id="am-status-msg" class="mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
+                <div id="am-status-msg" class="mt-4 text-xs p-3.5 rounded-2xl hidden font-medium"></div>
             </div>
         </div>
 
         <!-- FITUR 2: AM PRESET FINDER -->
-        <div id="view-presetfinder" class="hidden w-full animate-fade">
-            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-3 flex items-center gap-1 hover:underline">
+        <div id="view-presetfinder" class="hidden w-full max-w-2xl animate-fade">
+            <button onclick="switchTab('home')" class="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 mb-4 font-medium transition">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
             </button>
             
-            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg relative space-y-5">
-                <div class="inline-block bg-neoCyan border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm">
-                    🔍 AM PRESET FINDER
+            <div class="glass-card border border-slate-800/80 p-6 md:p-8 rounded-3xl shadow-2xl relative space-y-6">
+                <div class="text-center">
+                    <div class="inline-flex p-3 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-2xl mb-3">
+                        <i data-lucide="search" class="w-6 h-6 animate-pulse"></i>
+                    </div>
+                    <h2 class="text-xl font-black">AM Preset Finder</h2>
+                    <p class="text-slate-400 text-xs mt-1">Ekstrak link preset Alight Motion dari video TikTok atau YouTube secara instan.</p>
                 </div>
 
+                <!-- Input Form URL -->
                 <div class="space-y-3">
                     <div>
-                        <label class="block text-xs font-black uppercase mb-1.5">Link Video TikTok / YouTube</label>
-                        <input type="text" id="pf-url-input" placeholder="https://www.tiktok.com/@user/video/..." class="w-full bg-white border-3 border-black rounded-none px-4 py-3 text-xs font-mono focus:outline-none shadow-hard-sm">
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Link Video TikTok / YouTube</label>
+                        <input type="text" id="pf-url-input" placeholder="https://www.tiktok.com/@user/video/..." class="w-full bg-slate-900/90 border border-slate-700/80 rounded-2xl px-4 py-3 text-xs font-mono focus:outline-none focus:border-cyan-500 text-white transition">
                     </div>
-                    <button onclick="findPreset()" id="btn-find-preset" class="w-full py-3.5 bg-neoCyan text-black font-black uppercase text-sm border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
+                    <button onclick="findPreset()" id="btn-find-preset" class="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:opacity-95 active:scale-[0.98] rounded-2xl font-bold text-sm transition shadow-lg shadow-cyan-600/30 flex items-center justify-center gap-2">
                         <i data-lucide="search" class="w-4 h-4"></i> Cari Preset Sekarang
                     </button>
                 </div>
 
-                <div id="pf-status-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
+                <div id="pf-status-msg" class="text-xs p-3.5 rounded-2xl hidden font-medium"></div>
 
-                <!-- Hasil Ekstraksi Sesuai Kode Lama yang Stabil -->
-                <div id="pf-result-container" class="hidden space-y-5 pt-4 border-t-2 border-black animate-fade">
-                    <div class="bg-gray-50 p-3.5 border-2 border-black flex items-center gap-4 shadow-hard-sm">
-                        <div class="w-20.5 w-24 h-28 border-2 border-black flex-shrink-0 bg-black overflow-hidden">
+                <!-- Hasil Ekstraksi Lengkap Sesuai Response API -->
+                <div id="pf-result-container" class="hidden space-y-5 pt-4 border-t border-slate-800 animate-fade">
+                    
+                    <!-- 1. Preview Video & Author Card -->
+                    <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-center gap-4">
+                        <!-- Cover Video Thumbnail -->
+                        <div class="relative w-24 h-32 rounded-xl overflow-hidden border border-slate-700 flex-shrink-0 bg-slate-950">
                             <img id="pf-video-cover" src="" alt="Cover" class="w-full h-full object-cover">
                         </div>
-                        <div class="space-y-2 overflow-hidden flex-1">
+                        
+                        <!-- Detail Info -->
+                        <div class="space-y-2 flex-1 w-full overflow-hidden">
                             <div class="flex items-center gap-2.5">
-                                <img id="pf-author-avatar" src="" alt="Avatar" class="w-7 h-7 border-2 border-black rounded-full object-cover flex-shrink-0">
-                                <span id="pf-author-name" class="text-xs font-black truncate">@author</span>
+                                <img id="pf-author-avatar" src="" alt="Avatar" class="w-8 h-8 rounded-full border border-slate-700 object-cover flex-shrink-0">
+                                <span id="pf-author-name" class="text-sm font-bold text-cyan-300 truncate">@author</span>
                             </div>
-                            <p id="pf-video-desc" class="text-[11px] font-medium text-gray-600 line-clamp-2">Deskripsi video...</p>
-                            <div class="flex items-center gap-3 pt-1 text-[10px] font-bold text-gray-500">
-                                <span class="flex items-center gap-1">👁️ <span id="pf-stat-views">0</span></span>
-                                <span class="flex items-center gap-1">❤️ <span id="pf-stat-likes">0</span></span>
-                                <span class="flex items-center gap-1">💬 <span id="pf-stat-comments">0</span></span>
+                            <p id="pf-video-desc" class="text-xs text-slate-300 line-clamp-2">Deskripsi video...</p>
+                            
+                            <!-- Statistik Video -->
+                            <div class="flex items-center gap-3 pt-1 text-[11px] text-slate-400 font-medium">
+                                <span class="flex items-center gap-1"><i data-lucide="eye" class="w-3.5 h-3.5 text-cyan-400"></i> <span id="pf-stat-views">0</span></span>
+                                <span class="flex items-center gap-1"><i data-lucide="heart" class="w-3.5 h-3.5 text-rose-400"></i> <span id="pf-stat-likes">0</span></span>
+                                <span class="flex items-center gap-1"><i data-lucide="message-square" class="w-3.5 h-3.5 text-indigo-400"></i> <span id="pf-stat-comments">0</span></span>
                             </div>
                         </div>
                     </div>
 
+                    <!-- 2. Daftar Link Preset Ditemukan -->
                     <div class="space-y-3">
-                        <h3 class="text-xs font-black uppercase tracking-wider">Daftar Link Preset Ditemukan:</h3>
-                        <div id="pf-presets-list" class="space-y-2.5"></div>
+                        <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Daftar Link Preset Ditemukan:</h3>
+                        <div id="pf-presets-list" class="space-y-2.5">
+                            <!-- Dynamic injected -->
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -193,35 +205,33 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="max-w-xl w-full mx-auto px-4 py-6 text-center text-xs font-black">
-        <div class="bg-black text-white px-3 py-2 border-2 border-black shadow-hard-sm inline-block">
-            © 2026 Vertizx. Dibuat oleh PiiZx.
-        </div>
+    <footer class="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
+        © 2026 Vertizx. Dibuat dengan penuh ❤️ oleh PiiZx.
     </footer>
 
     <!-- MODAL SUPPORT DEVELOPER -->
-    <div id="support-modal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4 animate-fade">
-        <div class="bg-white border-4 border-black max-w-sm w-full p-6 relative shadow-hard-lg">
-            <button onclick="toggleSupportModal(false)" class="absolute top-3 right-3 bg-red-500 text-white p-1 border-2 border-black font-black hover:bg-red-600">
+    <div id="support-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 animate-fade">
+        <div class="glass-card border border-slate-700/80 rounded-3xl max-w-sm w-full p-6 text-center relative shadow-2xl shadow-indigo-950/50">
+            <button onclick="toggleSupportModal(false)" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-900/80 p-1.5 rounded-xl border border-slate-700 transition">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
-            <div class="inline-flex p-2.5 bg-neoPink text-white border-2 border-black shadow-hard-sm mb-3">
-                <i data-lucide="heart" class="w-5 h-5 fill-white"></i>
+            <div class="inline-flex p-3 bg-rose-500/10 text-rose-400 rounded-2xl border border-rose-500/20 mb-3 shadow-inner">
+                <i data-lucide="heart" class="w-6 h-6 fill-rose-400"></i>
             </div>
-            <h3 class="text-lg font-black uppercase mb-1">Dukung PiiZx</h3>
-            <p class="text-xs font-bold text-gray-600 mb-4">Bantu donasi seikhlasnya agar website Vertizx terus update!</p>
+            <h3 class="text-lg font-bold mb-1">Dukung Developer PiiZx</h3>
+            <p class="text-slate-400 text-xs mb-4">Bantu donasi seikhlasnya agar website Vertizx terus update!</p>
             
-            <div class="bg-gray-100 p-3.5 border-2 border-black mb-4 space-y-1 shadow-hard-sm">
-                <div class="text-[10px] font-black uppercase text-gray-500">Nomor E-Wallet (GoPay/DANA/OVO):</div>
-                <div class="text-sm font-mono font-black select-all">0895351456586</div>
-                <div class="text-[10px] font-bold text-gray-500">Atas Nama: PiiZx</div>
+            <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 mb-4 space-y-1.5 shadow-inner">
+                <div class="text-[11px] text-slate-400">Nomor E-Wallet (GoPay / DANA / OVO):</div>
+                <div class="text-base font-mono font-bold text-indigo-300 select-all tracking-wide">0895351456586</div>
+                <div class="text-[10px] text-slate-500">Atas Nama: PiiZx</div>
             </div>
 
-            <button onclick="copyNumber()" class="w-full py-2.5 bg-neoYellow text-black font-black uppercase text-xs border-2 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">Salin Nomor</button>
+            <button onclick="copyNumber()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] rounded-xl text-xs font-bold transition shadow-lg shadow-indigo-600/30">Salin Nomor</button>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC (MENGGUNAKAN STRUKTUR AMAN KODE LAMA) -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         try {
             lucide.createIcons();
@@ -248,7 +258,7 @@
         }
 
         // ==========================================
-        // LOGIC AM PRESET FINDER (STABIL SEPERTI KODE LAMA)
+        // LOGIC AM PRESET FINDER (LENGKAP DENGAN RESPONSE API)
         // ==========================================
         async function findPreset() {
             const urlInput = document.getElementById('pf-url-input').value.trim();
@@ -274,12 +284,14 @@
                 if (json && json.success && json.data) {
                     const data = json.data;
                     
+                    // 1. Author Info
                     document.getElementById('pf-author-name').innerText = data.author || '@unknown';
                     document.getElementById('pf-video-desc').innerText = data.video?.description || 'Tanpa deskripsi';
                     
                     const avatarImg = document.getElementById('pf-author-avatar');
                     avatarImg.src = data.authorDetail?.avatar || 'https://via.placeholder.com/150';
 
+                    // 2. Video Cover & Stats
                     const coverImg = document.getElementById('pf-video-cover');
                     coverImg.src = data.video?.cover || 'https://via.placeholder.com/150';
 
@@ -287,22 +299,23 @@
                     document.getElementById('pf-stat-likes').innerText = formatNumber(data.video?.stats?.likes);
                     document.getElementById('pf-stat-comments').innerText = formatNumber(data.video?.stats?.comments);
 
+                    // 3. Render Preset Links
                     const presetsListEl = document.getElementById('pf-presets-list');
                     presetsListEl.innerHTML = '';
 
                     if (data.presetLinks && data.presetLinks.length > 0) {
                         data.presetLinks.forEach((preset) => {
                             presetsListEl.innerHTML += `
-                                <div class="bg-gray-50 p-3.5 border-2 border-black flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-hard-sm">
+                                <div class="bg-slate-900/90 p-3.5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                                     <div class="space-y-0.5 overflow-hidden">
-                                        <div class="text-xs font-black uppercase text-black flex items-center gap-1.5">
+                                        <div class="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
                                             <span>🎁 ${escapeHtml(preset.title || 'Preset Alight Motion')}</span>
-                                            <span class="px-2 py-0.5 bg-neoYellow text-black text-[10px] border border-black">${escapeHtml(preset.type || 'Preset')}</span>
+                                            <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-300 text-[10px] rounded-lg border border-cyan-500/20">${escapeHtml(preset.type || 'Preset')}</span>
                                         </div>
-                                        <div class="text-[11px] text-gray-500 font-mono truncate max-w-[240px] sm:max-w-[285px]">${escapeHtml(preset.url)}</div>
+                                        <div class="text-[11px] text-slate-400 font-mono truncate max-w-[260px] sm:max-w-[300px]">${escapeHtml(preset.url)}</div>
                                     </div>
-                                    <button onclick="copyPresetLink('${escapeHtml(preset.url)}')" class="w-full sm:w-auto px-3.5 py-1.5 bg-neoYellow text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-yellow-400 transition flex items-center justify-center gap-1 flex-shrink-0">
-                                        Salin Link
+                                    <button onclick="copyPresetLink('${escapeHtml(preset.url)}')" class="w-full sm:w-auto px-4 py-2 bg-cyan-600 hover:bg-cyan-700 active:scale-[0.98] text-white text-xs font-bold rounded-xl transition shadow-md shadow-cyan-600/20 flex items-center justify-center gap-1.5 flex-shrink-0">
+                                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Link
                                     </button>
                                 </div>
                             `;
@@ -310,7 +323,7 @@
                         lucide.createIcons();
                         resultContainer.classList.remove('hidden');
                     } else {
-                        msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                        msgBox.className = 'text-xs p-3.5 rounded-2xl bg-amber-950/80 text-amber-300 border border-amber-800 animate-fade';
                         msgBox.innerText = '⚠️ Tidak ditemukan link preset di video tersebut.';
                         msgBox.classList.remove('hidden');
                     }
@@ -318,7 +331,7 @@
                     throw new Error('Gagal memproses data dari server.');
                 }
             } catch (err) {
-                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.className = 'text-xs p-3.5 rounded-2xl bg-rose-950/80 text-rose-300 border border-rose-800 animate-fade';
                 msgBox.innerText = 'Gagal mencari preset: ' + err.message;
                 msgBox.classList.remove('hidden');
             } finally {
@@ -335,7 +348,9 @@
 
         function formatNumber(num) {
             if (!num) return '0';
-            if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'k';
+            }
             return num;
         }
 
@@ -343,6 +358,7 @@
             if (!text) return '';
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
+
 
         // ==========================================
         // LOGIC ALIGHT MOTION PREMIUM (AMAN & UTUH)
@@ -388,12 +404,12 @@
                     document.getElementById('am-step-1').classList.add('hidden');
                     document.getElementById('am-step-2').classList.remove('hidden');
                 } else {
-                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                    msgBox.className = 'mt-4 text-xs p-3.5 rounded-2xl bg-rose-950/80 text-rose-300 border border-rose-800 animate-fade';
                     msgBox.innerText = 'Gagal: ' + (data.message || 'Terjadi kesalahan pada server.');
                     msgBox.classList.remove('hidden');
                 }
             } catch (err) {
-                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.className = 'mt-4 text-xs p-3.5 rounded-2xl bg-rose-950/80 text-rose-300 border border-rose-800 animate-fade';
                 msgBox.innerText = 'Gagal koneksi: ' + err.message;
                 msgBox.classList.remove('hidden');
             } finally {
@@ -446,16 +462,16 @@
                 }
 
                 if (res.ok || data.success) {
-                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-green-300 text-black';
+                    msgBox.className = 'mt-4 text-xs p-3.5 rounded-2xl bg-emerald-950/80 text-emerald-300 border border-emerald-800 animate-fade';
                     msgBox.innerText = '🎉 ' + (data.message || 'Sukses! Akun Alight Motion berhasil menjadi Premium.');
                     msgBox.classList.remove('hidden');
                 } else {
-                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                    msgBox.className = 'mt-4 text-xs p-3.5 rounded-2xl bg-rose-950/80 text-rose-300 border border-rose-800 animate-fade';
                     msgBox.innerText = 'Gagal: ' + (data.message || 'Link atau email tidak valid / kadaluarsa.');
                     msgBox.classList.remove('hidden');
                 }
             } catch(err) {
-                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.className = 'mt-4 text-xs p-3.5 rounded-2xl bg-rose-950/80 text-rose-300 border border-rose-800 animate-fade';
                 msgBox.innerText = 'Terjadi kesalahan jaringan: ' + err.message;
                 msgBox.classList.remove('hidden');
             } finally {
