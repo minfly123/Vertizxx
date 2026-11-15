@@ -335,7 +335,7 @@
         }
 
         // ==========================================
-        // LOGIC AM PRESET FINDER DENGAN COOLDOWN 20 DETIK
+        // LOGIC AM PRESET FINDER DENGAN COOLDOWN 60 DETIK
         // ==========================================
         let isPFCooldown = false;
 
@@ -401,7 +401,7 @@
                         lucide.createIcons();
                         resultContainer.classList.remove('hidden');
 
-                        // PANGGIL BANNER GLOBAL CUKUP DENGAN 1 BARIS INI!
+                        // PANGGIL BANNER GLOBAL
                         renderSupportBanner('pf-support-banner');
                     } else {
                         msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
@@ -416,7 +416,8 @@
                 msgBox.innerText = 'Gagal mencari preset: ' + err.message;
                 msgBox.classList.remove('hidden');
             } finally {
-                startPFCooldown(20);
+                // DIUBAH MENJADI 60 DETIK
+                startPFCooldown(60);
             }
         }
 
@@ -445,7 +446,7 @@
 
 
         // ==========================================
-        // LOGIC TIKTOK DOWNLOADER DENGAN COOLDOWN 20 DETIK
+        // LOGIC TIKTOK DOWNLOADER DENGAN COOLDOWN 60 DETIK
         // ==========================================
         let isTTCooldown = false;
 
@@ -512,7 +513,7 @@
                     lucide.createIcons();
                     resultContainer.classList.remove('hidden');
 
-                    // PANGGIL BANNER GLOBAL CUKUP DENGAN 1 BARIS INI!
+                    // PANGGIL BANNER GLOBAL
                     renderSupportBanner('tt-support-banner');
                 } else {
                     throw new Error('Gagal mengambil data dari server TikTok.');
@@ -522,7 +523,8 @@
                 msgBox.innerText = 'Gagal mengunduh: ' + err.message;
                 msgBox.classList.remove('hidden');
             } finally {
-                startTTCooldown(20);
+                // DIUBAH MENJADI 60 DETIK
+                startTTCooldown(60);
             }
         }
 
@@ -672,7 +674,7 @@
                     msgBox.innerText = '🎉 ' + (data.message || 'Sukses! Akun Alight Motion berhasil menjadi Premium.');
                     msgBox.classList.remove('hidden');
 
-                    // PANGGIL BANNER GLOBAL CUKUP DENGAN 1 BARIS INI!
+                    // PANGGIL BANNER GLOBAL
                     renderSupportBanner('am-support-banner');
                 } else {
                     msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
