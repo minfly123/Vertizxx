@@ -268,7 +268,15 @@
 
             try {
                 const apiEndpoint = `https://api.ikyyxd.my.id/tools/amfinder?url=${encodeURIComponent(urlInput)}`;
-                const res = await fetch(apiEndpoint);
+                const res = await fetch(apiEndpoint, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!res.ok) throw new Error('Server API sedang gangguan atau menolak permintaan.');
+
                 const json = await res.json();
 
                 if (json && json.success && json.data) {
@@ -313,7 +321,7 @@
                 }
             } catch (err) {
                 msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
-                msgBox.innerText = 'GAGAL: ' + err.message;
+                msgBox.innerText = 'GAGAL KONEKSI: ' + err.message;
                 msgBox.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
@@ -449,7 +457,6 @@
                     msgBox.classList.remove('hidden');
                 }
             } catch(err) {
-                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
                 msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
                 msgBox.innerText = 'TERJADI KESALAHAN JARINGAN: ' + err.message;
                 msgBox.classList.remove('hidden');
