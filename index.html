@@ -69,7 +69,7 @@
         <div id="view-home" class="w-full space-y-6 animate-fade">
             <div class="text-center py-6 bg-white border-4 border-black p-6 shadow-hard-lg">
                 <h1 class="text-2xl md:text-3xl font-black uppercase tracking-tight mb-2">Pilih Fitur <span class="bg-neoYellow px-2 border-2 border-black">Vertizx</span></h1>
-                <p class="text-xs font-bold text-gray-700">Platform all-in-one utility tools digital untuk kreator dan editor konten. Menyediakan berbagai solusi instan mulai dari layanan produktivitas, ekstraksi aset kreatif, hingga pengunduhan media sosial dengan sistem yang aman dan efisien.</p>
+                <p class="text-xs font-bold text-gray-700">Platform all-in-one utility tools digital untuk kreator dan editor konten.</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -97,7 +97,7 @@
                     <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
                 </div>
 
-                <!-- Card TikTok Downloader (BARU) -->
+                <!-- Card TikTok Downloader -->
                 <div onclick="switchTab('tiktokdl')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
                     <div>
                         <div class="p-2.5 bg-neoGreen text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
@@ -155,6 +155,9 @@
                 </div>
                 
                 <div id="am-status-msg" class="mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
+
+                <!-- Wadah Global Support Banner -->
+                <div id="am-support-banner" class="hidden mt-4"></div>
             </div>
         </div>
 
@@ -205,11 +208,14 @@
                         <h3 class="text-xs font-black uppercase tracking-wider">Daftar Link Preset Ditemukan:</h3>
                         <div id="pf-presets-list" class="space-y-2.5"></div>
                     </div>
+
+                    <!-- Wadah Global Support Banner -->
+                    <div id="pf-support-banner"></div>
                 </div>
             </div>
         </div>
 
-        <!-- FITUR 3: TIKTOK DOWNLOADER (BARU) -->
+        <!-- FITUR 3: TIKTOK DOWNLOADER -->
         <div id="view-tiktokdl" class="hidden w-full animate-fade">
             <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-3 flex items-center gap-1 hover:underline">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
@@ -247,9 +253,10 @@
                         </div>
                     </div>
 
-                    <div class="space-y-2.5" id="tt-buttons-list">
-                        <!-- Dynamic download buttons injected here -->
-                    </div>
+                    <div class="space-y-2.5" id="tt-buttons-list"></div>
+
+                    <!-- Wadah Global Support Banner -->
+                    <div id="tt-support-banner"></div>
                 </div>
             </div>
         </div>
@@ -310,6 +317,21 @@
         function copyNumber() {
             navigator.clipboard.writeText('0895351456586');
             alert('Nomor e-wallet berhasil disalin!');
+        }
+
+        // ==========================================
+        // FUNGSI GLOBAL SUPPORT BANNER (REUSABLE)
+        // ==========================================
+        function renderSupportBanner(elementId) {
+            const container = document.getElementById(elementId);
+            if (!container) return;
+            
+            container.innerHTML = `
+                <div class="p-3.5 bg-pink-50 border-2 border-black text-xs font-bold shadow-hard-sm flex items-center justify-between gap-2 animate-fade">
+                    <span>☕ Suka tools ini? Traktir kopi developer yuk biar makin semangat update!</span>
+                    <button onclick="toggleSupportModal(true)" class="px-3 py-1 bg-neoPink text-white border-2 border-black uppercase text-[10px] shadow-hard-sm flex-shrink-0 hover:bg-pink-600 transition">Support</button>
+                </div>
+            `;
         }
 
         // ==========================================
@@ -378,6 +400,9 @@
                         });
                         lucide.createIcons();
                         resultContainer.classList.remove('hidden');
+
+                        // PANGGIL BANNER GLOBAL CUKUP DENGAN 1 BARIS INI!
+                        renderSupportBanner('pf-support-banner');
                     } else {
                         msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
                         msgBox.innerText = '⚠️ Tidak ditemukan link preset di video tersebut.';
@@ -458,7 +483,6 @@
                     const buttonsList = document.getElementById('tt-buttons-list');
                     buttonsList.innerHTML = '';
 
-                    // Tombol Video Tanpa Watermark
                     if (data.video) {
                         buttonsList.innerHTML += `
                             <a href="${data.video}" target="_blank" class="w-full py-3 bg-neoGreen text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-emerald-400 transition flex items-center justify-center gap-2">
@@ -467,7 +491,6 @@
                         `;
                     }
 
-                    // Tombol Musik / Audio
                     if (data.music) {
                         buttonsList.innerHTML += `
                             <a href="${data.music}" target="_blank" class="w-full py-3 bg-neoYellow text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-yellow-400 transition flex items-center justify-center gap-2">
@@ -476,7 +499,6 @@
                         `;
                     }
 
-                    // Tombol Foto (Jika berupa slide foto)
                     if (data.images && data.images.length > 0) {
                         data.images.forEach((imgUrl, idx) => {
                             buttonsList.innerHTML += `
@@ -489,6 +511,9 @@
 
                     lucide.createIcons();
                     resultContainer.classList.remove('hidden');
+
+                    // PANGGIL BANNER GLOBAL CUKUP DENGAN 1 BARIS INI!
+                    renderSupportBanner('tt-support-banner');
                 } else {
                     throw new Error('Gagal mengambil data dari server TikTok.');
                 }
@@ -622,6 +647,7 @@
             btn.disabled = true;
             btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Memverifikasi...';
             msgBox.classList.add('hidden');
+            document.getElementById('am-support-banner').innerHTML = '';
 
             try {
                 const res = await fetch(`${WORKER_BASE}/verify-link`, {
@@ -645,6 +671,9 @@
                     msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-green-300 text-black';
                     msgBox.innerText = '🎉 ' + (data.message || 'Sukses! Akun Alight Motion berhasil menjadi Premium.');
                     msgBox.classList.remove('hidden');
+
+                    // PANGGIL BANNER GLOBAL CUKUP DENGAN 1 BARIS INI!
+                    renderSupportBanner('am-support-banner');
                 } else {
                     msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
                     msgBox.innerText = 'Gagal: ' + (data.message || 'Link atau email tidak valid / kadaluarsa.');
@@ -665,6 +694,7 @@
             document.getElementById('am-step-2').classList.add('hidden');
             document.getElementById('am-step-1').classList.remove('hidden');
             document.getElementById('am-status-msg').classList.add('hidden');
+            document.getElementById('am-support-banner').innerHTML = '';
         }
     </script>
 </body>
