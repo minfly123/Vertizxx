@@ -6,6 +6,8 @@
     <title>Vertizx - PiiZx</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS Client v2 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -14,6 +16,7 @@
                         neoYellow: '#FFDE00',
                         neoPink: '#FF4191',
                         neoCyan: '#00F0FF',
+                        neoGreen: '#00E676',
                         neoDark: '#121212',
                     },
                     boxShadow: {
@@ -54,10 +57,17 @@
                 <span class="text-xl font-black tracking-wider uppercase">Vertizx</span>
             </div>
             
-            <button onclick="toggleSupportModal(true)" class="flex items-center gap-1.5 px-4 py-2 bg-neoPink text-white font-bold text-xs uppercase border-2 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
-                <i data-lucide="heart" class="w-4 h-4 fill-white"></i>
-                <span>Support</span>
-            </button>
+            <div class="flex items-center gap-2">
+                <!-- Tombol Dev Panel (Otomatis muncul jika role developer) -->
+                <button id="nav-dev-btn" onclick="switchTab('developer')" class="hidden items-center gap-1.5 px-3 py-2 bg-neoGreen text-black font-black text-xs uppercase border-2 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    <span>Dev Panel</span>
+                </button>
+                <button onclick="toggleSupportModal(true)" class="flex items-center gap-1.5 px-4 py-2 bg-neoPink text-white font-bold text-xs uppercase border-2 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
+                    <i data-lucide="heart" class="w-4 h-4 fill-white"></i>
+                    <span>Support</span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -88,6 +98,62 @@
                     </div>
                     <h2 class="text-base font-black uppercase mb-1">AM Preset Finder</h2>
                     <p class="text-xs font-medium text-gray-600">Cari link preset Alight Motion dari video TikTok/YouTube secara instan.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEVELOPER PANEL VIEW -->
+        <div id="view-developer" class="hidden w-full animate-fade space-y-4">
+            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
+            </button>
+            
+            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg space-y-5">
+                <div class="inline-block bg-neoGreen border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm">
+                    🛡️ DEVELOPER PANEL (REAL-TIME)
+                </div>
+
+                <!-- Status Pengecekan Role -->
+                <div id="dev-status-box" class="p-3.5 bg-yellow-50 border-2 border-black text-xs font-bold shadow-hard-sm">
+                    🔄 Memeriksa akses akun di database Supabase...
+                </div>
+
+                <!-- Form Pembuatan Akun -->
+                <div id="dev-form-wrapper" class="hidden space-y-4 pt-2 border-t-2 border-black">
+                    <div class="bg-indigo-50 border-2 border-black p-3 text-xs font-bold text-indigo-900 shadow-hard-sm">
+                        ✨ Anda login sebagai <strong>Developer</strong>. Kosongkan kolom <em>Expired At</em> jika ingin membuat akun menjadi <strong>Permanen</strong>.
+                    </div>
+
+                    <form id="create-user-form" class="space-y-3.5">
+                        <div>
+                            <label class="block text-xs font-black uppercase mb-1">Username Baru</label>
+                            <input type="text" id="new-username" required placeholder="Contoh: userbaru" class="w-full bg-white border-3 border-black rounded-none px-3.5 py-2.5 text-xs font-mono font-bold focus:outline-none shadow-hard-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-black uppercase mb-1">Password</label>
+                            <input type="password" id="new-password" required placeholder="••••••••" class="w-full bg-white border-3 border-black rounded-none px-3.5 py-2.5 text-xs font-mono font-bold focus:outline-none shadow-hard-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-black uppercase mb-1">Role Akun</label>
+                            <select id="new-role" class="w-full bg-white border-3 border-black rounded-none px-3.5 py-2.5 text-xs font-black uppercase focus:outline-none shadow-hard-sm">
+                                <option value="user">User</option>
+                                <option value="developer">Developer</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-black uppercase mb-1">Expired At <span class="text-gray-500 font-normal">(Kosongkan = Permanen)</span></label>
+                            <input type="datetime-local" id="new-expired" class="w-full bg-white border-3 border-black rounded-none px-3.5 py-2.5 text-xs font-mono focus:outline-none shadow-hard-sm">
+                        </div>
+
+                        <button type="submit" id="btn-create-acc" class="w-full py-3 bg-neoYellow text-black font-black uppercase text-xs border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
+                            <i data-lucide="user-plus" class="w-4 h-4"></i> Buat Akun Baru (Real-time)
+                        </button>
+                    </form>
+
+                    <div id="dev-action-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
                 </div>
             </div>
         </div>
@@ -162,10 +228,10 @@
 
                 <div id="pf-status-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
 
-                <!-- Hasil Ekstraksi Sesuai Kode Lama yang Stabil -->
+                <!-- Hasil Ekstraksi -->
                 <div id="pf-result-container" class="hidden space-y-5 pt-4 border-t-2 border-black animate-fade">
                     <div class="bg-gray-50 p-3.5 border-2 border-black flex items-center gap-4 shadow-hard-sm">
-                        <div class="w-20.5 w-24 h-28 border-2 border-black flex-shrink-0 bg-black overflow-hidden">
+                        <div class="w-24 h-28 border-2 border-black flex-shrink-0 bg-black overflow-hidden">
                             <img id="pf-video-cover" src="" alt="Cover" class="w-full h-full object-cover">
                         </div>
                         <div class="space-y-2 overflow-hidden flex-1">
@@ -221,7 +287,7 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC (MENGGUNAKAN STRUKTUR AMAN KODE LAMA) -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         try {
             lucide.createIcons();
@@ -231,6 +297,7 @@
             document.getElementById('view-home').classList.add('hidden');
             document.getElementById('view-alightmotion').classList.add('hidden');
             document.getElementById('view-presetfinder').classList.add('hidden');
+            document.getElementById('view-developer').classList.add('hidden');
             
             document.getElementById('view-' + tabName).classList.remove('hidden');
             window.scrollTo(0, 0);
@@ -248,7 +315,104 @@
         }
 
         // ==========================================
-        // LOGIC AM PRESET FINDER (STABIL SEPERTI KODE LAMA)
+        // KONFIGURASI SUPABASE & CEK ROLE DEVELOPER
+        // ==========================================
+        const SUPABASE_URL = 'https://czamahmwcrareolalwxv.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_secret_-mFqZaanVF7Q8GiYfxKqGw_stqmapHd';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Simulasi akun yang sedang login (bisa diganti sesuai sistem login Anda, misal: localStorage.getItem('username'))
+        const currentUsername = localStorage.getItem('logged_in_username') || 'refly'; 
+
+        async function checkDeveloperAccess() {
+            const statusBox = document.getElementById('dev-status-box');
+            const devFormWrapper = document.getElementById('dev-form-wrapper');
+            const navDevBtn = document.getElementById('nav-dev-btn');
+
+            try {
+                const { data, error } = await supabase
+                    .from('users')
+                    .select('role')
+                    .eq('username', currentUsername)
+                    .single();
+
+                if (error || !data) {
+                    statusBox.className = 'p-3.5 bg-red-100 border-2 border-black text-xs font-bold text-red-700 shadow-hard-sm';
+                    statusBox.innerHTML = '❌ Akun <strong>' + currentUsername + '</strong> tidak ditemukan di database Supabase.';
+                    return;
+                }
+
+                if (data.role === 'developer') {
+                    statusBox.classList.add('hidden');
+                    devFormWrapper.classList.remove('hidden');
+                    navDevBtn.classList.remove('hidden');
+                    navDevBtn.classList.add('flex');
+                } else {
+                    statusBox.className = 'p-3.5 bg-red-100 border-2 border-black text-xs font-bold text-red-700 shadow-hard-sm';
+                    statusBox.innerHTML = '⛔ Akses Ditolak! Akun Anda ("' + currentUsername + '") ber-role <strong>' + data.role + '</strong>, bukan developer.';
+                }
+            } catch (err) {
+                statusBox.className = 'p-3.5 bg-red-100 border-2 border-black text-xs font-bold text-red-700 shadow-hard-sm';
+                statusBox.innerHTML = '⚠️ Terjadi kesalahan koneksi ke Supabase: ' + err.message;
+            }
+        }
+
+        // Handle Form Pembuatan Akun Real-time ke Supabase
+        document.getElementById('create-user-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msgBox = document.getElementById('dev-action-msg');
+            const btn = document.getElementById('btn-create-acc');
+
+            const username = document.getElementById('new-username').value.trim();
+            const password = document.getElementById('new-password').value.trim();
+            const role = document.getElementById('new-role').value;
+            const expiredInput = document.getElementById('new-expired').value;
+
+            // Jika input expired dikosongkan, ubah menjadi null (permanen)
+            const expired_at = expiredInput ? new Date(expiredInput).toISOString() : null;
+
+            btn.disabled = true;
+            btn.innerHTML = '⏳ Menyimpan ke Database...';
+            msgBox.classList.add('hidden');
+
+            try {
+                const { data, error } = await supabase
+                    .from('users')
+                    .insert([
+                        { 
+                            username: username, 
+                            password: password, 
+                            role: role, 
+                            expired_at: expired_at 
+                        }
+                    ]);
+
+                if (error) {
+                    throw new Error(error.message);
+                }
+
+                msgBox.className = 'text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-green-300 text-black';
+                msgBox.innerHTML = '🎉 Sukses! Akun <strong>' + username + '</strong> berhasil dibuat secara real-time di database!';
+                msgBox.classList.remove('hidden');
+                document.getElementById('create-user-form').reset();
+            } catch (err) {
+                msgBox.className = 'text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerHTML = '❌ Gagal membuat akun: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="user-plus" class="w-4 h-4"></i> Buat Akun Baru (Real-time)';
+                lucide.createIcons();
+            }
+        });
+
+        // Jalankan pengecekan role saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            checkDeveloperAccess();
+        });
+
+        // ==========================================
+        // LOGIC AM PRESET FINDER
         // ==========================================
         async function findPreset() {
             const urlInput = document.getElementById('pf-url-input').value.trim();
@@ -345,7 +509,7 @@
         }
 
         // ==========================================
-        // LOGIC ALIGHT MOTION PREMIUM (AMAN & UTUH)
+        // LOGIC ALIGHT MOTION PREMIUM
         // ==========================================
         let userEmail = '';
         const WORKER_BASE = 'https://am.revlykurniawan.workers.dev';
