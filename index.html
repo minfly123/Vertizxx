@@ -14,6 +14,7 @@
                         neoYellow: '#FFDE00',
                         neoPink: '#FF4191',
                         neoCyan: '#00F0FF',
+                        neoGreen: '#00E676',
                         neoDark: '#121212',
                     },
                     boxShadow: {
@@ -68,26 +69,44 @@
         <div id="view-home" class="w-full space-y-6 animate-fade">
             <div class="text-center py-6 bg-white border-4 border-black p-6 shadow-hard-lg">
                 <h1 class="text-2xl md:text-3xl font-black uppercase tracking-tight mb-2">Pilih Fitur <span class="bg-neoYellow px-2 border-2 border-black">Vertizx</span></h1>
-                <p class="text-xs font-bold text-gray-700">Platform utility tools editor Alight Motion tercepat & anti ribet.</p>
+                <p class="text-xs font-bold text-gray-700">Platform utility tools editor Alight Motion & Downloader TikTok.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <!-- Card AM Premium -->
-                <div onclick="switchTab('alightmotion')" class="bg-white border-4 border-black p-5 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group">
-                    <div class="p-2.5 bg-neoYellow text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
-                        <i data-lucide="sparkles" class="w-5 h-5"></i>
+                <div onclick="switchTab('alightmotion')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
+                    <div>
+                        <div class="p-2.5 bg-neoYellow text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                        </div>
+                        <h2 class="text-sm font-black uppercase mb-1">AM Premium</h2>
+                        <p class="text-[11px] font-medium text-gray-600">Upgrade akun via magic link aman.</p>
                     </div>
-                    <h2 class="text-base font-black uppercase mb-1">AM Premium 1 Tahun</h2>
-                    <p class="text-xs font-medium text-gray-600">Upgrade akun Alight Motion via sistem verifikasi magic link aman.</p>
+                    <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
                 </div>
 
                 <!-- Card AM Preset Finder -->
-                <div onclick="switchTab('presetfinder')" class="bg-white border-4 border-black p-5 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group">
-                    <div class="p-2.5 bg-neoCyan text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
-                        <i data-lucide="search" class="w-5 h-5"></i>
+                <div onclick="switchTab('presetfinder')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
+                    <div>
+                        <div class="p-2.5 bg-neoCyan text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
+                            <i data-lucide="search" class="w-5 h-5"></i>
+                        </div>
+                        <h2 class="text-sm font-black uppercase mb-1">AM Preset Finder</h2>
+                        <p class="text-[11px] font-medium text-gray-600">Cari link preset dari TikTok/YouTube.</p>
                     </div>
-                    <h2 class="text-base font-black uppercase mb-1">AM Preset Finder</h2>
-                    <p class="text-xs font-medium text-gray-600">Cari link preset Alight Motion dari video TikTok/YouTube secara instan.</p>
+                    <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
+                </div>
+
+                <!-- Card TikTok Downloader (BARU) -->
+                <div onclick="switchTab('tiktokdl')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
+                    <div>
+                        <div class="p-2.5 bg-neoGreen text-black border-2 border-black w-fit mb-3 shadow-hard-sm">
+                            <i data-lucide="download" class="w-5 h-5"></i>
+                        </div>
+                        <h2 class="text-sm font-black uppercase mb-1">TikTok Downloader</h2>
+                        <p class="text-[11px] font-medium text-gray-600">Unduh video/audio TikTok tanpa watermark.</p>
+                    </div>
+                    <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
                 </div>
             </div>
         </div>
@@ -190,6 +209,51 @@
             </div>
         </div>
 
+        <!-- FITUR 3: TIKTOK DOWNLOADER (BARU) -->
+        <div id="view-tiktokdl" class="hidden w-full animate-fade">
+            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-3 flex items-center gap-1 hover:underline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
+            </button>
+            
+            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg relative space-y-5">
+                <div class="inline-block bg-neoGreen border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm">
+                    📥 TIKTOK DOWNLOADER
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1.5">Link Video TikTok</label>
+                        <input type="text" id="tt-url-input" placeholder="https://vt.tiktok.com/..." class="w-full bg-white border-3 border-black rounded-none px-4 py-3 text-xs font-mono focus:outline-none shadow-hard-sm">
+                    </div>
+                    <button onclick="downloadTikTok()" id="btn-tiktok-dl" class="w-full py-3.5 bg-neoGreen text-black font-black uppercase text-sm border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> Unduh Media TikTok
+                    </button>
+                </div>
+
+                <div id="tt-status-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
+
+                <!-- Hasil Downloader TikTok -->
+                <div id="tt-result-container" class="hidden space-y-4 pt-4 border-t-2 border-black animate-fade">
+                    <div class="bg-gray-50 p-3.5 border-2 border-black flex items-center gap-4 shadow-hard-sm">
+                        <div class="w-24 h-28 border-2 border-black flex-shrink-0 bg-black overflow-hidden">
+                            <img id="tt-video-cover" src="" alt="Cover" class="w-full h-full object-cover">
+                        </div>
+                        <div class="space-y-2 overflow-hidden flex-1">
+                            <div class="flex items-center gap-2.5">
+                                <img id="tt-author-avatar" src="" alt="Avatar" class="w-7 h-7 border-2 border-black rounded-full object-cover flex-shrink-0">
+                                <span id="tt-author-name" class="text-xs font-black truncate">@author</span>
+                            </div>
+                            <p id="tt-video-desc" class="text-[11px] font-medium text-gray-600 line-clamp-2">Deskripsi video...</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2.5" id="tt-buttons-list">
+                        <!-- Dynamic download buttons injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- FOOTER -->
@@ -231,6 +295,7 @@
             document.getElementById('view-home').classList.add('hidden');
             document.getElementById('view-alightmotion').classList.add('hidden');
             document.getElementById('view-presetfinder').classList.add('hidden');
+            document.getElementById('view-tiktokdl').classList.add('hidden');
             
             document.getElementById('view-' + tabName).classList.remove('hidden');
             window.scrollTo(0, 0);
@@ -250,10 +315,10 @@
         // ==========================================
         // LOGIC AM PRESET FINDER DENGAN COOLDOWN 20 DETIK
         // ==========================================
-        let isCooldown = false;
+        let isPFCooldown = false;
 
         async function findPreset() {
-            if (isCooldown) return; // Mencegah klik saat jeda
+            if (isPFCooldown) return;
 
             const urlInput = document.getElementById('pf-url-input').value.trim();
             const msgBox = document.getElementById('pf-status-msg');
@@ -326,14 +391,12 @@
                 msgBox.innerText = 'Gagal mencari preset: ' + err.message;
                 msgBox.classList.remove('hidden');
             } finally {
-                // MULAI COOLDOWN 20 DETIK
-                startCooldown(20);
+                startPFCooldown(20);
             }
         }
 
-        // Fungsi Hitung Mundur Cooldown Tombol
-        function startCooldown(seconds) {
-            isCooldown = true;
+        function startPFCooldown(seconds) {
+            isPFCooldown = true;
             const btn = document.getElementById('btn-find-preset');
             let timeLeft = seconds;
 
@@ -346,10 +409,116 @@
                     timeLeft--;
                 } else {
                     clearInterval(timer);
-                    isCooldown = false;
+                    isPFCooldown = false;
                     btn.disabled = false;
                     btn.classList.remove('opacity-60', 'cursor-not-allowed');
                     btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Cari Preset Sekarang';
+                    lucide.createIcons();
+                }
+            }, 1000);
+        }
+
+
+        // ==========================================
+        // LOGIC TIKTOK DOWNLOADER DENGAN COOLDOWN 20 DETIK
+        // ==========================================
+        let isTTCooldown = false;
+
+        async function downloadTikTok() {
+            if (isTTCooldown) return;
+
+            const urlInput = document.getElementById('tt-url-input').value.trim();
+            const msgBox = document.getElementById('tt-status-msg');
+            const btn = document.getElementById('btn-tiktok-dl');
+            const resultContainer = document.getElementById('tt-result-container');
+
+            if (!urlInput) {
+                alert('Mohon masukkan link video TikTok terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENGUNDUH...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const apiEndpoint = `https://api.ikyyxd.my.id/download/tiktokv3?url=${encodeURIComponent(urlInput)}`;
+                const res = await fetch(apiEndpoint);
+                const json = await res.json();
+
+                if (json && json.status && json.result && json.result.success && json.result.data) {
+                    const data = json.result.data;
+
+                    document.getElementById('tt-author-name').innerText = data.author ? '@' + data.author : '@unknown';
+                    document.getElementById('tt-video-desc').innerText = data.description || 'Tanpa deskripsi';
+                    document.getElementById('tt-author-avatar').src = data.avatar_thumb || 'https://via.placeholder.com/150';
+                    document.getElementById('tt-video-cover').src = data.cover || 'https://via.placeholder.com/150';
+
+                    const buttonsList = document.getElementById('tt-buttons-list');
+                    buttonsList.innerHTML = '';
+
+                    // Tombol Video Tanpa Watermark
+                    if (data.video) {
+                        buttonsList.innerHTML += `
+                            <a href="${data.video}" target="_blank" class="w-full py-3 bg-neoGreen text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-emerald-400 transition flex items-center justify-center gap-2">
+                                <i data-lucide="video" class="w-4 h-4"></i> Unduh Video (Tanpa Watermark)
+                            </a>
+                        `;
+                    }
+
+                    // Tombol Musik / Audio
+                    if (data.music) {
+                        buttonsList.innerHTML += `
+                            <a href="${data.music}" target="_blank" class="w-full py-3 bg-neoYellow text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-yellow-400 transition flex items-center justify-center gap-2">
+                                <i data-lucide="music" class="w-4 h-4"></i> Unduh Musik / Audio MP3
+                            </a>
+                        `;
+                    }
+
+                    // Tombol Foto (Jika berupa slide foto)
+                    if (data.images && data.images.length > 0) {
+                        data.images.forEach((imgUrl, idx) => {
+                            buttonsList.innerHTML += `
+                                <a href="${imgUrl}" target="_blank" class="w-full py-3 bg-neoCyan text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-cyan-400 transition flex items-center justify-center gap-2">
+                                    <i data-lucide="image" class="w-4 h-4"></i> Unduh Foto / Slide #${idx + 1}
+                                </a>
+                            `;
+                        });
+                    }
+
+                    lucide.createIcons();
+                    resultContainer.classList.remove('hidden');
+                } else {
+                    throw new Error('Gagal mengambil data dari server TikTok.');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal mengunduh: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startTTCooldown(20);
+            }
+        }
+
+        function startTTCooldown(seconds) {
+            isTTCooldown = true;
+            const btn = document.getElementById('btn-tiktok-dl');
+            let timeLeft = seconds;
+
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk unduh lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isTTCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i> Unduh Media TikTok';
                     lucide.createIcons();
                 }
             }, 1000);
