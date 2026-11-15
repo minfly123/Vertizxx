@@ -41,7 +41,7 @@
     <!-- HEADER / NAVBAR -->
     <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 transition-all">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2.5 cursor-pointer group">
+            <div class="flex items-center gap-2.5 cursor-pointer group" onclick="switchTab('home')">
                 <div class="p-2 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl text-white font-black tracking-wider shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition duration-300">V</div>
                 <span class="text-xl font-black bg-gradient-to-r from-indigo-400 via-purple-300 to-cyan-400 bg-clip-text text-transparent">Vertizx</span>
             </div>
@@ -56,55 +56,134 @@
     </header>
 
     <!-- MAIN CONTENT CONTAINER -->
-    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex items-center justify-center">
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col items-center justify-center">
         
-        <!-- WRAPPER UTAMA DENGAN ANIMASI -->
-        <div class="glass-card border border-slate-800/80 p-6 md:p-8 rounded-3xl shadow-2xl shadow-indigo-950/20 w-full max-w-md animate-fade relative overflow-hidden">
+        <!-- HOME / PILIHAN FITUR -->
+        <div id="view-home" class="w-full max-w-2xl space-y-6 animate-fade">
+            <div class="text-center py-6">
+                <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-2">Pilih Fitur <span class="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Vertizx</span></h1>
+                <p class="text-slate-400 text-xs md:text-sm">Utility tools editor Alight Motion tercepat dan anti ribet.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Card AM Premium -->
+                <div onclick="switchTab('alightmotion')" class="glass-card border border-slate-800 hover:border-indigo-500/50 p-6 rounded-3xl cursor-pointer transition duration-300 group shadow-xl hover:shadow-indigo-500/10">
+                    <div class="p-3 bg-indigo-500/10 text-indigo-400 rounded-2xl w-fit mb-4 group-hover:scale-110 transition duration-300">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-lg font-bold mb-1 group-hover:text-indigo-300 transition">AM Premium 1 Tahun</h2>
+                    <p class="text-slate-400 text-xs leading-relaxed">Upgrade akun Alight Motion via sistem verifikasi magic link aman.</p>
+                </div>
+
+                <!-- Card AM Preset Finder -->
+                <div onclick="switchTab('presetfinder')" class="glass-card border border-slate-800 hover:border-cyan-500/50 p-6 rounded-3xl cursor-pointer transition duration-300 group shadow-xl hover:shadow-cyan-500/10">
+                    <div class="p-3 bg-cyan-500/10 text-cyan-400 rounded-2xl w-fit mb-4 group-hover:scale-110 transition duration-300">
+                        <i data-lucide="search" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-lg font-bold mb-1 group-hover:text-cyan-300 transition">AM Preset Finder</h2>
+                    <p class="text-slate-400 text-xs leading-relaxed">Cari link preset Alight Motion dari video TikTok/YouTube secara instan.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FITUR 1: ALIGHT MOTION PREMIUM -->
+        <div id="view-alightmotion" class="hidden w-full max-w-md animate-fade">
+            <button onclick="switchTab('home')" class="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1.5 mb-4 font-medium transition">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
+            </button>
             
-            <!-- Efek Cahaya Ambient Background -->
-            <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-violet-600/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="glass-card border border-slate-800/80 p-6 md:p-8 rounded-3xl shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="text-center mb-6 relative z-10">
+                    <div class="inline-flex p-3 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-2xl mb-3">
+                        <i data-lucide="sparkles" class="w-6 h-6 animate-pulse"></i>
+                    </div>
+                    <h2 class="text-xl font-black">Alight Motion Premium</h2>
+                    <p class="text-slate-400 text-xs mt-1">Upgrade akun durasi 1 tahun via Magic Link</p>
+                </div>
 
-            <div class="text-center mb-6 relative z-10">
-                <div class="inline-flex p-3 bg-gradient-to-tr from-indigo-500/20 to-violet-500/20 border border-indigo-500/30 text-indigo-400 rounded-2xl mb-3 shadow-inner">
-                    <i data-lucide="sparkles" class="w-6 h-6 animate-pulse"></i>
-                </div>
-                <h2 class="text-2xl font-black tracking-tight">Alight Motion Premium</h2>
-                <p class="text-slate-400 text-xs mt-1">Upgrade akun durasi 1 tahun secara instan & aman</p>
-            </div>
-
-            <!-- TAHAP 1: INPUT EMAIL & KIRIM LINK -->
-            <div id="am-step-1" class="space-y-4 relative z-10 animate-fade">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email Alight Motion</label>
-                    <input type="email" id="am-email-input" placeholder="nama@email.com" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 text-white transition duration-300">
-                </div>
-                <button onclick="sendAMLink()" id="btn-send-link" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-95 active:scale-[0.98] rounded-2xl font-bold text-sm transition duration-300 shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2">
-                    <i data-lucide="send" class="w-4 h-4"></i> Kirim Magic Link
-                </button>
-            </div>
-
-            <!-- TAHAP 2: MASUKKAN MAGIC LINK -->
-            <div id="am-step-2" class="hidden space-y-4 relative z-10 animate-fade">
-                <div class="p-3.5 bg-slate-950/60 rounded-2xl border border-slate-800 text-xs text-slate-300 flex items-center justify-between">
-                    <span class="text-slate-400">Target:</span>
-                    <span id="display-target-email" class="font-mono font-bold text-indigo-300 truncate max-w-[220px]"></span>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tempel Magic Link (Auto-Transform)</label>
-                    <input type="text" id="am-magic-link-input" placeholder="https://alight-creative.firebaseapp.com/..." class="w-full bg-slate-900/90 border border-slate-700/80 rounded-2xl px-4 py-3 text-xs font-mono focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 text-white transition duration-300">
-                </div>
-                <button onclick="verifyAMLink()" id="btn-verify-link" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-95 active:scale-[0.98] rounded-2xl font-bold text-sm transition duration-300 shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2">
-                    <i data-lucide="check-circle-2" class="w-4 h-4"></i> Verifikasi & Upgrade
-                </button>
-                <div class="flex justify-between text-xs pt-1">
-                    <button onclick="resetAMForm()" class="text-indigo-400 hover:text-indigo-300 transition flex items-center gap-1 font-medium">
-                        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Ganti Email
+                <!-- TAHAP 1 -->
+                <div id="am-step-1" class="space-y-4 relative z-10">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email Alight Motion</label>
+                        <input type="email" id="am-email-input" placeholder="nama@email.com" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 text-white transition">
+                    </div>
+                    <button onclick="sendAMLink()" id="btn-send-link" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-95 active:scale-[0.98] rounded-2xl font-bold text-sm transition shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2">
+                        <i data-lucide="send" class="w-4 h-4"></i> Kirim Magic Link
                     </button>
                 </div>
+
+                <!-- TAHAP 2 -->
+                <div id="am-step-2" class="hidden space-y-4 relative z-10">
+                    <div class="p-3.5 bg-slate-950/60 rounded-2xl border border-slate-800 text-xs text-slate-300 flex items-center justify-between">
+                        <span class="text-slate-400">Target:</span>
+                        <span id="display-target-email" class="font-mono font-bold text-indigo-300 truncate max-w-[200px]"></span>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tempel Magic Link</label>
+                        <input type="text" id="am-magic-link-input" placeholder="https://alight-creative.firebaseapp.com/..." class="w-full bg-slate-900/90 border border-slate-700/80 rounded-2xl px-4 py-3 text-xs font-mono focus:outline-none focus:border-indigo-500 text-white transition">
+                    </div>
+                    <button onclick="verifyAMLink()" id="btn-verify-link" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-95 active:scale-[0.98] rounded-2xl font-bold text-sm transition shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2">
+                        <i data-lucide="check-circle-2" class="w-4 h-4"></i> Verifikasi & Upgrade
+                    </button>
+                    <div class="flex justify-between text-xs pt-1">
+                        <button onclick="resetAMForm()" class="text-indigo-400 hover:underline font-medium">← Ganti Email</button>
+                    </div>
+                </div>
+                
+                <div id="am-status-msg" class="mt-4 text-xs p-3.5 rounded-2xl hidden font-medium"></div>
             </div>
+        </div>
+
+        <!-- FITUR 2: AM PRESET FINDER (BARU) -->
+        <div id="view-presetfinder" class="hidden w-full max-w-2xl animate-fade">
+            <button onclick="switchTab('home')" class="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 mb-4 font-medium transition">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
+            </button>
             
-            <div id="am-status-msg" class="mt-4 text-xs p-3.5 rounded-2xl hidden animate-fade font-medium"></div>
+            <div class="glass-card border border-slate-800/80 p-6 md:p-8 rounded-3xl shadow-2xl relative space-y-6">
+                <div class="text-center">
+                    <div class="inline-flex p-3 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-2xl mb-3">
+                        <i data-lucide="search" class="w-6 h-6 animate-pulse"></i>
+                    </div>
+                    <h2 class="text-xl font-black">AM Preset Finder</h2>
+                    <p class="text-slate-400 text-xs mt-1">Ekstrak link preset Alight Motion dari video TikTok atau YouTube secara instan.</p>
+                </div>
+
+                <!-- Input Form URL -->
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Link Video TikTok / YouTube</label>
+                        <input type="text" id="pf-url-input" placeholder="https://www.tiktok.com/@user/video/..." class="w-full bg-slate-900/90 border border-slate-700/80 rounded-2xl px-4 py-3 text-xs font-mono focus:outline-none focus:border-cyan-500 text-white transition">
+                    </div>
+                    <button onclick="findPreset()" id="btn-find-preset" class="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:opacity-95 active:scale-[0.98] rounded-2xl font-bold text-sm transition shadow-lg shadow-cyan-600/30 flex items-center justify-center gap-2">
+                        <i data-lucide="search" class="w-4 h-4"></i> Cari Preset Sekarang
+                    </button>
+                </div>
+
+                <div id="pf-status-msg" class="text-xs p-3.5 rounded-2xl hidden font-medium"></div>
+
+                <!-- Hasil Ekstraksi Preset -->
+                <div id="pf-result-container" class="hidden space-y-4 pt-4 border-t border-slate-800 animate-fade">
+                    <!-- Info Author & Video -->
+                    <div class="flex items-center gap-3 bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800">
+                        <img id="pf-author-avatar" src="" alt="Avatar" class="w-12 h-12 rounded-full border border-slate-700 object-cover">
+                        <div class="overflow-hidden flex-1">
+                            <div id="pf-author-name" class="text-sm font-bold text-cyan-300 truncate">@author</div>
+                            <div id="pf-video-desc" class="text-[11px] text-slate-400 truncate">Deskripsi video...</div>
+                        </div>
+                    </div>
+
+                    <!-- List Preset Links -->
+                    <div class="space-y-2">
+                        <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Daftar Link Preset Ditemukan:</h3>
+                        <div id="pf-presets-list" class="space-y-2">
+                            <!-- Hasil dynamic inject di sini -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>
@@ -136,11 +215,20 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC (100% AMAN & WORK) -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         try {
             lucide.createIcons();
         } catch(e) {}
+
+        function switchTab(tabName) {
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-alightmotion').classList.add('hidden');
+            document.getElementById('view-presetfinder').classList.add('hidden');
+            
+            document.getElementById('view-' + tabName).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
 
         function toggleSupportModal(show) {
             const modal = document.getElementById('support-modal');
@@ -153,6 +241,100 @@
             alert('Nomor e-wallet berhasil disalin!');
         }
 
+        // ==========================================
+        // LOGIC AM PRESET FINDER (BARU)
+        // ==========================================
+        async function findPreset() {
+            const urlInput = document.getElementById('pf-url-input').value.trim();
+            const msgBox = document.getElementById('pf-status-msg');
+            const btn = document.getElementById('btn-find-preset');
+            const resultContainer = document.getElementById('pf-result-container');
+
+            if (!urlInput) {
+                alert('Mohon masukkan link video TikTok atau YouTube terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Mencari Preset...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const apiEndpoint = `https://api.ikyyxd.my.id/tools/amfinder?url=${encodeURIComponent(urlInput)}`;
+                const res = await fetch(apiEndpoint);
+                const json = await res.json();
+
+                if (json && json.success && json.data) {
+                    const data = json.data;
+                    
+                    // Set Author & Video Info
+                    document.getElementById('pf-author-name').innerText = data.author || '@unknown';
+                    document.getElementById('pf-video-desc').innerText = data.video?.description || 'Tanpa deskripsi';
+                    
+                    const avatarImg = document.getElementById('pf-author-avatar');
+                    if (data.authorDetail?.avatar) {
+                        avatarImg.src = data.authorDetail.avatar;
+                    } else {
+                        avatarImg.src = 'https://via.placeholder.com/150';
+                    }
+
+                    // Render Preset Links
+                    const presetsListEl = document.getElementById('pf-presets-list');
+                    presetsListEl.innerHTML = '';
+
+                    if (data.presetLinks && data.presetLinks.length > 0) {
+                        data.presetLinks.forEach((preset, index) => {
+                            presetsListEl.innerHTML += `
+                                <div class="bg-slate-900/90 p-3.5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                                    <div class="space-y-0.5 overflow-hidden">
+                                        <div class="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
+                                            <span>🎁 ${escapeHtml(preset.title || 'Preset Alight Motion')}</span>
+                                            <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-300 text-[10px] rounded-lg border border-cyan-500/20">${escapeHtml(preset.type || 'Preset')}</span>
+                                        </div>
+                                        <div class="text-[11px] text-slate-400 font-mono truncate max-w-[280px] sm:max-w-[320px]">${escapeHtml(preset.url)}</div>
+                                    </div>
+                                    <button onclick="copyPresetLink('${escapeHtml(preset.url)}')" class="w-full sm:w-auto px-4 py-2 bg-cyan-600 hover:bg-cyan-700 active:scale-[0.98] text-white text-xs font-bold rounded-xl transition shadow-md shadow-cyan-600/20 flex items-center justify-center gap-1.5">
+                                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Link
+                                    </button>
+                                </div>
+                            `;
+                        });
+                        lucide.createIcons();
+                        resultContainer.classList.remove('hidden');
+                    } else {
+                        msgBox.className = 'text-xs p-3.5 rounded-2xl bg-amber-950/80 text-amber-300 border border-amber-800 animate-fade';
+                        msgBox.innerText = '⚠️ Tidak ditemukan link preset di video tersebut.';
+                        msgBox.classList.remove('hidden');
+                    }
+                } else {
+                    throw new Error('Gagal memproses data dari server.');
+                }
+            } catch (err) {
+                msgBox.className = 'text-xs p-3.5 rounded-2xl bg-rose-950/80 text-rose-300 border border-rose-800 animate-fade';
+                msgBox.innerText = 'Gagal mencari preset: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Cari Preset Sekarang';
+                lucide.createIcons();
+            }
+        }
+
+        function copyPresetLink(url) {
+            navigator.clipboard.writeText(url);
+            alert('Link preset berhasil disalin!');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+
+        // ==========================================
+        // LOGIC ALIGHT MOTION PREMIUM (AMAN & UTUH)
+        // ==========================================
         let userEmail = '';
         const WORKER_BASE = 'https://am.revlykurniawan.workers.dev';
 
