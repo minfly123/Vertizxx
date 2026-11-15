@@ -162,29 +162,29 @@
 
                 <div id="pf-status-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
 
-                <!-- Hasil Ekstraksi -->
-                <div id="pf-result-container" class="hidden space-y-4 pt-4 border-t-2 border-black animate-fade">
-                    <div class="bg-gray-50 p-3.5 border-2 border-black flex items-center gap-3 shadow-hard-sm">
-                        <div class="w-16 h-20 border-2 border-black flex-shrink-0 bg-black overflow-hidden">
+                <!-- Hasil Ekstraksi Sesuai Kode Lama yang Stabil -->
+                <div id="pf-result-container" class="hidden space-y-5 pt-4 border-t-2 border-black animate-fade">
+                    <div class="bg-gray-50 p-3.5 border-2 border-black flex items-center gap-4 shadow-hard-sm">
+                        <div class="w-20.5 w-24 h-28 border-2 border-black flex-shrink-0 bg-black overflow-hidden">
                             <img id="pf-video-cover" src="" alt="Cover" class="w-full h-full object-cover">
                         </div>
-                        <div class="space-y-1 overflow-hidden flex-1">
-                            <div class="flex items-center gap-2">
-                                <img id="pf-author-avatar" src="" alt="Avatar" class="w-6 h-6 border border-black rounded-full object-cover">
+                        <div class="space-y-2 overflow-hidden flex-1">
+                            <div class="flex items-center gap-2.5">
+                                <img id="pf-author-avatar" src="" alt="Avatar" class="w-7 h-7 border-2 border-black rounded-full object-cover flex-shrink-0">
                                 <span id="pf-author-name" class="text-xs font-black truncate">@author</span>
                             </div>
-                            <p id="pf-video-desc" class="text-[11px] font-medium text-gray-600 line-clamp-2">Deskripsi...</p>
-                            <div class="flex items-center gap-3 text-[10px] font-bold text-gray-500 pt-1">
-                                <span>👁️ <span id="pf-stat-views">0</span></span>
-                                <span>❤️ <span id="pf-stat-likes">0</span></span>
-                                <span>💬 <span id="pf-stat-comments">0</span></span>
+                            <p id="pf-video-desc" class="text-[11px] font-medium text-gray-600 line-clamp-2">Deskripsi video...</p>
+                            <div class="flex items-center gap-3 pt-1 text-[10px] font-bold text-gray-500">
+                                <span class="flex items-center gap-1">👁️ <span id="pf-stat-views">0</span></span>
+                                <span class="flex items-center gap-1">❤️ <span id="pf-stat-likes">0</span></span>
+                                <span class="flex items-center gap-1">💬 <span id="pf-stat-comments">0</span></span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="space-y-2">
+                    <div class="space-y-3">
                         <h3 class="text-xs font-black uppercase tracking-wider">Daftar Link Preset Ditemukan:</h3>
-                        <div id="pf-presets-list" class="space-y-2"></div>
+                        <div id="pf-presets-list" class="space-y-2.5"></div>
                     </div>
                 </div>
             </div>
@@ -221,7 +221,7 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT LOGIC (MENGGUNAKAN STRUKTUR AMAN KODE LAMA) -->
     <script>
         try {
             lucide.createIcons();
@@ -248,7 +248,7 @@
         }
 
         // ==========================================
-        // LOGIC AM PRESET FINDER
+        // LOGIC AM PRESET FINDER (STABIL SEPERTI KODE LAMA)
         // ==========================================
         async function findPreset() {
             const urlInput = document.getElementById('pf-url-input').value.trim();
@@ -262,29 +262,26 @@
             }
 
             btn.disabled = true;
-            btn.innerHTML = 'MENCARI...';
+            btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Mencari Preset...';
             msgBox.classList.add('hidden');
             resultContainer.classList.add('hidden');
 
             try {
                 const apiEndpoint = `https://api.ikyyxd.my.id/tools/amfinder?url=${encodeURIComponent(urlInput)}`;
-                const res = await fetch(apiEndpoint, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (!res.ok) throw new Error('Server API sedang gangguan atau menolak permintaan.');
-
+                const res = await fetch(apiEndpoint);
                 const json = await res.json();
 
                 if (json && json.success && json.data) {
                     const data = json.data;
+                    
                     document.getElementById('pf-author-name').innerText = data.author || '@unknown';
                     document.getElementById('pf-video-desc').innerText = data.video?.description || 'Tanpa deskripsi';
-                    document.getElementById('pf-author-avatar').src = data.authorDetail?.avatar || 'https://via.placeholder.com/150';
-                    document.getElementById('pf-video-cover').src = data.video?.cover || 'https://via.placeholder.com/150';
+                    
+                    const avatarImg = document.getElementById('pf-author-avatar');
+                    avatarImg.src = data.authorDetail?.avatar || 'https://via.placeholder.com/150';
+
+                    const coverImg = document.getElementById('pf-video-cover');
+                    coverImg.src = data.video?.cover || 'https://via.placeholder.com/150';
 
                     document.getElementById('pf-stat-views').innerText = formatNumber(data.video?.stats?.views);
                     document.getElementById('pf-stat-likes').innerText = formatNumber(data.video?.stats?.likes);
@@ -296,20 +293,21 @@
                     if (data.presetLinks && data.presetLinks.length > 0) {
                         data.presetLinks.forEach((preset) => {
                             presetsListEl.innerHTML += `
-                                <div class="bg-gray-50 p-3 border-2 border-black flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 shadow-hard-sm">
+                                <div class="bg-gray-50 p-3.5 border-2 border-black flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-hard-sm">
                                     <div class="space-y-0.5 overflow-hidden">
                                         <div class="text-xs font-black uppercase text-black flex items-center gap-1.5">
-                                            <span>🎁 ${escapeHtml(preset.title || 'Preset')}</span>
-                                            <span class="px-1.5 py-0.5 bg-neoYellow text-black text-[9px] border border-black">${escapeHtml(preset.type || 'Preset')}</span>
+                                            <span>🎁 ${escapeHtml(preset.title || 'Preset Alight Motion')}</span>
+                                            <span class="px-2 py-0.5 bg-neoYellow text-black text-[10px] border border-black">${escapeHtml(preset.type || 'Preset')}</span>
                                         </div>
-                                        <div class="text-[10px] text-gray-500 font-mono truncate max-w-[240px]">${escapeHtml(preset.url)}</div>
+                                        <div class="text-[11px] text-gray-500 font-mono truncate max-w-[240px] sm:max-w-[285px]">${escapeHtml(preset.url)}</div>
                                     </div>
-                                    <button onclick="copyPresetLink('${escapeHtml(preset.url)}')" class="w-full sm:w-auto px-3 py-1.5 bg-neoYellow text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-yellow-400 transition">
+                                    <button onclick="copyPresetLink('${escapeHtml(preset.url)}')" class="w-full sm:w-auto px-3.5 py-1.5 bg-neoYellow text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-yellow-400 transition flex items-center justify-center gap-1 flex-shrink-0">
                                         Salin Link
                                     </button>
                                 </div>
                             `;
                         });
+                        lucide.createIcons();
                         resultContainer.classList.remove('hidden');
                     } else {
                         msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
@@ -321,7 +319,7 @@
                 }
             } catch (err) {
                 msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
-                msgBox.innerText = 'GAGAL KONEKSI: ' + err.message;
+                msgBox.innerText = 'Gagal mencari preset: ' + err.message;
                 msgBox.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
@@ -367,7 +365,7 @@
 
             userEmail = emailInput;
             btn.disabled = true;
-            btn.innerText = 'MENGIRIM...';
+            btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Mengirim...';
             msgBox.classList.add('hidden');
 
             try {
@@ -391,12 +389,12 @@
                     document.getElementById('am-step-2').classList.remove('hidden');
                 } else {
                     msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
-                    msgBox.innerText = 'GAGAL: ' + (data.message || 'Terjadi kesalahan pada server.');
+                    msgBox.innerText = 'Gagal: ' + (data.message || 'Terjadi kesalahan pada server.');
                     msgBox.classList.remove('hidden');
                 }
             } catch (err) {
                 msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
-                msgBox.innerText = 'GAGAL KONEKSI: ' + err.message;
+                msgBox.innerText = 'Gagal koneksi: ' + err.message;
                 msgBox.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
@@ -426,7 +424,7 @@
             }
 
             btn.disabled = true;
-            btn.innerText = 'MEMVERIFIKASI...';
+            btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Memverifikasi...';
             msgBox.classList.add('hidden');
 
             try {
@@ -449,20 +447,20 @@
 
                 if (res.ok || data.success) {
                     msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-green-300 text-black';
-                    msgBox.innerText = '🎉 ' + (data.message || 'SUKSES! Akun Alight Motion berhasil menjadi Premium.');
+                    msgBox.innerText = '🎉 ' + (data.message || 'Sukses! Akun Alight Motion berhasil menjadi Premium.');
                     msgBox.classList.remove('hidden');
                 } else {
                     msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
-                    msgBox.innerText = 'GAGAL: ' + (data.message || 'Link atau email tidak valid / kadaluarsa.');
+                    msgBox.innerText = 'Gagal: ' + (data.message || 'Link atau email tidak valid / kadaluarsa.');
                     msgBox.classList.remove('hidden');
                 }
             } catch(err) {
                 msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
-                msgBox.innerText = 'TERJADI KESALAHAN JARINGAN: ' + err.message;
+                msgBox.innerText = 'Terjadi kesalahan jaringan: ' + err.message;
                 msgBox.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4"></i> Verifikasi & Upgrade';
+                btn.innerHTML = '<i data-lucide="check-circle-2" class="w-4 h-4"></i> Verifikasi & Upgrade';
                 lucide.createIcons();
             }
         }
