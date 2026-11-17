@@ -17,6 +17,7 @@
                         neoGreen: '#00E676',
                         neoPurple: '#8A2BE2',
                         neoIndigo: '#4F46E5',
+                        neoRoblox: '#FF6600',
                         neoDark: '#121212',
                     },
                     boxShadow: {
@@ -120,7 +121,7 @@
                     <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
                 </div>
 
-                <!-- Card CapCut Downloader (FITUR BARU) -->
+                <!-- Card CapCut Downloader -->
                 <div onclick="switchTab('capcutdl')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
                     <div>
                         <div class="p-2.5 bg-neoIndigo text-white border-2 border-black w-fit mb-3 shadow-hard-sm">
@@ -128,6 +129,18 @@
                         </div>
                         <h2 class="text-sm font-black uppercase mb-1">CapCut Downloader</h2>
                         <p class="text-[11px] font-medium text-gray-600">Unduh video CapCut tanpa watermark.</p>
+                    </div>
+                    <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
+                </div>
+
+                <!-- Card Roblox Stalker (FITUR BARU) -->
+                <div onclick="switchTab('robloxstalk')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
+                    <div>
+                        <div class="p-2.5 bg-neoRoblox text-white border-2 border-black w-fit mb-3 shadow-hard-sm">
+                            <i data-lucide="gamepad-2" class="w-5 h-5"></i>
+                        </div>
+                        <h2 class="text-sm font-black uppercase mb-1">Roblox Stalker</h2>
+                        <p class="text-[11px] font-medium text-gray-600">Cek profil, avatar, dan statistik akun Roblox.</p>
                     </div>
                     <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
                 </div>
@@ -196,7 +209,84 @@
             </div>
         </div>
 
-        <!-- FITUR: CAPCUT DOWNLOADER (BARU) -->
+        <!-- FITUR: ROBLOX STALKER (BARU) -->
+        <div id="view-robloxstalk" class="hidden w-full animate-fade space-y-4">
+            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
+            </button>
+            
+            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg space-y-5">
+                <div class="inline-block bg-neoRoblox text-white border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm">
+                    🎮 ROBLOX STALKER
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1.5">Username Roblox</label>
+                        <input type="text" id="rbx-username-input" placeholder="Contoh: alwayspiizx1" class="w-full bg-white border-3 border-black rounded-none px-4 py-3 text-xs font-mono font-bold focus:outline-none shadow-hard-sm">
+                    </div>
+                    <button onclick="stalkRoblox()" id="btn-stalk-rbx" class="w-full py-3.5 bg-neoRoblox text-white font-black uppercase text-sm border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
+                        <i data-lucide="search" class="w-4 h-4"></i> Stalk Akun Roblox
+                    </button>
+                </div>
+
+                <div id="rbx-status-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
+
+                <!-- Hasil Roblox Stalker -->
+                <div id="rbx-result-container" class="hidden space-y-4 pt-4 border-t-2 border-black animate-fade">
+                    <div class="bg-gray-50 p-4 border-2 border-black space-y-4 shadow-hard-sm">
+                        <div class="flex items-center gap-4">
+                            <div class="w-20 h-20 border-2 border-black rounded-full overflow-hidden bg-black flex-shrink-0">
+                                <img id="rbx-res-avatar" src="" alt="Avatar" class="w-full h-full object-cover">
+                            </div>
+                            <div class="overflow-hidden space-y-1">
+                                <h3 id="rbx-res-displayname" class="text-sm font-black uppercase truncate">Display Name</h3>
+                                <p id="rbx-res-username" class="text-xs font-mono font-bold text-gray-600">@username</p>
+                                <div id="rbx-res-badges" class="flex flex-wrap gap-1 pt-1">
+                                    <!-- Verified / Banned badges -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistik -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center pt-2 border-t border-black font-mono text-xs">
+                            <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                <div id="rbx-res-friends" class="font-black text-sm">0</div>
+                                <div class="text-[10px] text-gray-500 uppercase font-bold">Friends</div>
+                            </div>
+                            <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                <div id="rbx-res-followers" class="font-black text-sm">0</div>
+                                <div class="text-[10px] text-gray-500 uppercase font-bold">Followers</div>
+                            </div>
+                            <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                <div id="rbx-res-followings" class="font-black text-sm">0</div>
+                                <div class="text-[10px] text-gray-500 uppercase font-bold">Following</div>
+                            </div>
+                            <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                <div id="rbx-res-id" class="font-black text-[11px] truncate">0</div>
+                                <div class="text-[10px] text-gray-500 uppercase font-bold">Roblox ID</div>
+                            </div>
+                        </div>
+
+                        <!-- Created & Bio/Description -->
+                        <div class="bg-white p-3 border-2 border-black text-xs font-mono space-y-2 shadow-hard-sm">
+                            <div class="flex justify-between border-b border-gray-200 pb-1 text-[11px]">
+                                <span class="font-black text-gray-400 uppercase">Dibuat Pada:</span>
+                                <span id="rbx-res-created" class="font-bold">-</span>
+                            </div>
+                            <div>
+                                <span class="font-black text-[10px] text-gray-400 uppercase block mb-0.5">Description:</span>
+                                <p id="rbx-res-description" class="whitespace-pre-line text-gray-800">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="rbx-support-banner"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FITUR: CAPCUT DOWNLOADER -->
         <div id="view-capcutdl" class="hidden w-full animate-fade space-y-4">
             <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
@@ -639,6 +729,7 @@
             document.getElementById('view-presetfinder').classList.add('hidden');
             document.getElementById('view-tiktokdl').classList.add('hidden');
             document.getElementById('view-capcutdl').classList.add('hidden');
+            document.getElementById('view-robloxstalk').classList.add('hidden');
             document.getElementById('view-nikcheck').classList.add('hidden');
             document.getElementById('view-igstalk').classList.add('hidden');
             document.getElementById('view-ttstalk').classList.add('hidden');
@@ -721,7 +812,108 @@
         }
 
         // ==========================================
-        // LOGIC CAPCUT DOWNLOADER (BARU)
+        // LOGIC ROBLOX STALKER (BARU)
+        // ==========================================
+        let isRbxCooldown = false;
+        async function stalkRoblox() {
+            if (isRbxCooldown) return;
+            const usernameInput = document.getElementById('rbx-username-input').value.trim().replace('@', '');
+            const msgBox = document.getElementById('rbx-status-msg');
+            const btn = document.getElementById('btn-stalk-rbx');
+            const resultContainer = document.getElementById('rbx-result-container');
+
+            if (!usernameInput) {
+                alert('Mohon masukkan username Roblox terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENSTALK...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.nexadev.my.id/api/roblox?username=${encodeURIComponent(usernameInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.status && json.data) {
+                    const data = json.data;
+                    document.getElementById('rbx-res-displayname').innerText = data.displayName || data.name || 'Unknown';
+                    document.getElementById('rbx-res-username').innerText = '@' + (data.name || usernameInput);
+                    document.getElementById('rbx-res-avatar').src = data.avatar || 'https://via.placeholder.com/150';
+                    document.getElementById('rbx-res-friends').innerText = formatNumber(data.friends);
+                    document.getElementById('rbx-res-followers').innerText = formatNumber(data.followers);
+                    document.getElementById('rbx-res-followings').innerText = formatNumber(data.followings);
+                    document.getElementById('rbx-res-id').innerText = data.id || '-';
+                    document.getElementById('rbx-res-description').innerText = data.description || 'Tidak ada deskripsi.';
+
+                    if (data.created) {
+                        try {
+                            const dateObj = new Date(data.created);
+                            document.getElementById('rbx-res-created').innerText = dateObj.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+                        } catch(e) {
+                            document.getElementById('rbx-res-created').innerText = data.created;
+                        }
+                    } else {
+                        document.getElementById('rbx-res-created').innerText = '-';
+                    }
+
+                    const badgesContainer = document.getElementById('rbx-res-badges');
+                    badgesContainer.innerHTML = '';
+
+                    if (data.hasVerifiedBadge) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-blue-400 text-black text-[10px] font-black border border-black shadow-hard-sm">✓ Verified</span>`;
+                    }
+                    if (data.isBanned) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-red-400 text-white text-[10px] font-black border border-black shadow-hard-sm">🚫 Banned</span>`;
+                    } else {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-green-300 text-black text-[10px] font-black border border-black shadow-hard-sm">🟢 Active</span>`;
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('rbx-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Akun Roblox tidak ditemukan atau terjadi kesalahan pada server.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal melakukan stalk Roblox: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startRbxCooldown(60);
+            }
+        }
+
+        function startRbxCooldown(seconds) {
+            isRbxCooldown = true;
+            const btn = document.getElementById('btn-stalk-rbx');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk stalk lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isRbxCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Stalk Akun Roblox';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC CAPCUT DOWNLOADER
         // ==========================================
         let isCCCooldown = false;
         async function downloadCapCut() {
