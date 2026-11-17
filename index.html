@@ -16,6 +16,7 @@
                         neoCyan: '#00F0FF',
                         neoGreen: '#00E676',
                         neoPurple: '#8A2BE2',
+                        neoIndigo: '#4F46E5',
                         neoDark: '#121212',
                     },
                     boxShadow: {
@@ -119,6 +120,18 @@
                     <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
                 </div>
 
+                <!-- Card CapCut Downloader (FITUR BARU) -->
+                <div onclick="switchTab('capcutdl')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
+                    <div>
+                        <div class="p-2.5 bg-neoIndigo text-white border-2 border-black w-fit mb-3 shadow-hard-sm">
+                            <i data-lucide="video" class="w-5 h-5"></i>
+                        </div>
+                        <h2 class="text-sm font-black uppercase mb-1">CapCut Downloader</h2>
+                        <p class="text-[11px] font-medium text-gray-600">Unduh video CapCut tanpa watermark.</p>
+                    </div>
+                    <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
+                </div>
+
                 <!-- Card NIK Check -->
                 <div onclick="switchTab('nikcheck')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
                     <div>
@@ -179,6 +192,49 @@
                     <div id="supporter-list-container" class="space-y-3">
                         <!-- List supporter -->
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FITUR: CAPCUT DOWNLOADER (BARU) -->
+        <div id="view-capcutdl" class="hidden w-full animate-fade space-y-4">
+            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
+            </button>
+            
+            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg space-y-5">
+                <div class="inline-block bg-neoIndigo text-white border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm">
+                    🎬 CAPCUT DOWNLOADER
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1.5">Link Video CapCut</label>
+                        <input type="text" id="cc-url-input" placeholder="https://www.capcut.com/t/..." class="w-full bg-white border-3 border-black rounded-none px-4 py-3 text-xs font-mono font-bold focus:outline-none shadow-hard-sm">
+                    </div>
+                    <button onclick="downloadCapCut()" id="btn-capcut-dl" class="w-full py-3.5 bg-neoIndigo text-white font-black uppercase text-sm border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> Unduh Video CapCut
+                    </button>
+                </div>
+
+                <div id="cc-status-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
+
+                <!-- Hasil CapCut Downloader -->
+                <div id="cc-result-container" class="hidden space-y-4 pt-4 border-t-2 border-black animate-fade">
+                    <div class="bg-gray-50 p-3.5 border-2 border-black flex items-center gap-4 shadow-hard-sm">
+                        <div class="w-24 h-28 border-2 border-black flex-shrink-0 bg-black overflow-hidden">
+                            <img id="cc-thumbnail" src="" alt="Thumbnail" class="w-full h-full object-cover">
+                        </div>
+                        <div class="space-y-2 overflow-hidden flex-1">
+                            <div class="flex items-center gap-2.5">
+                                <span id="cc-owner" class="text-xs font-black text-neoIndigo truncate">@owner</span>
+                            </div>
+                            <p id="cc-title" class="text-[11px] font-medium text-gray-600 line-clamp-2">Judul video...</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2.5" id="cc-buttons-list"></div>
+                    <div id="cc-support-banner"></div>
                 </div>
             </div>
         </div>
@@ -582,6 +638,7 @@
             document.getElementById('view-alightmotion').classList.add('hidden');
             document.getElementById('view-presetfinder').classList.add('hidden');
             document.getElementById('view-tiktokdl').classList.add('hidden');
+            document.getElementById('view-capcutdl').classList.add('hidden');
             document.getElementById('view-nikcheck').classList.add('hidden');
             document.getElementById('view-igstalk').classList.add('hidden');
             document.getElementById('view-ttstalk').classList.add('hidden');
@@ -661,6 +718,93 @@
                     <button onclick="toggleSupportModal(true)" class="px-3 py-1 bg-neoPink text-white border-2 border-black uppercase text-[10px] shadow-hard-sm flex-shrink-0 hover:bg-pink-600 transition">Support</button>
                 </div>
             `;
+        }
+
+        // ==========================================
+        // LOGIC CAPCUT DOWNLOADER (BARU)
+        // ==========================================
+        let isCCCooldown = false;
+        async function downloadCapCut() {
+            if (isCCCooldown) return;
+            const urlInput = document.getElementById('cc-url-input').value.trim();
+            const msgBox = document.getElementById('cc-status-msg');
+            const btn = document.getElementById('btn-capcut-dl');
+            const resultContainer = document.getElementById('cc-result-container');
+
+            if (!urlInput) {
+                alert('Mohon masukkan link video CapCut terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENGUNDUH...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.ikyyxd.my.id/download/capcut?url=${encodeURIComponent(urlInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.status && json.result) {
+                    const data = json.result;
+                    document.getElementById('cc-owner').innerText = data.owner ? '@' + data.owner : '@capcut';
+                    document.getElementById('cc-title').innerText = data.title || 'Tanpa judul';
+                    document.getElementById('cc-thumbnail').src = data.thumbnail || 'https://via.placeholder.com/150';
+
+                    const downloads = data.downloads || {};
+                    const buttonsList = document.getElementById('cc-buttons-list');
+                    buttonsList.innerHTML = '';
+
+                    if (downloads.hd_no_watermark) {
+                        buttonsList.innerHTML += `<a href="${downloads.hd_no_watermark}" target="_blank" class="w-full py-3 bg-neoIndigo text-white text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-indigo-700 transition flex items-center justify-center gap-2"><i data-lucide="video" class="w-4 h-4"></i> Unduh HD (Tanpa Watermark)</a>`;
+                    }
+                    if (downloads.no_watermark) {
+                        buttonsList.innerHTML += `<a href="${downloads.no_watermark}" target="_blank" class="w-full py-3 bg-neoGreen text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-emerald-400 transition flex items-center justify-center gap-2"><i data-lucide="video" class="w-4 h-4"></i> Unduh SD (Tanpa Watermark)</a>`;
+                    }
+                    if (downloads.watermark) {
+                        buttonsList.innerHTML += `<a href="${downloads.watermark}" target="_blank" class="w-full py-3 bg-neoYellow text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-yellow-400 transition flex items-center justify-center gap-2"><i data-lucide="video" class="w-4 h-4"></i> Unduh Dengan Watermark</a>`;
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('cc-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Gagal mengambil data video CapCut atau link tidak valid.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal mengunduh: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startCCCooldown(60);
+            }
+        }
+
+        function startCCCooldown(seconds) {
+            isCCCooldown = true;
+            const btn = document.getElementById('btn-capcut-dl');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk unduh lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isCCCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i> Unduh Video CapCut';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
         }
 
         // ==========================================
