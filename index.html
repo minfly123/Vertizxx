@@ -143,7 +143,7 @@
                     <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
                 </div>
 
-                <!-- Card TikTok Stalker (FITUR BARU) -->
+                <!-- Card TikTok Stalker -->
                 <div onclick="switchTab('ttstalk')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
                     <div>
                         <div class="p-2.5 bg-emerald-600 text-white border-2 border-black w-fit mb-3 shadow-hard-sm">
@@ -183,7 +183,7 @@
             </div>
         </div>
 
-        <!-- FITUR: TIKTOK STALKER (BARU) -->
+        <!-- FITUR: TIKTOK STALKER -->
         <div id="view-ttstalk" class="hidden w-full animate-fade space-y-4">
             <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
@@ -661,7 +661,7 @@
         }
 
         // ==========================================
-        // LOGIC TIKTOK STALKER (BARU)
+        // LOGIC TIKTOK STALKER
         // ==========================================
         let isTtStalkCooldown = false;
         async function stalkTikTok() {
@@ -1214,7 +1214,7 @@
                 } else {
                     msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
                     msgBox.innerText = 'Gagal: ' + (data.message || 'Link atau email tidak valid / kadaluarsa.');
-                    msgBox.classList.0('hidden');
+                    msgBox.classList.remove('hidden');
                 }
             } catch(err) {
                 msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
