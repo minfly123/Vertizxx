@@ -131,14 +131,26 @@
                     <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
                 </div>
 
-                <!-- Card Instagram Stalker (FITUR BARU) -->
-                <div onclick="switchTab('igstalk')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between sm:col-span-2">
+                <!-- Card Instagram Stalker -->
+                <div onclick="switchTab('igstalk')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
                     <div>
                         <div class="p-2.5 bg-neoPurple text-white border-2 border-black w-fit mb-3 shadow-hard-sm">
                             <i data-lucide="instagram" class="w-5 h-5"></i>
                         </div>
                         <h2 class="text-sm font-black uppercase mb-1">Instagram Stalker</h2>
-                        <p class="text-[11px] font-medium text-gray-600">Cek informasi profil, bio, dan statistik akun Instagram secara detail.</p>
+                        <p class="text-[11px] font-medium text-gray-600">Cek informasi profil, bio, dan statistik IG.</p>
+                    </div>
+                    <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
+                </div>
+
+                <!-- Card TikTok Stalker (FITUR BARU) -->
+                <div onclick="switchTab('ttstalk')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
+                    <div>
+                        <div class="p-2.5 bg-emerald-600 text-white border-2 border-black w-fit mb-3 shadow-hard-sm">
+                            <i data-lucide="user-search" class="w-5 h-5"></i>
+                        </div>
+                        <h2 class="text-sm font-black uppercase mb-1">TikTok Stalker</h2>
+                        <p class="text-[11px] font-medium text-gray-600">Cek statistik, pengikut, dan profil TikTok.</p>
                     </div>
                     <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
                 </div>
@@ -171,7 +183,78 @@
             </div>
         </div>
 
-        <!-- FITUR: INSTAGRAM STALKER (BARU) -->
+        <!-- FITUR: TIKTOK STALKER (BARU) -->
+        <div id="view-ttstalk" class="hidden w-full animate-fade space-y-4">
+            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
+            </button>
+            
+            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg space-y-5">
+                <div class="inline-block bg-emerald-600 text-white border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm">
+                    🎵 TIKTOK STALKER
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1.5">Username TikTok</label>
+                        <input type="text" id="tt-stalk-input" placeholder="Contoh: alwayspiizx" class="w-full bg-white border-3 border-black rounded-none px-4 py-3 text-xs font-mono font-bold focus:outline-none shadow-hard-sm">
+                    </div>
+                    <button onclick="stalkTikTok()" id="btn-stalk-tt" class="w-full py-3.5 bg-emerald-600 text-white font-black uppercase text-sm border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
+                        <i data-lucide="search" class="w-4 h-4"></i> Stalk TikTok Sekarang
+                    </button>
+                </div>
+
+                <div id="tt-stalk-status-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
+
+                <!-- Hasil TikTok Stalker -->
+                <div id="tt-stalk-result-container" class="hidden space-y-4 pt-4 border-t-2 border-black animate-fade">
+                    <div class="bg-gray-50 p-4 border-2 border-black space-y-4 shadow-hard-sm">
+                        <div class="flex items-center gap-4">
+                            <div class="w-20 h-20 border-2 border-black rounded-full overflow-hidden bg-black flex-shrink-0">
+                                <img id="tt-res-avatar" src="" alt="Avatar" class="w-full h-full object-cover">
+                            </div>
+                            <div class="overflow-hidden space-y-1">
+                                <h3 id="tt-res-nickname" class="text-sm font-black uppercase truncate">Nickname</h3>
+                                <p id="tt-res-username" class="text-xs font-mono font-bold text-gray-600">@username</p>
+                                <div id="tt-res-badges" class="flex flex-wrap gap-1 pt-1">
+                                    <!-- Badge Verified / Private -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistik -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center pt-2 border-t border-black font-mono text-xs">
+                            <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                <div id="tt-res-followers" class="font-black text-sm">0</div>
+                                <div class="text-[10px] text-gray-500 uppercase font-bold">Followers</div>
+                            </div>
+                            <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                <div id="tt-res-following" class="font-black text-sm">0</div>
+                                <div class="text-[10px] text-gray-500 uppercase font-bold">Following</div>
+                            </div>
+                            <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                <div id="tt-res-hearts" class="font-black text-sm">0</div>
+                                <div class="text-[10px] text-gray-500 uppercase font-bold">Hearts</div>
+                            </div>
+                            <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                <div id="tt-res-videos" class="font-black text-sm">0</div>
+                                <div class="text-[10px] text-gray-500 uppercase font-bold">Videos</div>
+                            </div>
+                        </div>
+
+                        <!-- Signature / Bio -->
+                        <div class="bg-white p-3 border-2 border-black text-xs font-mono space-y-1 shadow-hard-sm">
+                            <span class="font-black text-[10px] text-gray-400 uppercase block">Signature / Bio:</span>
+                            <p id="tt-res-signature" class="whitespace-pre-line text-gray-800">Bio akun...</p>
+                        </div>
+                    </div>
+
+                    <div id="tt-stalk-support-banner"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FITUR: INSTAGRAM STALKER -->
         <div id="view-igstalk" class="hidden w-full animate-fade space-y-4">
             <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
@@ -498,6 +581,7 @@
             document.getElementById('view-tiktokdl').classList.add('hidden');
             document.getElementById('view-nikcheck').classList.add('hidden');
             document.getElementById('view-igstalk').classList.add('hidden');
+            document.getElementById('view-ttstalk').classList.add('hidden');
             
             const targetView = document.getElementById('view-' + tabName);
             if (targetView) {
@@ -577,7 +661,98 @@
         }
 
         // ==========================================
-        // LOGIC INSTAGRAM STALKER (BARU)
+        // LOGIC TIKTOK STALKER (BARU)
+        // ==========================================
+        let isTtStalkCooldown = false;
+        async function stalkTikTok() {
+            if (isTtStalkCooldown) return;
+            const usernameInput = document.getElementById('tt-stalk-input').value.trim().replace('@', '');
+            const msgBox = document.getElementById('tt-stalk-status-msg');
+            const btn = document.getElementById('btn-stalk-tt');
+            const resultContainer = document.getElementById('tt-stalk-result-container');
+
+            if (!usernameInput) {
+                alert('Mohon masukkan username TikTok terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENSTALK...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const apiEndpoint = `https://api.ikyyxd.my.id/stalk/tiktok?username=${encodeURIComponent(usernameInput)}`;
+                const res = await fetch(apiEndpoint);
+                const json = await res.json();
+
+                if (json && json.success && json.data && json.data.user) {
+                    const user = json.data.user;
+                    const stats = json.data.stats || {};
+
+                    document.getElementById('tt-res-nickname').innerText = user.nickname || 'Tanpa Nickname';
+                    document.getElementById('tt-res-username').innerText = '@' + (user.uniqueId || usernameInput);
+                    document.getElementById('tt-res-avatar').src = user.avatarMedium || user.avatarThumb || 'https://via.placeholder.com/150';
+                    document.getElementById('tt-res-signature').innerText = user.signature || 'Tidak ada bio/signature.';
+
+                    document.getElementById('tt-res-followers').innerText = formatNumber(stats.followerCount);
+                    document.getElementById('tt-res-following').innerText = formatNumber(stats.followingCount);
+                    document.getElementById('tt-res-hearts').innerText = formatNumber(stats.heartCount || stats.heart);
+                    document.getElementById('tt-res-videos').innerText = formatNumber(stats.videoCount);
+
+                    const badgesContainer = document.getElementById('tt-res-badges');
+                    badgesContainer.innerHTML = '';
+
+                    if (user.verified) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-blue-400 text-black text-[10px] font-black border border-black shadow-hard-sm">✓ Verified</span>`;
+                    }
+                    if (user.privateAccount) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-amber-300 text-black text-[10px] font-black border border-black shadow-hard-sm">🔒 Private</span>`;
+                    } else {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-green-300 text-black text-[10px] font-black border border-black shadow-hard-sm">🔓 Public</span>`;
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('tt-stalk-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Akun TikTok tidak ditemukan atau terjadi kesalahan.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal melakukan stalk TikTok: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startTtStalkCooldown(60);
+            }
+        }
+
+        function startTtStalkCooldown(seconds) {
+            isTtStalkCooldown = true;
+            const btn = document.getElementById('btn-stalk-tt');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk stalk lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isTtStalkCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Stalk TikTok Sekarang';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC INSTAGRAM STALKER
         // ==========================================
         let isIgCooldown = false;
         async function stalkInstagram() {
@@ -616,7 +791,6 @@
                     document.getElementById('ig-res-followers').innerText = formatNumber(stats.followers);
                     document.getElementById('ig-res-following').innerText = formatNumber(stats.following);
 
-                    // Render Badges (Verified, Private, Business/Category)
                     const badgesContainer = document.getElementById('ig-badges');
                     badgesContainer.innerHTML = '';
                     
@@ -1040,7 +1214,7 @@
                 } else {
                     msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
                     msgBox.innerText = 'Gagal: ' + (data.message || 'Link atau email tidak valid / kadaluarsa.');
-                    msgBox.classList.remove('hidden');
+                    msgBox.classList.0('hidden');
                 }
             } catch(err) {
                 msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
