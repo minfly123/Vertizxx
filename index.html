@@ -566,6 +566,9 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+        // URL Cloudflare Worker Proxy Kamu
+        const WORKER_PROXY = 'https://universalworker.revlykurniawan.workers.dev';
+
         document.addEventListener('DOMContentLoaded', () => {
             try {
                 lucide.createIcons();
@@ -661,7 +664,7 @@
         }
 
         // ==========================================
-        // LOGIC TIKTOK STALKER
+        // LOGIC TIKTOK STALKER (VIA WORKER PROXY)
         // ==========================================
         let isTtStalkCooldown = false;
         async function stalkTikTok() {
@@ -682,8 +685,10 @@
             resultContainer.classList.add('hidden');
 
             try {
-                const apiEndpoint = `https://api.ikyyxd.my.id/stalk/tiktok?username=${encodeURIComponent(usernameInput)}`;
-                const res = await fetch(apiEndpoint);
+                const rawApi = `https://api.ikyyxd.my.id/stalk/tiktok?username=${encodeURIComponent(usernameInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+                
+                const res = await fetch(targetEndpoint);
                 const json = await res.json();
 
                 if (json && json.success && json.data && json.data.user) {
@@ -752,7 +757,7 @@
         }
 
         // ==========================================
-        // LOGIC INSTAGRAM STALKER
+        // LOGIC INSTAGRAM STALKER (VIA WORKER PROXY)
         // ==========================================
         let isIgCooldown = false;
         async function stalkInstagram() {
@@ -773,8 +778,10 @@
             resultContainer.classList.add('hidden');
 
             try {
-                const apiEndpoint = `https://api.ikyyxd.my.id/stalk/igv2?username=${encodeURIComponent(usernameInput)}`;
-                const res = await fetch(apiEndpoint);
+                const rawApi = `https://api.ikyyxd.my.id/stalk/igv2?username=${encodeURIComponent(usernameInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
                 const json = await res.json();
 
                 if (json && json.status && json.result) {
@@ -846,7 +853,7 @@
         }
 
         // ==========================================
-        // LOGIC NIK CHECK (PARSER)
+        // LOGIC NIK CHECK (VIA WORKER PROXY)
         // ==========================================
         let isNikCooldown = false;
         async function checkNikData() {
@@ -867,8 +874,10 @@
             resultContainer.classList.add('hidden');
 
             try {
-                const apiEndpoint = `https://api.ikyyxd.my.id/tools/nikparser?nik=${encodeURIComponent(nikInput)}`;
-                const res = await fetch(apiEndpoint);
+                const rawApi = `https://api.ikyyxd.my.id/tools/nikparser?nik=${encodeURIComponent(nikInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
                 const json = await res.json();
 
                 if (json && json.status && json.data && json.data.status === 'success') {
@@ -923,7 +932,7 @@
         }
 
         // ==========================================
-        // LOGIC AM PRESET FINDER
+        // LOGIC AM PRESET FINDER (VIA WORKER PROXY)
         // ==========================================
         let isPFCooldown = false;
         async function findPreset() {
@@ -944,8 +953,10 @@
             resultContainer.classList.add('hidden');
 
             try {
-                const apiEndpoint = `https://api.ikyyxd.my.id/tools/amfinder?url=${encodeURIComponent(urlInput)}`;
-                const res = await fetch(apiEndpoint);
+                const rawApi = `https://api.ikyyxd.my.id/tools/amfinder?url=${encodeURIComponent(urlInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
                 const json = await res.json();
 
                 if (json && json.success && json.data) {
@@ -1021,7 +1032,7 @@
         }
 
         // ==========================================
-        // LOGIC TIKTOK DOWNLOADER
+        // LOGIC TIKTOK DOWNLOADER (VIA WORKER PROXY)
         // ==========================================
         let isTTCooldown = false;
         async function downloadTikTok() {
@@ -1042,8 +1053,10 @@
             resultContainer.classList.add('hidden');
 
             try {
-                const apiEndpoint = `https://api.ikyyxd.my.id/download/tiktokv3?url=${encodeURIComponent(urlInput)}`;
-                const res = await fetch(apiEndpoint);
+                const rawApi = `https://api.ikyyxd.my.id/download/tiktokv3?url=${encodeURIComponent(urlInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
                 const json = await res.json();
 
                 if (json && json.status && json.result && json.result.success && json.result.data) {
