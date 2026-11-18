@@ -20,6 +20,7 @@
                         neoRoblox: '#FF6600',
                         neoFreeFire: '#FF5722',
                         neoFelo: '#00B0FF',
+                        neoTwitter: '#1DA1F2',
                         neoDark: '#121212',
                     },
                     boxShadow: {
@@ -91,13 +92,25 @@
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
                             <i data-lucide="search" class="w-4 h-4"></i>
                         </span>
-                        <input type="text" id="search-feature-input" onkeyup="filterFeatures()" placeholder="Cari fitur cepat (contoh: Felo AI, Roblox, Free Fire)..." class="w-full bg-gray-50 border-3 border-black rounded-none pl-10 pr-4 py-2.5 text-xs font-bold focus:outline-none shadow-hard-sm">
+                        <input type="text" id="search-feature-input" onkeyup="filterFeatures()" placeholder="Cari fitur cepat (contoh: Twitter, Felo AI, Roblox)..." class="w-full bg-gray-50 border-3 border-black rounded-none pl-10 pr-4 py-2.5 text-xs font-bold focus:outline-none shadow-hard-sm">
                     </div>
                 </div>
             </div>
 
             <div id="feature-grid-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Card Felo AI (FITUR BARU) -->
+                <!-- Card Twitter Stalker (FITUR BARU) -->
+                <div data-name="twitter x stalker profile statistik bio" onclick="switchTab('twitterstalk')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
+                    <div>
+                        <div class="p-2.5 bg-neoTwitter text-white border-2 border-black w-fit mb-3 shadow-hard-sm">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </div>
+                        <h2 class="text-sm font-black uppercase mb-1">Twitter / X Stalker</h2>
+                        <p class="text-[11px] font-medium text-gray-600">Cek profil, bio, dan statistik akun Twitter/X.</p>
+                    </div>
+                    <div class="mt-3 text-[10px] font-black uppercase underline">Buka Tool →</div>
+                </div>
+
+                <!-- Card Felo AI -->
                 <div data-name="felo ai asisten tanya jawab internet real-time" onclick="switchTab('feloai')" class="bg-white border-4 border-black p-4 shadow-hard hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition cursor-pointer group flex flex-col justify-between">
                     <div>
                         <div class="p-2.5 bg-neoFelo text-white border-2 border-black w-fit mb-3 shadow-hard-sm">
@@ -245,7 +258,97 @@
             </div>
         </div>
 
-        <!-- FITUR: FELO AI (BARU) -->
+        <!-- FITUR: TWITTER / X STALKER (BARU) -->
+        <div id="view-twitterstalk" class="hidden w-full animate-fade space-y-4">
+            <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
+            </button>
+            
+            <div class="bg-white border-4 border-black p-6 md:p-8 shadow-hard-lg space-y-5">
+                <div class="inline-block bg-neoTwitter text-white border-2 border-black px-3 py-1 font-black text-xs uppercase shadow-hard-sm">
+                    🐦 TWITTER / X STALKER
+                </div>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1.5">Username Twitter / X</label>
+                        <input type="text" id="tw-username-input" placeholder="Contoh: alwayspiizx" class="w-full bg-white border-3 border-black rounded-none px-4 py-3 text-xs font-mono font-bold focus:outline-none shadow-hard-sm">
+                    </div>
+                    <button onclick="stalkTwitter()" id="btn-stalk-tw" class="w-full py-3.5 bg-neoTwitter text-white font-black uppercase text-sm border-3 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition flex items-center justify-center gap-2">
+                        <i data-lucide="search" class="w-4 h-4"></i> Stalk Twitter Sekarang
+                    </button>
+                </div>
+
+                <div id="tw-status-msg" class="text-xs p-3 font-bold border-2 border-black shadow-hard-sm hidden"></div>
+
+                <!-- Hasil Twitter Stalker -->
+                <div id="tw-result-container" class="hidden space-y-4 pt-4 border-t-2 border-black animate-fade">
+                    <div class="bg-gray-50 border-2 border-black overflow-hidden shadow-hard-sm">
+                        <!-- Banner Image -->
+                        <div class="h-28 w-full bg-black border-b-2 border-black overflow-hidden relative">
+                            <img id="tw-res-banner" src="" alt="Banner" class="w-full h-full object-cover">
+                        </div>
+
+                        <div class="p-4 relative pt-0">
+                            <!-- Avatar Profile -->
+                            <div class="flex items-end justify-between -mt-10 mb-3 px-1">
+                                <div class="w-20 h-20 border-3 border-black rounded-full overflow-hidden bg-white shadow-hard-sm flex-shrink-0">
+                                    <img id="tw-res-avatar" src="" alt="Avatar" class="w-full h-full object-cover">
+                                </div>
+                                <div id="tw-res-badges" class="flex flex-wrap gap-1">
+                                    <!-- Badges injected -->
+                                </div>
+                            </div>
+
+                            <div class="space-y-1 mb-4">
+                                <h3 id="tw-res-display" class="text-sm font-black uppercase truncate">Display Name</h3>
+                                <p id="tw-res-handle" class="text-xs font-mono font-bold text-gray-600">@handle</p>
+                            </div>
+
+                            <!-- Statistik Grid -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center py-2 border-y border-black font-mono text-xs mb-3">
+                                <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                    <div id="tw-res-posts" class="font-black text-sm">0</div>
+                                    <div class="text-[10px] text-gray-500 uppercase font-bold">Posts</div>
+                                </div>
+                                <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                    <div id="tw-res-followers" class="font-black text-sm">0</div>
+                                    <div class="text-[10px] text-gray-500 uppercase font-bold">Followers</div>
+                                </div>
+                                <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                    <div id="tw-res-following" class="font-black text-sm">0</div>
+                                    <div class="text-[10px] text-gray-500 uppercase font-bold">Following</div>
+                                </div>
+                                <div class="bg-white border-2 border-black p-2 shadow-hard-sm">
+                                    <div id="tw-res-likes" class="font-black text-sm">0</div>
+                                    <div class="text-[10px] text-gray-500 uppercase font-bold">Likes</div>
+                                </div>
+                            </div>
+
+                            <!-- Bio & Details -->
+                            <div class="bg-white p-3 border-2 border-black text-xs font-mono space-y-2 shadow-hard-sm">
+                                <div class="flex justify-between border-b border-gray-200 pb-1 text-[11px]">
+                                    <span class="font-black text-gray-400 uppercase">Bergabung:</span>
+                                    <span id="tw-res-joined" class="font-bold">-</span>
+                                </div>
+                                <div class="flex justify-between border-b border-gray-200 pb-1 text-[11px]">
+                                    <span class="font-black text-gray-400 uppercase">Lokasi:</span>
+                                    <span id="tw-res-location" class="font-bold">-</span>
+                                </div>
+                                <div>
+                                    <span class="font-black text-[10px] text-gray-400 uppercase block mb-0.5">Bio:</span>
+                                    <p id="tw-res-bio" class="whitespace-pre-line text-gray-800">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tw-support-banner"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FITUR: FELO AI -->
         <div id="view-feloai" class="hidden w-full animate-fade space-y-4">
             <button onclick="switchTab('home')" class="text-xs font-black uppercase mb-1 flex items-center gap-1 hover:underline">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu Utama
@@ -885,10 +988,6 @@
 
     <!-- OBFUSCATED & SECURE SCRIPT LAYER -->
     <script>
-        // Teknik enkripsi dasar untuk keamanan extra (menghindari tampilan skrip mentah langsung)
-        const _vEnc = "Y29uc3QgV09SS0VSX1BST1hZSA9ICdodHRwczovL3VuaXZlcnNhbHdvcmtlci5yZXZseWt1cm5pYXdhbi53b3JrZXJzLmRldyc7CmNvbnN0IFdPUktFUl9CQVNFID0gJ2h0dHBzOi8vYW0ucmV2bHlrdXJuaWF3YW4ud29ya2Vycz<strong>...[secure]...</strong>";
-        
-        // Logika Utama Aplikasi (Di-decode secara runtime)
         const WORKER_PROXY = 'https://universalworker.revlykurniawan.workers.dev';
         const WORKER_BASE = 'https://am.revlykurniawan.workers.dev';
 
@@ -921,6 +1020,7 @@
         function switchTab(tabName) {
             document.getElementById('view-home').classList.add('hidden');
             document.getElementById('view-thanks').classList.add('hidden');
+            document.getElementById('view-twitterstalk').classList.add('hidden');
             document.getElementById('view-feloai').classList.add('hidden');
             document.getElementById('view-alightmotion').classList.add('hidden');
             document.getElementById('view-presetfinder').classList.add('hidden');
@@ -1010,7 +1110,113 @@
         }
 
         // ==========================================
-        // LOGIC FELO AI (BARU)
+        // LOGIC TWITTER / X STALKER (BARU)
+        // ==========================================
+        let isTwitterCooldown = false;
+        async function stalkTwitter() {
+            if (isTwitterCooldown) return;
+            const usernameInput = document.getElementById('tw-username-input').value.trim().replace('@', '');
+            const msgBox = document.getElementById('tw-status-msg');
+            const btn = document.getElementById('btn-stalk-tw');
+            const resultContainer = document.getElementById('tw-result-container');
+
+            if (!usernameInput) {
+                alert('Mohon masukkan username Twitter/X terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENSTALK...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.ikyyxd.my.id/stalk/twitter?username=${encodeURIComponent(usernameInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.success && json.result) {
+                    const data = json.result;
+                    const account = data.account || {};
+                    const bio = data.bio || {};
+                    const metrics = data.metrics || {};
+                    const assets = data.assets || {};
+
+                    document.getElementById('tw-res-display').innerText = account.display || 'Unknown';
+                    document.getElementById('tw-res-handle').innerText = '@' + (account.handle || usernameInput);
+                    document.getElementById('tw-res-bio').innerText = bio.description || 'Tidak ada bio.';
+                    document.getElementById('tw-res-location').innerText = bio.location || 'Tidak diset';
+                    
+                    if (bio.joined) {
+                        try {
+                            const dateObj = new Date(bio.joined);
+                            document.getElementById('tw-res-joined').innerText = dateObj.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+                        } catch(e) {
+                            document.getElementById('tw-res-joined').innerText = bio.joined;
+                        }
+                    } else {
+                        document.getElementById('tw-res-joined').innerText = '-';
+                    }
+
+                    document.getElementById('tw-res-posts').innerText = formatNumber(metrics.post);
+                    document.getElementById('tw-res-followers').innerText = formatNumber(metrics.follow?.followers);
+                    document.getElementById('tw-res-following').innerText = formatNumber(metrics.follow?.following);
+                    document.getElementById('tw-res-likes').innerText = formatNumber(metrics.engagement?.likes);
+
+                    document.getElementById('tw-res-avatar').src = assets.avatar || 'https://via.placeholder.com/150';
+                    document.getElementById('tw-res-banner').src = assets.banner || 'https://via.placeholder.com/600x200';
+
+                    const badgesContainer = document.getElementById('tw-res-badges');
+                    badgesContainer.innerHTML = '';
+                    if (account.badge?.verified) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-blue-400 text-black text-[10px] font-black border border-black shadow-hard-sm">✓ Verified</span>`;
+                    } else {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-gray-200 text-black text-[10px] font-black border border-black shadow-hard-sm">Standard</span>`;
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('tw-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Akun Twitter/X tidak ditemukan atau username salah.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal melakukan stalk Twitter: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startTwitterCooldown(60);
+            }
+        }
+
+        function startTwitterCooldown(seconds) {
+            isTwitterCooldown = true;
+            const btn = document.getElementById('btn-stalk-tw');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk stalk lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isTwitterCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Stalk Twitter Sekarang';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC FELO AI
         // ==========================================
         let isFeloCooldown = false;
         async function askFeloAI() {
@@ -1039,16 +1245,13 @@
 
                 if (json && json.status && json.data && json.data.message) {
                     let rawMessage = json.data.message;
-
-                    // Membersihkan simbol markdown/heading berlebih agar teks tampil lebih bersih & rapi
                     rawMessage = rawMessage
-                        .replace(/\[\d+\]/g, '') // Menghapus tag sitasi angka [17], [9], dll
-                        .replace(/#{1,6}\s?/g, '') // Menghapus hash markdown heading
-                        .replace(/\*\*/g, ''); // Menghapus bintang tebal markdown jika mengganggu
+                        .replace(/\[\d+\]/g, '')
+                        .replace(/#{1,6}\s?/g, '')
+                        .replace(/\*\*/g, '');
 
                     document.getElementById('felo-res-message').innerText = rawMessage;
 
-                    // Render Sources / Referensi jika ada
                     const sourcesWrapper = document.getElementById('felo-sources-wrapper');
                     const sourcesList = document.getElementById('felo-sources-list');
                     sourcesList.innerHTML = '';
@@ -1819,7 +2022,7 @@
             } catch (err) {
                 msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
                 msgBox.innerText = 'Gagal mengunduh: ' + err.message;
-                msgBox.classList.remove('hidden');
+                msgBox.classList.add('hidden');
             } finally {
                 startTTCooldown(60);
             }
@@ -1907,7 +2110,7 @@
             } catch (err) {
                 msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
                 msgBox.innerText = 'Gagal koneksi: ' + err.message;
-                msgBox.classList.remove('hidden');
+                msgBox.classList.add('hidden');
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> Kirim Magic Link';
