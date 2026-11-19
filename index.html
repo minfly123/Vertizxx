@@ -965,4 +965,1218 @@
     </footer>
 
     <!-- MODAL SUPPORT DEVELOPER -->
-    <div id="support-modal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4
+    <div id="support-modal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4 animate-fade">
+        <div class="bg-white border-4 border-black max-w-sm w-full p-6 relative shadow-hard-lg">
+            <button onclick="toggleSupportModal(false)" class="absolute top-3 right-3 bg-red-500 text-white p-1 border-2 border-black font-black hover:bg-red-600">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+            <div class="inline-flex p-2.5 bg-neoPink text-white border-2 border-black shadow-hard-sm mb-3">
+                <i data-lucide="heart" class="w-5 h-5 fill-white"></i>
+            </div>
+            <h3 class="text-lg font-black uppercase mb-1">Dukung PiiZx</h3>
+            <p class="text-xs font-bold text-gray-600 mb-4">Bantu donasi seikhlasnya agar website Vertizx terus update!</p>
+            
+            <div class="bg-gray-100 p-3.5 border-2 border-black mb-4 space-y-1 shadow-hard-sm">
+                <div class="text-[10px] font-black uppercase text-gray-500">Nomor E-Wallet (GoPay/DANA/OVO):</div>
+                <div class="text-sm font-mono font-black select-all">0895351456586</div>
+                <div class="text-[10px] font-bold text-gray-500">Atas Nama: PiiZx</div>
+            </div>
+
+            <button onclick="copyNumber()" class="w-full py-2.5 bg-neoYellow text-black font-black uppercase text-xs border-2 border-black shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">Salin Nomor</button>
+        </div>
+    </div>
+
+    <!-- OBFUSCATED & SECURE SCRIPT LAYER -->
+    <script>
+        const WORKER_PROXY = 'https://universalworker.revlykurniawan.workers.dev';
+        const WORKER_BASE = 'https://am.revlykurniawan.workers.dev';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                lucide.createIcons();
+            } catch(e) {}
+            renderSupporters();
+        });
+
+        // Fitur Pencarian Fitur Cepat (Filter Grid)
+        function filterFeatures() {
+            const query = document.getElementById('search-feature-input').value.toLowerCase();
+            const container = document.getElementById('feature-grid-container');
+            const cards = container.getElementsByTagName('div');
+
+            for (let i = 0; i < cards.length; i++) {
+                const card = cards[i];
+                if (card.hasAttribute('data-name')) {
+                    const keywords = card.getAttribute('data-name');
+                    if (keywords.includes(query)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        function switchTab(tabName) {
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-thanks').classList.add('hidden');
+            document.getElementById('view-twitterstalk').classList.add('hidden');
+            document.getElementById('view-feloai').classList.add('hidden');
+            document.getElementById('view-alightmotion').classList.add('hidden');
+            document.getElementById('view-presetfinder').classList.add('hidden');
+            document.getElementById('view-tiktokdl').classList.add('hidden');
+            document.getElementById('view-capcutdl').classList.add('hidden');
+            document.getElementById('view-robloxstalk').classList.add('hidden');
+            document.getElementById('view-ffstalk').classList.add('hidden');
+            document.getElementById('view-nikcheck').classList.add('hidden');
+            document.getElementById('view-igstalk').classList.add('hidden');
+            document.getElementById('view-ttstalk').classList.add('hidden');
+            
+            const targetView = document.getElementById('view-' + tabName);
+            if (targetView) {
+                targetView.classList.remove('hidden');
+            }
+            window.scrollTo(0, 0);
+
+            setTimeout(() => {
+                try { lucide.createIcons(); } catch(e) {}
+            }, 50);
+        }
+
+        function toggleSupportModal(show) {
+            const modal = document.getElementById('support-modal');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function copyNumber() {
+            navigator.clipboard.writeText('0895351456586');
+            alert('Nomor e-wallet berhasil disalin!');
+        }
+
+        // ==========================================
+        // DATA MANUAL SUPPORTER & PARTNER
+        // ==========================================
+        const supportersData = [
+            {
+                name: "Zaky",
+                role: "Best Friend",
+                avatar: "https://storage.filebin.net/filebin/34f6f66b2ded860b84981cce3ad854ffb60ae8ab1b8788f5a23148ff3d30227d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=GK352fd2505074fc9dde7fd2cb%2F20261115%2Fhel1-dc4%2Fs3%2Faws4_request&X-Amz-Date=20261115T105729Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&request-id=5631258391499425582&response-cache-control=max-age%3D900&response-content-disposition=inline%3B%20filename%3D%22IMG-20261115-WA0128.jpg%22&response-content-type=image%2Fjpeg&x-id=GetObject&X-Amz-Signature=cffd41ec6b1ca8100d2e8fc7f321b4fefa9b97337d3b3da470a0c7f2bf4e3b4f",
+                badge: "Brokuh"
+            },
+            { 
+                name: "Ellz",
+                role: "Best Friend",
+                avatar: "https://storage.filebin.net/filebin/5d3480c0fa6477220d9a694bee9ba2d86681a0feefc268758644d9b97c311a40?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=GK352fd2505074fc9dde7fd2cb%2F20261115%2Fhel1-dc4%2Fs3%2Faws4_request&X-Amz-Date=20261115T143128Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&request-id=4832258637250409119&response-cache-control=max-age%3D900&response-content-disposition=inline%3B%20filename%3D%22IMG-20261115-WA0240.jpg%22&response-content-type=image%2Fjpeg&x-id=GetObject&X-Amz-Signature=62612e459a4c210dc87a9dd426b900bdd9ca414bc6cc71ee27ca19cdc463b75a",
+                badge: "Brokuh"
+            }
+        ];
+
+        function renderSupporters() {
+            const container = document.getElementById('supporter-list-container');
+            if (!container) return;
+
+            container.innerHTML = '';
+            supportersData.forEach((supporter, index) => {
+                container.innerHTML += `
+                    <div class="bg-gray-50 p-3.5 border-2 border-black flex items-center justify-between gap-3 shadow-hard-sm hover:-translate-y-1 hover:shadow-hard transition duration-200 animate-fade" style="animation-delay: ${index * 0.1}s;">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 border-2 border-black bg-neoYellow flex items-center justify-center overflow-hidden flex-shrink-0">
+                                <img src="${supporter.avatar}" alt="${supporter.name}" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-black uppercase text-black">${supporter.name}</h4>
+                                <p class="text-[11px] font-medium text-gray-600">${supporter.role}</p>
+                            </div>
+                        </div>
+                        <span class="px-2 py-1 bg-neoCyan text-black text-[10px] font-black uppercase border border-black shadow-hard-sm">
+                            ${supporter.badge}
+                        </span>
+                    </div>
+                `;
+            });
+        }
+
+        function renderSupportBanner(elementId) {
+            const container = document.getElementById(elementId);
+            if (!container) return;
+            
+            container.innerHTML = `
+                <div class="mt-4 p-3.5 bg-pink-50 border-2 border-black text-xs font-bold shadow-hard-sm flex items-center justify-between gap-2 animate-fade">
+                    <span>☕ Suka tools ini? Traktir kopi developer yuk biar makin semangat update!</span>
+                    <button onclick="toggleSupportModal(true)" class="px-3 py-1 bg-neoPink text-white border-2 border-black uppercase text-[10px] shadow-hard-sm flex-shrink-0 hover:bg-pink-600 transition">Support</button>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // LOGIC TWITTER / X STALKER (BARU)
+        // ==========================================
+        let isTwitterCooldown = false;
+        async function stalkTwitter() {
+            if (isTwitterCooldown) return;
+            const usernameInput = document.getElementById('tw-username-input').value.trim().replace('@', '');
+            const msgBox = document.getElementById('tw-status-msg');
+            const btn = document.getElementById('btn-stalk-tw');
+            const resultContainer = document.getElementById('tw-result-container');
+
+            if (!usernameInput) {
+                alert('Mohon masukkan username Twitter/X terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENSTALK...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.ikyyxd.my.id/stalk/twitter?username=${encodeURIComponent(usernameInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.success && json.result) {
+                    const data = json.result;
+                    const account = data.account || {};
+                    const bio = data.bio || {};
+                    const metrics = data.metrics || {};
+                    const assets = data.assets || {};
+
+                    document.getElementById('tw-res-display').innerText = account.display || 'Unknown';
+                    document.getElementById('tw-res-handle').innerText = '@' + (account.handle || usernameInput);
+                    document.getElementById('tw-res-bio').innerText = bio.description || 'Tidak ada bio.';
+                    document.getElementById('tw-res-location').innerText = bio.location || 'Tidak diset';
+                    
+                    if (bio.joined) {
+                        try {
+                            const dateObj = new Date(bio.joined);
+                            document.getElementById('tw-res-joined').innerText = dateObj.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+                        } catch(e) {
+                            document.getElementById('tw-res-joined').innerText = bio.joined;
+                        }
+                    } else {
+                        document.getElementById('tw-res-joined').innerText = '-';
+                    }
+
+                    document.getElementById('tw-res-posts').innerText = formatNumber(metrics.post);
+                    document.getElementById('tw-res-followers').innerText = formatNumber(metrics.follow?.followers);
+                    document.getElementById('tw-res-following').innerText = formatNumber(metrics.follow?.following);
+                    document.getElementById('tw-res-likes').innerText = formatNumber(metrics.engagement?.likes);
+
+                    document.getElementById('tw-res-avatar').src = assets.avatar || 'https://via.placeholder.com/150';
+                    document.getElementById('tw-res-banner').src = assets.banner || 'https://via.placeholder.com/600x200';
+
+                    const badgesContainer = document.getElementById('tw-res-badges');
+                    badgesContainer.innerHTML = '';
+                    if (account.badge?.verified) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-blue-400 text-black text-[10px] font-black border border-black shadow-hard-sm">✓ Verified</span>`;
+                    } else {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-gray-200 text-black text-[10px] font-black border border-black shadow-hard-sm">Standard</span>`;
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('tw-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Akun Twitter/X tidak ditemukan atau username salah.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal melakukan stalk Twitter: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startTwitterCooldown(60);
+            }
+        }
+
+        function startTwitterCooldown(seconds) {
+            isTwitterCooldown = true;
+            const btn = document.getElementById('btn-stalk-tw');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk stalk lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isTwitterCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Stalk Twitter Sekarang';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC FELO AI
+        // ==========================================
+        let isFeloCooldown = false;
+        async function askFeloAI() {
+            if (isFeloCooldown) return;
+            const queryInput = document.getElementById('felo-query-input').value.trim();
+            const msgBox = document.getElementById('felo-status-msg');
+            const btn = document.getElementById('btn-ask-felo');
+            const resultContainer = document.getElementById('felo-result-container');
+
+            if (!queryInput) {
+                alert('Mohon masukkan pertanyaan atau topik terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'BERPIKIR & MENCARI...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.nexadev.my.id/ai/felo?q=${encodeURIComponent(queryInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.status && json.data && json.data.message) {
+                    let rawMessage = json.data.message;
+                    rawMessage = rawMessage
+                        .replace(/\[\d+\]/g, '')
+                        .replace(/#{1,6}\s?/g, '')
+                        .replace(/\*\*/g, '');
+
+                    document.getElementById('felo-res-message').innerText = rawMessage;
+
+                    const sourcesWrapper = document.getElementById('felo-sources-wrapper');
+                    const sourcesList = document.getElementById('felo-sources-list');
+                    sourcesList.innerHTML = '';
+
+                    if (json.data.sources && json.data.sources.length > 0) {
+                        json.data.sources.forEach((src) => {
+                            sourcesList.innerHTML += `
+                                <a href="${src.link}" target="_blank" class="block bg-white p-2.5 border-2 border-black hover:bg-yellow-50 transition shadow-hard-sm">
+                                    <div class="text-[11px] font-black text-black truncate">${escapeHtml(src.title || 'Sumber Informasi')}</div>
+                                    <div class="text-[10px] font-mono text-gray-500 truncate">${escapeHtml(src.link)}</div>
+                                </a>
+                            `;
+                        });
+                        sourcesWrapper.classList.remove('hidden');
+                    } else {
+                        sourcesWrapper.classList.add('hidden');
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('felo-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Gagal mendapatkan jawaban dari Felo AI.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal terhubung ke Felo AI: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startFeloCooldown(30);
+            }
+        }
+
+        function startFeloCooldown(seconds) {
+            isFeloCooldown = true;
+            const btn = document.getElementById('btn-ask-felo');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk tanya lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isFeloCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> Kirim ke Felo AI';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC FREE FIRE STALKER
+        // ==========================================
+        let isFFCooldown = false;
+        async function stalkFreeFire() {
+            if (isFFCooldown) return;
+            const uidInput = document.getElementById('ff-uid-input').value.trim();
+            const msgBox = document.getElementById('ff-status-msg');
+            const btn = document.getElementById('btn-stalk-ff');
+            const resultContainer = document.getElementById('ff-result-container');
+
+            if (!uidInput) {
+                alert('Mohon masukkan UID Free Fire terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENSTALK...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.nexadev.my.id/api/ff?id=${encodeURIComponent(uidInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.ok && json.profile) {
+                    const profile = json.profile;
+                    document.getElementById('ff-res-nickname').innerText = profile.nickname || 'Unknown';
+                    document.getElementById('ff-res-uid').innerText = 'UID: ' + (profile.uid || uidInput);
+                    document.getElementById('ff-res-level').innerText = profile.level || '0';
+                    document.getElementById('ff-res-likes').innerText = profile.likesText || formatNumber(profile.likes);
+                    document.getElementById('ff-res-prime').innerText = profile.prime?.level ? `Level ${profile.prime.level}` : '-';
+                    document.getElementById('ff-res-server').innerText = profile.region || 'ID';
+                    document.getElementById('ff-res-estimate').innerText = profile.estimate?.text || '-';
+                    
+                    const csRank = profile.ranks?.cs;
+                    document.getElementById('ff-res-csrank').innerText = csRank ? `${csRank.tier || 'Heroic'} (${csRank.star || 0}★)` : '-';
+                    document.getElementById('ff-res-clan').innerText = profile.clan?.name ? `${profile.clan.name} (Lv.${profile.clan.level})` : 'Tidak ada clan';
+                    document.getElementById('ff-res-created').innerText = profile.dates?.createdAtText || '-';
+                    document.getElementById('ff-res-lastlogin').innerText = profile.dates?.lastLoginAtText || '-';
+                    document.getElementById('ff-res-signature').innerText = profile.signature || 'Tidak ada signature.';
+
+                    const avatarUrl = profile.avatar?.url || (profile.assets?.avatar?.url) || 'https://via.placeholder.com/150';
+                    document.getElementById('ff-res-avatar').src = avatarUrl;
+
+                    const badgesContainer = document.getElementById('ff-res-badges');
+                    badgesContainer.innerHTML = '';
+                    if (profile.verified) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-blue-400 text-black text-[10px] font-black border border-black shadow-hard-sm">✓ Verified</span>`;
+                    } else {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-gray-300 text-black text-[10px] font-black border border-black shadow-hard-sm">Standard</span>`;
+                    }
+                    if (profile.booyahPass?.active) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-neoYellow text-black text-[10px] font-black border border-black shadow-hard-sm">🎫 Booyah Pass Active</span>`;
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('ff-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Akun Free Fire tidak ditemukan atau UID salah.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal melakukan stalk FF: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startFFCooldown(60);
+            }
+        }
+
+        function startFFCooldown(seconds) {
+            isFFCooldown = true;
+            const btn = document.getElementById('btn-stalk-ff');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk stalk lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isFFCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Stalk Akun Free Fire';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC ROBLOX STALKER
+        // ==========================================
+        let isRbxCooldown = false;
+        async function stalkRoblox() {
+            if (isRbxCooldown) return;
+            const usernameInput = document.getElementById('rbx-username-input').value.trim().replace('@', '');
+            const msgBox = document.getElementById('rbx-status-msg');
+            const btn = document.getElementById('btn-stalk-rbx');
+            const resultContainer = document.getElementById('rbx-result-container');
+
+            if (!usernameInput) {
+                alert('Mohon masukkan username Roblox terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENSTALK...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.nexadev.my.id/api/roblox?username=${encodeURIComponent(usernameInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.status && json.data) {
+                    const data = json.data;
+                    document.getElementById('rbx-res-displayname').innerText = data.displayName || data.name || 'Unknown';
+                    document.getElementById('rbx-res-username').innerText = '@' + (data.name || usernameInput);
+                    document.getElementById('rbx-res-avatar').src = data.avatar || 'https://via.placeholder.com/150';
+                    document.getElementById('rbx-res-friends').innerText = formatNumber(data.friends);
+                    document.getElementById('rbx-res-followers').innerText = formatNumber(data.followers);
+                    document.getElementById('rbx-res-followings').innerText = formatNumber(data.followings);
+                    document.getElementById('rbx-res-id').innerText = data.id || '-';
+                    document.getElementById('rbx-res-description').innerText = data.description || 'Tidak ada deskripsi.';
+
+                    if (data.created) {
+                        try {
+                            const dateObj = new Date(data.created);
+                            document.getElementById('rbx-res-created').innerText = dateObj.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+                        } catch(e) {
+                            document.getElementById('rbx-res-created').innerText = data.created;
+                        }
+                    } else {
+                        document.getElementById('rbx-res-created').innerText = '-';
+                    }
+
+                    const badgesContainer = document.getElementById('rbx-res-badges');
+                    badgesContainer.innerHTML = '';
+
+                    if (data.hasVerifiedBadge) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-blue-400 text-black text-[10px] font-black border border-black shadow-hard-sm">✓ Verified</span>`;
+                    }
+                    if (data.isBanned) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-red-400 text-white text-[10px] font-black border border-black shadow-hard-sm">🚫 Banned</span>`;
+                    } else {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-green-300 text-black text-[10px] font-black border border-black shadow-hard-sm">🟢 Active</span>`;
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('rbx-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Akun Roblox tidak ditemukan atau terjadi kesalahan pada server.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal melakukan stalk Roblox: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startRbxCooldown(60);
+            }
+        }
+
+        function startRbxCooldown(seconds) {
+            isRbxCooldown = true;
+            const btn = document.getElementById('btn-stalk-rbx');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk stalk lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isRbxCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Stalk Akun Roblox';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC CAPCUT DOWNLOADER
+        // ==========================================
+        let isCCCooldown = false;
+        async function downloadCapCut() {
+            if (isCCCooldown) return;
+            const urlInput = document.getElementById('cc-url-input').value.trim();
+            const msgBox = document.getElementById('cc-status-msg');
+            const btn = document.getElementById('btn-capcut-dl');
+            const resultContainer = document.getElementById('cc-result-container');
+
+            if (!urlInput) {
+                alert('Mohon masukkan link video CapCut terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENGUNDUH...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.ikyyxd.my.id/download/capcut?url=${encodeURIComponent(urlInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.status && json.result) {
+                    const data = json.result;
+                    document.getElementById('cc-owner').innerText = data.owner ? '@' + data.owner : '@capcut';
+                    document.getElementById('cc-title').innerText = data.title || 'Tanpa judul';
+                    document.getElementById('cc-thumbnail').src = data.thumbnail || 'https://via.placeholder.com/150';
+
+                    const downloads = data.downloads || {};
+                    const buttonsList = document.getElementById('cc-buttons-list');
+                    buttonsList.innerHTML = '';
+
+                    if (downloads.hd_no_watermark) {
+                        buttonsList.innerHTML += `<a href="${downloads.hd_no_watermark}" target="_blank" class="w-full py-3 bg-neoIndigo text-white text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-indigo-700 transition flex items-center justify-center gap-2"><i data-lucide="video" class="w-4 h-4"></i> Unduh HD (Tanpa Watermark)</a>`;
+                    }
+                    if (downloads.no_watermark) {
+                        buttonsList.innerHTML += `<a href="${downloads.no_watermark}" target="_blank" class="w-full py-3 bg-neoGreen text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-emerald-400 transition flex items-center justify-center gap-2"><i data-lucide="video" class="w-4 h-4"></i> Unduh SD (Tanpa Watermark)</a>`;
+                    }
+                    if (downloads.watermark) {
+                        buttonsList.innerHTML += `<a href="${downloads.watermark}" target="_blank" class="w-full py-3 bg-neoYellow text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-yellow-400 transition flex items-center justify-center gap-2"><i data-lucide="video" class="w-4 h-4"></i> Unduh Dengan Watermark</a>`;
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('cc-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Gagal mengambil data video CapCut atau link tidak valid.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal mengunduh: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startCCCooldown(60);
+            }
+        }
+
+        function startCCCooldown(seconds) {
+            isCCCooldown = true;
+            const btn = document.getElementById('btn-capcut-dl');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk unduh lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isCCCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i> Unduh Video CapCut';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC TIKTOK STALKER
+        // ==========================================
+        let isTtStalkCooldown = false;
+        async function stalkTikTok() {
+            if (isTtStalkCooldown) return;
+            const usernameInput = document.getElementById('tt-stalk-input').value.trim().replace('@', '');
+            const msgBox = document.getElementById('tt-stalk-status-msg');
+            const btn = document.getElementById('btn-stalk-tt');
+            const resultContainer = document.getElementById('tt-stalk-result-container');
+
+            if (!usernameInput) {
+                alert('Mohon masukkan username TikTok terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENSTALK...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.ikyyxd.my.id/stalk/tiktok?username=${encodeURIComponent(usernameInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+                
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.success && json.data && json.data.user) {
+                    const user = json.data.user;
+                    const stats = json.data.stats || {};
+
+                    document.getElementById('tt-res-nickname').innerText = user.nickname || 'Tanpa Nickname';
+                    document.getElementById('tt-res-username').innerText = '@' + (user.uniqueId || usernameInput);
+                    document.getElementById('tt-res-avatar').src = user.avatarMedium || user.avatarThumb || 'https://via.placeholder.com/150';
+                    document.getElementById('tt-res-signature').innerText = user.signature || 'Tidak ada bio/signature.';
+
+                    document.getElementById('tt-res-followers').innerText = formatNumber(stats.followerCount);
+                    document.getElementById('tt-res-following').innerText = formatNumber(stats.followingCount);
+                    document.getElementById('tt-res-hearts').innerText = formatNumber(stats.heartCount || stats.heart);
+                    document.getElementById('tt-res-videos').innerText = formatNumber(stats.videoCount);
+
+                    const badgesContainer = document.getElementById('tt-res-badges');
+                    badgesContainer.innerHTML = '';
+
+                    if (user.verified) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-blue-400 text-black text-[10px] font-black border border-black shadow-hard-sm">✓ Verified</span>`;
+                    }
+                    if (user.privateAccount) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-amber-300 text-black text-[10px] font-black border border-black shadow-hard-sm">🔒 Private</span>`;
+                    } else {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-green-300 text-black text-[10px] font-black border border-black shadow-hard-sm">🔓 Public</span>`;
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('tt-stalk-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Akun TikTok tidak ditemukan atau terjadi kesalahan.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal melakukan stalk TikTok: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startTtStalkCooldown(60);
+            }
+        }
+
+        function startTtStalkCooldown(seconds) {
+            isTtStalkCooldown = true;
+            const btn = document.getElementById('btn-stalk-tt');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk stalk lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isTtStalkCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Stalk TikTok Sekarang';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC INSTAGRAM STALKER
+        // ==========================================
+        let isIgCooldown = false;
+        async function stalkInstagram() {
+            if (isIgCooldown) return;
+            const usernameInput = document.getElementById('ig-username-input').value.trim().replace('@', '');
+            const msgBox = document.getElementById('ig-status-msg');
+            const btn = document.getElementById('btn-stalk-ig');
+            const resultContainer = document.getElementById('ig-result-container');
+
+            if (!usernameInput) {
+                alert('Mohon masukkan username Instagram terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENSTALK...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.ikyyxd.my.id/stalk/igv2?username=${encodeURIComponent(usernameInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.status && json.result) {
+                    const data = json.result;
+                    const stats = data.stats || {};
+                    const info = data.info || {};
+
+                    document.getElementById('ig-res-fullname').innerText = data.full_name || 'Tanpa Nama';
+                    document.getElementById('ig-res-username').innerText = '@' + (data.username || usernameInput);
+                    document.getElementById('ig-res-avatar').src = data.profile?.images || 'https://via.placeholder.com/150';
+                    document.getElementById('ig-res-bio').innerText = data.bio || 'Tidak ada bio.';
+
+                    document.getElementById('ig-res-posts').innerText = formatNumber(stats.posts);
+                    document.getElementById('ig-res-followers').innerText = formatNumber(stats.followers);
+                    document.getElementById('ig-res-following').innerText = formatNumber(stats.following);
+
+                    const badgesContainer = document.getElementById('ig-badges');
+                    badgesContainer.innerHTML = '';
+                    
+                    if (info.verified) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-blue-400 text-black text-[10px] font-black border border-black shadow-hard-sm">✓ Verified</span>`;
+                    }
+                    if (info.private) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-amber-300 text-black text-[10px] font-black border border-black shadow-hard-sm">🔒 Private</span>`;
+                    } else {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-green-300 text-black text-[10px] font-black border border-black shadow-hard-sm">🔓 Public</span>`;
+                    }
+                    if (info.category) {
+                        badgesContainer.innerHTML += `<span class="px-2 py-0.5 bg-neoYellow text-black text-[10px] font-black border border-black shadow-hard-sm">${escapeHtml(info.category)}</span>`;
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('ig-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Akun Instagram tidak ditemukan atau privasi.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal melakukan stalk: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startIgCooldown(60);
+            }
+        }
+
+        function startIgCooldown(seconds) {
+            isIgCooldown = true;
+            const btn = document.getElementById('btn-stalk-ig');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk stalk lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isIgCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Stalk Akun Sekarang';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC NIK CHECK
+        // ==========================================
+        let isNikCooldown = false;
+        async function checkNikData() {
+            if (isNikCooldown) return;
+            const nikInput = document.getElementById('nik-input').value.trim();
+            const msgBox = document.getElementById('nik-status-msg');
+            const btn = document.getElementById('btn-check-nik');
+            const resultContainer = document.getElementById('nik-result-container');
+
+            if (!nikInput || nikInput.length !== 16) {
+                alert('Mohon masukkan nomor NIK yang valid (harus 16 digit)!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MEMERIKSA...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.ikyyxd.my.id/tools/nikparser?nik=${encodeURIComponent(nikInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.status && json.data && json.data.status === 'success') {
+                    const info = json.data.data;
+                    const meta = json.data.metadata;
+
+                    document.getElementById('nik-res-nama').innerText = info.nama || 'Tidak ditemukan';
+                    document.getElementById('nik-res-kelamin').innerText = info.kelamin || '-';
+                    document.getElementById('nik-res-lahir').innerText = info.tempat_lahir || '-';
+                    document.getElementById('nik-res-usia').innerText = info.usia || '-';
+                    document.getElementById('nik-res-prov').innerText = info.provinsi || '-';
+                    document.getElementById('nik-res-kategori').innerText = meta.kategori_usia || '-';
+                    document.getElementById('nik-res-metode').innerText = meta.metode || '-';
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('nik-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                    msgBox.innerText = '⚠️ Data NIK tidak ditemukan atau format salah.';
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal memeriksa NIK: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startNikCooldown(30);
+            }
+        }
+
+        function startNikCooldown(seconds) {
+            isNikCooldown = true;
+            const btn = document.getElementById('btn-check-nik');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk cek lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isNikCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Periksa NIK Sekarang';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC AM PRESET FINDER
+        // ==========================================
+        let isPFCooldown = false;
+        async function findPreset() {
+            if (isPFCooldown) return;
+            const urlInput = document.getElementById('pf-url-input').value.trim();
+            const msgBox = document.getElementById('pf-status-msg');
+            const btn = document.getElementById('btn-find-preset');
+            const resultContainer = document.getElementById('pf-result-container');
+
+            if (!urlInput) {
+                alert('Mohon masukkan link video TikTok atau YouTube terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENCARI...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.ikyyxd.my.id/tools/amfinder?url=${encodeURIComponent(urlInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.success && json.data) {
+                    const data = json.data;
+                    document.getElementById('pf-author-name').innerText = data.author || '@unknown';
+                    document.getElementById('pf-video-desc').innerText = data.video?.description || 'Tanpa deskripsi';
+                    document.getElementById('pf-author-avatar').src = data.authorDetail?.avatar || 'https://via.placeholder.com/150';
+                    document.getElementById('pf-video-cover').src = data.video?.cover || 'https://via.placeholder.com/150';
+                    document.getElementById('pf-stat-views').innerText = formatNumber(data.video?.stats?.views);
+                    document.getElementById('pf-stat-likes').innerText = formatNumber(data.video?.stats?.likes);
+                    document.getElementById('pf-stat-comments').innerText = formatNumber(data.video?.stats?.comments);
+
+                    const presetsListEl = document.getElementById('pf-presets-list');
+                    presetsListEl.innerHTML = '';
+
+                    if (data.presetLinks && data.presetLinks.length > 0) {
+                        data.presetLinks.forEach((preset) => {
+                            presetsListEl.innerHTML += `
+                                <div class="bg-gray-50 p-3.5 border-2 border-black flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-hard-sm">
+                                    <div class="space-y-0.5 overflow-hidden">
+                                        <div class="text-xs font-black uppercase text-black flex items-center gap-1.5">
+                                            <span>🎁 ${escapeHtml(preset.title || 'Preset Alight Motion')}</span>
+                                            <span class="px-2 py-0.5 bg-neoYellow text-black text-[10px] border border-black">${escapeHtml(preset.type || 'Preset')}</span>
+                                        </div>
+                                        <div class="text-[11px] text-gray-500 font-mono truncate max-w-[240px] sm:max-w-[285px]">${escapeHtml(preset.url)}</div>
+                                    </div>
+                                    <button onclick="copyPresetLink('${escapeHtml(preset.url)}')" class="w-full sm:w-auto px-3.5 py-1.5 bg-neoYellow text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-yellow-400 transition flex items-center justify-center gap-1 flex-shrink-0">
+                                        Salin Link
+                                    </button>
+                                </div>
+                            `;
+                        });
+                        resultContainer.classList.remove('hidden');
+                        renderSupportBanner('pf-support-banner');
+                        try { lucide.createIcons(); } catch(e) {}
+                    } else {
+                        msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-amber-300 text-black';
+                        msgBox.innerText = '⚠️ Tidak ditemukan link preset di video tersebut.';
+                        msgBox.classList.remove('hidden');
+                    }
+                } else {
+                    throw new Error('Gagal memproses data dari server.');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal mencari preset: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                startPFCooldown(60);
+            }
+        }
+
+        function startPFCooldown(seconds) {
+            isPFCooldown = true;
+            const btn = document.getElementById('btn-find-preset');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk cari lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isPFCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Cari Preset Sekarang';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // LOGIC TIKTOK DOWNLOADER
+        // ==========================================
+        let isTTCooldown = false;
+        async function downloadTikTok() {
+            if (isTTCooldown) return;
+            const urlInput = document.getElementById('tt-url-input').value.trim();
+            const msgBox = document.getElementById('tt-status-msg');
+            const btn = document.getElementById('btn-tiktok-dl');
+            const resultContainer = document.getElementById('tt-result-container');
+
+            if (!urlInput) {
+                alert('Mohon masukkan link video TikTok terlebih dahulu!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = 'MENGUNDUH...';
+            msgBox.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+
+            try {
+                const rawApi = `https://api.ikyyxd.my.id/download/tiktokv3?url=${encodeURIComponent(urlInput)}`;
+                const targetEndpoint = `${WORKER_PROXY}/?target=${encodeURIComponent(rawApi)}`;
+
+                const res = await fetch(targetEndpoint);
+                const json = await res.json();
+
+                if (json && json.status && json.result && json.result.success && json.result.data) {
+                    const data = json.result.data;
+                    document.getElementById('tt-author-name').innerText = data.author ? '@' + data.author : '@unknown';
+                    document.getElementById('tt-video-desc').innerText = data.description || 'Tanpa deskripsi';
+                    document.getElementById('tt-author-avatar').src = data.avatar_thumb || 'https://via.placeholder.com/150';
+                    document.getElementById('tt-video-cover').src = data.cover || 'https://via.placeholder.com/150';
+
+                    const buttonsList = document.getElementById('tt-buttons-list');
+                    buttonsList.innerHTML = '';
+
+                    if (data.video) {
+                        buttonsList.innerHTML += `<a href="${data.video}" target="_blank" class="w-full py-3 bg-neoGreen text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-emerald-400 transition flex items-center justify-center gap-2"><i data-lucide="video" class="w-4 h-4"></i> Unduh Video (Tanpa Watermark)</a>`;
+                    }
+                    if (data.music) {
+                        buttonsList.innerHTML += `<a href="${data.music}" target="_blank" class="w-full py-3 bg-neoYellow text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-yellow-400 transition flex items-center justify-center gap-2"><i data-lucide="music" class="w-4 h-4"></i> Unduh Musik / Audio MP3</a>`;
+                    }
+                    if (data.images && data.images.length > 0) {
+                        data.images.forEach((imgUrl, idx) => {
+                            buttonsList.innerHTML += `<a href="${imgUrl}" target="_blank" class="w-full py-3 bg-neoCyan text-black text-xs font-black uppercase border-2 border-black shadow-hard-sm hover:bg-cyan-400 transition flex items-center justify-center gap-2"><i data-lucide="image" class="w-4 h-4"></i> Unduh Foto / Slide #${idx + 1}</a>`;
+                        });
+                    }
+
+                    resultContainer.classList.remove('hidden');
+                    renderSupportBanner('tt-support-banner');
+                    try { lucide.createIcons(); } catch(e) {}
+                } else {
+                    throw new Error('Gagal mengambil data dari server TikTok.');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal mengunduh: ' + err.message;
+                msgBox.classList.add('hidden');
+            } finally {
+                startTTCooldown(60);
+            }
+        }
+
+        function startTTCooldown(seconds) {
+            isTTCooldown = true;
+            const btn = document.getElementById('btn-tiktok-dl');
+            let timeLeft = seconds;
+            btn.disabled = true;
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+
+            const timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    btn.innerHTML = `⏳ Tunggu (${timeLeft}s) untuk unduh lagi`;
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    isTTCooldown = false;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i> Unduh Media TikTok';
+                    try { lucide.createIcons(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        function copyPresetLink(url) {
+            navigator.clipboard.writeText(url);
+            alert('Link preset berhasil disalin!');
+        }
+
+        function formatNumber(num) {
+            if (!num) return '0';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
+            return num;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // ==========================================
+        // LOGIC ALIGHT MOTION PREMIUM
+        // ==========================================
+        let userEmail = '';
+
+        async function sendAMLink() {
+            const emailInputEl = document.getElementById('am-email-input');
+            const msgBox = document.getElementById('am-status-msg');
+            const btn = document.getElementById('btn-send-link');
+            if (!emailInputEl) return;
+            const emailInput = emailInputEl.value.trim();
+
+            if (!emailInput || !emailInput.includes('@')) {
+                alert('Mohon masukkan email yang valid!');
+                return;
+            }
+
+            userEmail = emailInput;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Mengirim...';
+            msgBox.classList.add('hidden');
+
+            try {
+                const res = await fetch(`${WORKER_BASE}/send-link`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail })
+                });
+                const textRes = await res.text();
+                let data;
+                try { data = JSON.parse(textRes); } catch (e) { data = { success: res.ok, message: textRes }; }
+
+                if (res.ok || data.success) {
+                    document.getElementById('display-target-email').innerText = userEmail;
+                    document.getElementById('am-step-1').classList.add('hidden');
+                    document.getElementById('am-step-2').classList.remove('hidden');
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                    msgBox.innerText = 'Gagal: ' + (data.message || 'Terjadi kesalahan pada server.');
+                    msgBox.classList.remove('hidden');
+                }
+            } catch (err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Gagal koneksi: ' + err.message;
+                msgBox.classList.add('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> Kirim Magic Link';
+                try { lucide.createIcons(); } catch(e) {}
+            }
+        }
+
+        async function verifyAMLink() {
+            let rawLink = document.getElementById('am-magic-link-input').value.trim();
+            const msgBox = document.getElementById('am-status-msg');
+            const btn = document.getElementById('btn-verify-link');
+
+            if (!rawLink) {
+                alert('Mohon tempel magic link terlebih dahulu!');
+                return;
+            }
+            try {
+                if (rawLink.includes('link=')) {
+                    let splitIndex = rawLink.indexOf('link=');
+                    let extracted = rawLink.substring(splitIndex + 5);
+                    rawLink = decodeURIComponent(extracted);
+                }
+            } catch(e) {}
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="inline-block animate-spin mr-2">⏳</span> Memverifikasi...';
+            msgBox.classList.add('hidden');
+            document.getElementById('am-support-banner').innerHTML = '';
+
+            try {
+                const res = await fetch(`${WORKER_BASE}/verify-link`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail, magicLink: rawLink })
+                });
+                const textRes = await res.text();
+                let data;
+                try { data = JSON.parse(textRes); } catch (e) { data = { success: res.ok, message: textRes }; }
+
+                if (res.ok || data.success) {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-green-300 text-black';
+                    msgBox.innerText = '🎉 ' + (data.message || 'Sukses! Akun Alight Motion berhasil menjadi Premium.');
+                    msgBox.classList.remove('hidden');
+                    renderSupportBanner('am-support-banner');
+                } else {
+                    msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                    msgBox.innerText = 'Gagal: ' + (data.message || 'Link atau email tidak valid / kadaluarsa.');
+                    msgBox.classList.remove('hidden');
+                }
+            } catch(err) {
+                msgBox.className = 'mt-4 text-xs p-3 font-bold border-2 border-black shadow-hard-sm bg-red-400 text-black';
+                msgBox.innerText = 'Terjadi kesalahan jaringan: ' + err.message;
+                msgBox.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="check-circle-2" class="w-4 h-4"></i> Verifikasi & Upgrade';
+                try { lucide.createIcons(); } catch(e) {}
+            }
+        }
+
+        function resetAMForm() {
+            document.getElementById('am-step-2').classList.add('hidden');
+            document.getElementById('am-step-1').classList.remove('hidden');
+            document.getElementById('am-status-msg').classList.add('hidden');
+            document.getElementById('am-support-banner').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
